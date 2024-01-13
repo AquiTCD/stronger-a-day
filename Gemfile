@@ -1,10 +1,18 @@
 source "https://rubygems.org"
 
-ruby "3.2.2"
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
+ruby ["3.2.2", RUBY_VERSION].max
+
+# === Core libraries
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
 
+# === dependencies for the default Rails gems
+# Use sqlite3 as the database for Active Record [
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 
@@ -39,7 +47,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -49,7 +57,12 @@ gem "bootsnap", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem "debug", platforms: %i[mri windows]
+  gem "brakeman", require: false
+  gem "bullet"
+  gem "bundler-audit"
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :development do
@@ -61,10 +74,19 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "annotate"
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "letter_opener_web"
+  gem "rubocop", require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  gem "rspec_junit_formatter", require: false
+  gem "rspec-rails"
 end
