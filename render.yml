@@ -1,0 +1,25 @@
+databases:
+  - name: stronger-a-day_DB
+    databaseName: stronger_a_day_db
+    user: stronger_a_day_db_user
+    region: singapore
+    plan: free
+
+services:
+  - type: web
+    name: stronger-a-day
+    runtime: ruby
+    region: singapore
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    # preDeployCommand: "./bin/rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: "./bin/rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: stronger-a-day
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2 # sensible default
