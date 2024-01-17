@@ -374,6 +374,9 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    seed-fu (2.3.9)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -470,6 +473,7 @@ DEPENDENCIES
   rspec-rails
   rspec_junit_formatter
   rubocop
+  seed-fu
   selenium-webdriver
   slim-rails
   stimulus-rails
