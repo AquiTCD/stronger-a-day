@@ -43,12 +43,13 @@ gem "jbuilder" # by rails Build JSON APIs with ease [https://github.com/rails/jb
 gem "slim-rails"
 
 # === Others
+gem "bootsnap", require: false # by rails Reduces boot times through caching; required in config/boot.rb
 # gem "chrono_logger"
 gem "config"
 gem "enum_help"
-gem "interactor-rails"
 # gem "image_processing", "~> 1.2" # by rails Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "bootsnap", require: false # by rails Reduces boot times through caching; required in config/boot.rb
+gem "interactor-rails"
+gem "seed-fu"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
