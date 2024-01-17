@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta name="viewport" content=("width=device-width; initial-scale=1")
+    title ひとつよ
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    / = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header
+      = render "layouts/header"
+    main.container.mx-auto.mt-28.px-5.flex
+      = yield

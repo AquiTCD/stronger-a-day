@@ -1,0 +1,10 @@
+ul
+  - if current_user
+    li
+      = current_user.display_name || current_user.name
+    li
+      = button_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo: false }
+  - else
+    li
+      = button_to "Sign in with twitter", authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }
+      = link_to "Sign in", sign_in_user_session_path if Rails.env.development?
