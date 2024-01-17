@@ -10,9 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_15_095154) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "title_id", null: false
+    t.bigint "character_id"
+    t.bigint "opponent_id"
+    t.string "topic", null: false
+    t.boolean "private", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_challenges_on_character_id"
+    t.index ["opponent_id"], name: "index_challenges_on_opponent_id"
+    t.index ["title_id"], name: "index_challenges_on_title_id"
+    t.index ["user_id"], name: "index_challenges_on_user_id"
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.bigint "title_id", null: false
+    t.string "name", null: false
+    t.string "display_name", null: false
+    t.string "kana", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title_id"], name: "index_characters_on_title_id"
+  end
+
+  create_table "dailies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "character_id", null: false
+    t.integer "round", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_dailies_on_character_id"
+    t.index ["user_id"], name: "index_dailies_on_user_id"
+  end
+
+  create_table "daily_challenges", force: :cascade do |t|
+    t.bigint "daily_id", null: false
+    t.bigint "challenge_id", null: false
+    t.integer "success_count", default: 0, null: false
+    t.integer "failure_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_daily_challenges_on_challenge_id"
+    t.index ["daily_id"], name: "index_daily_challenges_on_daily_id"
+  end
+
+  create_table "daily_results", force: :cascade do |t|
+    t.bigint "daily_id", null: false
+    t.bigint "opponent_id", null: false
+    t.integer "win_count", default: 0, null: false
+    t.integer "lose_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daily_id"], name: "index_daily_results_on_daily_id"
+    t.index ["opponent_id"], name: "index_daily_results_on_opponent_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "title_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title_id"], name: "index_notes_on_title_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "titles", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_titles_on_name", unique: true
+  end
 
   create_table "user_authentications", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -51,6 +125,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_095154) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "challenges", "characters"
+  add_foreign_key "challenges", "characters", column: "opponent_id"
+  add_foreign_key "challenges", "titles"
+  add_foreign_key "challenges", "users"
+  add_foreign_key "characters", "titles"
+  add_foreign_key "dailies", "characters"
+  add_foreign_key "dailies", "users"
+  add_foreign_key "daily_challenges", "challenges"
+  add_foreign_key "daily_challenges", "dailies"
+  add_foreign_key "daily_results", "characters", column: "opponent_id"
+  add_foreign_key "daily_results", "dailies"
+  add_foreign_key "notes", "titles"
+  add_foreign_key "notes", "users"
   add_foreign_key "user_authentications", "users"
   add_foreign_key "user_registrations", "users"
 end
