@@ -1,0 +1,4 @@
+oauth:
+  twitter:
+    key: set each environment
+    secret: set each environment

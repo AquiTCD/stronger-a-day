@@ -7,6 +7,25 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root "home#index"
 
-  root "top#index"
+  devise_for :user, skip: :all
+  devise_for(:registrations,
+             class_name: "User::Registration",
+             controllers: { confirmations: "user/registrations" })
+  devise_scope :registration do
+    get "user/registration/sign_up", to: "user/registrations#new", as: "new_user_registration"
+    post "user/registration", to: "user/registrations#create", as: "create_user_registration"
+    delete "user/registration", to: "user/registrations#destroy", as: "destroy_user_registration"
+  end
+  devise_scope :user do
+    delete "logout", to: "user/sessions#destroy", as: "destroy_user_session"
+    get "login", to: "user/sessions#login", as: "sign_in_user_session"
+  end
+  devise_for(:authentications,
+             class_name: "User::Authentication",
+             path: "user",
+             controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
+
+  resources :users
 end
