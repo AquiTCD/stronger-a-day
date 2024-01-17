@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "home#index"
+  root "site#index"
 
   devise_for :user, skip: :all
   devise_for(:registrations,
