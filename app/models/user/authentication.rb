@@ -3,16 +3,16 @@
 # Table name: user_authentications
 #
 #  id           :bigint           not null, primary key
-#  display_name :string
-#  email        :string
-#  image_url    :string
+#  user_id      :bigint           not null
 #  provider     :string           not null
 #  uid          :string           not null
-#  url          :string
 #  username     :string
+#  display_name :string
+#  email        :string
+#  url          :string
+#  image_url    :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  user_id      :bigint           not null
 #
 # Indexes
 #

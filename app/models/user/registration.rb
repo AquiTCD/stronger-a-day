@@ -3,14 +3,14 @@
 # Table name: user_registrations
 #
 #  id                   :bigint           not null, primary key
-#  confirmation_sent_at :datetime
+#  user_id              :bigint           not null
+#  email                :string           not null
 #  confirmation_token   :string
 #  confirmed_at         :datetime
-#  email                :string           not null
+#  confirmation_sent_at :datetime
 #  unconfirmed_email    :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  user_id              :bigint           not null
 #
 # Indexes
 #
