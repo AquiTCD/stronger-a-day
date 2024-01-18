@@ -83,8 +83,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
 
   create_table "titles", force: :cascade do |t|
     t.string "name", null: false
+    t.string "abbreviation", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["abbreviation"], name: "index_titles_on_abbreviation", unique: true
     t.index ["name"], name: "index_titles_on_name", unique: true
   end
 

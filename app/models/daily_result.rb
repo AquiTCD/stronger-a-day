@@ -3,12 +3,12 @@
 # Table name: daily_results
 #
 #  id          :bigint           not null, primary key
-#  lose_count  :integer          default(0), not null
-#  win_count   :integer          default(0), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
 #  daily_id    :bigint           not null
 #  opponent_id :bigint           not null
+#  win_count   :integer          default(0), not null
+#  lose_count  :integer          default(0), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #

@@ -3,12 +3,12 @@
 # Table name: characters
 #
 #  id           :bigint           not null, primary key
+#  title_id     :bigint           not null
+#  name         :string           not null
 #  display_name :string           not null
 #  kana         :string           not null
-#  name         :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  title_id     :bigint           not null
 #
 # Indexes
 #

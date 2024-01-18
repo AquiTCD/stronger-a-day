@@ -3,14 +3,14 @@
 # Table name: challenges
 #
 #  id           :bigint           not null, primary key
-#  private      :boolean          default(FALSE), not null
-#  topic        :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
+#  title_id     :bigint           not null
 #  character_id :bigint
 #  opponent_id  :bigint
-#  title_id     :bigint           not null
-#  user_id      :bigint           not null
+#  topic        :string           not null
+#  private      :boolean          default(FALSE), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #

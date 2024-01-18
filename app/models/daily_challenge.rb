@@ -3,12 +3,12 @@
 # Table name: daily_challenges
 #
 #  id            :bigint           not null, primary key
-#  failure_count :integer          default(0), not null
+#  daily_id      :bigint           not null
+#  challenge_id  :bigint           not null
 #  success_count :integer          default(0), not null
+#  failure_count :integer          default(0), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  challenge_id  :bigint           not null
-#  daily_id      :bigint           not null
 #
 # Indexes
 #
