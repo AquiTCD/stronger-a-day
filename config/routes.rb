@@ -28,4 +28,11 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
 
   resources :users
+  get "home", to: "home#show", as: "home"
+
+  scope ":game_title" do
+    resource :dailies
+    resources :challenges
+    resource :note
+  end
 end
