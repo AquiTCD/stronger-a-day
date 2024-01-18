@@ -14,7 +14,7 @@ gem "rails", "~> 7.1.2" # by rails
 # === Database, ORM, Model, etc
 gem "attribute_normalizer"
 gem "pg", "~> 1.1" # by rails Use postgresql as the database for Active Record
-# gem "redis", ">= 4.0.1" # by rails Use Redis adapter to run Action Cable in production
+gem "redis", ">= 4.0.1" # by rails Use Redis adapter to run Action Cable in production
 # gem "kredis" # by rails Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "bcrypt", "~> 3.1.7" # by rails Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 
