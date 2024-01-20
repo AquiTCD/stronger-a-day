@@ -100,7 +100,7 @@ SF6_CHARACTERS = [
     kana: 'アキ',
   },
 ]
-sf6 = Title.find_by(name: 'STREET FIGHTER 6')
+sf6 = Game.find_by(title: 'STREET FIGHTER 6')
 SF6_CHARACTERS.each do |character|
   Character.seed(:name,
     character.merge(title: sf6)

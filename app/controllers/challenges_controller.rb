@@ -2,12 +2,12 @@ class ChallengesController < BaseController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
   def index
-    @challenges = Challenge.where(user: current_user, title: @title).order(:id)
-    @challenge = Challenge.new(user: current_user, title: @title)
+    @challenges = Challenge.where(user: current_user, game: @game).order(:id)
+    @challenge = Challenge.new(user: current_user, game: @game)
   end
 
   def new
-    @challenge = Challenge.new(user: current_user, title: @title)
+    @challenge = Challenge.new(user: current_user, game: @game)
   end
 
   def show
@@ -16,7 +16,7 @@ class ChallengesController < BaseController
   def create
     @challenge = Challenge.new(
       user: current_user,
-      title: @title,
+      game: @game,
       topic: challenge_params[:topic],
     )
     if @challenge.save
@@ -32,7 +32,7 @@ class ChallengesController < BaseController
   def update
     if @challenge.update(challenge_params)
       flash.now.notice = "更新しました。"
-      redirect_to challenge_path(@title, @challenge)
+      redirect_to challenge_path(@game, @challenge)
     else
       render :edit, status: :unprocessable_entity
     end
