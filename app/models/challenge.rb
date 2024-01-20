@@ -4,7 +4,7 @@
 #
 #  id           :bigint           not null, primary key
 #  user_id      :bigint           not null
-#  title_id     :bigint           not null
+#  game_id      :bigint           not null
 #  character_id :bigint
 #  opponent_id  :bigint
 #  topic        :string           not null
@@ -15,20 +15,20 @@
 # Indexes
 #
 #  index_challenges_on_character_id  (character_id)
+#  index_challenges_on_game_id       (game_id)
 #  index_challenges_on_opponent_id   (opponent_id)
-#  index_challenges_on_title_id      (title_id)
 #  index_challenges_on_user_id       (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (character_id => characters.id)
+#  fk_rails_...  (game_id => games.id)
 #  fk_rails_...  (opponent_id => characters.id)
-#  fk_rails_...  (title_id => titles.id)
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
   belongs_to :user
-  belongs_to :title
+  belongs_to :game
   belongs_to :character, optional: true
   belongs_to :opponent, class_name: "Character", optional: true
 

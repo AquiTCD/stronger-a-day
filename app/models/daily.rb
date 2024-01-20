@@ -5,6 +5,7 @@
 #  id           :bigint           not null, primary key
 #  user_id      :bigint           not null
 #  character_id :bigint           not null
+#  tried_on     :date             not null
 #  round        :integer          default(1), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

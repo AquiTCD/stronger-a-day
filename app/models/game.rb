@@ -1,19 +1,19 @@
 # == Schema Information
 #
-# Table name: titles
+# Table name: games
 #
 #  id           :bigint           not null, primary key
-#  name         :string           not null
+#  title        :string           not null
 #  abbreviation :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 # Indexes
 #
-#  index_titles_on_abbreviation  (abbreviation) UNIQUE
-#  index_titles_on_name          (name) UNIQUE
+#  index_games_on_abbreviation  (abbreviation) UNIQUE
+#  index_games_on_title         (title) UNIQUE
 #
-class Title < ApplicationRecord
+class Game < ApplicationRecord
   has_many :characters, dependent: :destroy
 
   def to_param

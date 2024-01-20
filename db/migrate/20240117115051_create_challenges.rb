@@ -2,7 +2,7 @@ class CreateChallenges < ActiveRecord::Migration[7.1]
   def change
     create_table :challenges do |t|
       t.references :user, null: false, foreign_key: true
-      t.references :title, null: false, foreign_key: true
+      t.references :game, null: false, foreign_key: true
 
       t.references :character, null: true, foreign_key: true
       t.references :opponent, null: true, foreign_key: { to_table: :characters }
