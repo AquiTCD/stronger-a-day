@@ -103,6 +103,6 @@ SF6_CHARACTERS = [
 sf6 = Game.find_by(title: 'STREET FIGHTER 6')
 SF6_CHARACTERS.each do |character|
   Character.seed(:name,
-    character.merge(title: sf6)
+    character.merge(game: sf6)
   )
 end
