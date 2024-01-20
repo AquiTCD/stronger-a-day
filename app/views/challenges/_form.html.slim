@@ -1,0 +1,5 @@
+= turbo_frame_tag "new_challenge" do
+  = form_with model: Challenge.new do |f|
+    = f.label :topic, "挑戦"
+    = f.text_field :topic, autofocus: true
+    = f.submit "追加"

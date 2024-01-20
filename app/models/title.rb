@@ -15,4 +15,8 @@
 #
 class Title < ApplicationRecord
   has_many :characters, dependent: :destroy
+
+  def to_param
+    abbreviation
+  end
 end

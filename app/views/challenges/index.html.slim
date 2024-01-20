@@ -1,0 +1,8 @@
+h1.mb-2.mt-0.text-2xl.font-medium 挑戦
+div#new_challenge
+  = render "form", challenge: @challenge
+
+ul#challenges.list-disc
+  = render partial: @challenges
+
+= link_to "戻る", home_path

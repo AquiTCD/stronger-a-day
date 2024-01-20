@@ -1,0 +1,6 @@
+= turbo_frame_tag challenge do
+  li.flex
+    .font-bold.border-b
+      = challenge.topic
+    = button_to "編集", edit_challenge_path(@title, challenge), method: :get, class: "rounded-md bg-gray-100 p-2 mt-2"
+    = button_to "削除", challenge_path(@title, challenge), method: :delete, class: "rounded-md bg-red-100 p-2 mt-2", form: { data: { turbo_confirm: "本当に削除しますか？" } }

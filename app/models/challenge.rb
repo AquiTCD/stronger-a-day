@@ -35,9 +35,6 @@ class Challenge < ApplicationRecord
   has_many :daily_challenges, dependent: :destroy
   has_many :dailies, through: :daily_challenges
 
-  has_many :daily_results, dependent: :destroy
-  has_many :daily_opponents, through: :daily_results, source: :opponent
-
   validates :topic, presence: true
 
   scope :public_challenges, -> { where(private: false) }

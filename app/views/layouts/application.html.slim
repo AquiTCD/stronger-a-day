@@ -11,5 +11,7 @@ html
     = javascript_importmap_tags
     header
       = render "layouts/header"
-    main.container.mx-auto.mt-28.px-5.flex
+      div#flash
+        = render "application/flash"
+    main.container.mx-auto.mt-28.px-5
       = yield

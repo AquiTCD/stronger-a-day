@@ -1,0 +1,4 @@
+= turbo_frame_tag @challenge do
+  = form_with model: @challenge, url: challenge_path do |f|
+    = f.text_field :topic, autofocus: true
+    = f.submit "更新"

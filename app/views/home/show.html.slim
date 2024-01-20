@@ -3,5 +3,5 @@ menu
 ul
   li = link_to '開始', home_path
   li = link_to 'ふりかえり', home_path
-  li = link_to '挑戦を編集', home_path
-  li = link_to 'ノートを編集', note_path(@title.abbreviation)
+  li = link_to '挑戦を編集', challenges_path(@title)
+  li = link_to 'ノートを編集', note_path(@title)
