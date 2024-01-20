@@ -1,5 +1,5 @@
 module ApplicationHelper
-  require 'commonmarker'
+  require "commonmarker"
   def turbo_stream_flash
     turbo_stream.update "flash", partial: "application/flash"
   end
