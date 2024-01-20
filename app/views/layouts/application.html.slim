@@ -8,8 +8,7 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    / = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
+    = javascript_importmap_tags
     header
       = render "layouts/header"
     main.container.mx-auto.mt-28.px-5.flex
