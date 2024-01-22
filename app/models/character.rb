@@ -13,6 +13,7 @@
 # Indexes
 #
 #  index_characters_on_game_id  (game_id)
+#  index_characters_on_name     (name) UNIQUE
 #
 # Foreign Keys
 #

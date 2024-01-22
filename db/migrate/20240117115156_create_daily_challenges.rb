@@ -9,5 +9,6 @@ class CreateDailyChallenges < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :daily_challenges, [:daily_id, :challenge_id], unique: true
   end
 end

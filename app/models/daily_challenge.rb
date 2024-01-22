@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_daily_challenges_on_challenge_id  (challenge_id)
-#  index_daily_challenges_on_daily_id      (daily_id)
+#  index_daily_challenges_on_challenge_id               (challenge_id)
+#  index_daily_challenges_on_daily_id                   (daily_id)
+#  index_daily_challenges_on_daily_id_and_challenge_id  (daily_id,challenge_id) UNIQUE
 #
 # Foreign Keys
 #

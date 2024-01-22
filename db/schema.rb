@@ -17,13 +17,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
   create_table "challenges", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "game_id", null: false
-    t.bigint "character_id"
     t.bigint "opponent_id"
     t.string "topic", null: false
     t.boolean "private", default: false, null: false
+    t.datetime "achieved_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_challenges_on_character_id"
     t.index ["game_id"], name: "index_challenges_on_game_id"
     t.index ["opponent_id"], name: "index_challenges_on_opponent_id"
     t.index ["user_id"], name: "index_challenges_on_user_id"
@@ -37,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_characters_on_game_id"
+    t.index ["name"], name: "index_characters_on_name", unique: true
   end
 
   create_table "dailies", force: :cascade do |t|
@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.bigint "character_id", null: false
     t.date "tried_on", null: false
     t.integer "round", default: 1, null: false
+    t.string "status", default: "in_progress", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_dailies_on_character_id"
@@ -58,6 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_daily_challenges_on_challenge_id"
+    t.index ["daily_id", "challenge_id"], name: "index_daily_challenges_on_daily_id_and_challenge_id", unique: true
     t.index ["daily_id"], name: "index_daily_challenges_on_daily_id"
   end
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.integer "lose_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["daily_id", "opponent_id"], name: "index_daily_results_on_daily_id_and_opponent_id", unique: true
     t.index ["daily_id"], name: "index_daily_results_on_daily_id"
     t.index ["opponent_id"], name: "index_daily_results_on_opponent_id"
   end
@@ -128,7 +131,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
-  add_foreign_key "challenges", "characters"
   add_foreign_key "challenges", "characters", column: "opponent_id"
   add_foreign_key "challenges", "games"
   add_foreign_key "challenges", "users"

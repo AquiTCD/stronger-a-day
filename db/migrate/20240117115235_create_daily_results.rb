@@ -9,5 +9,7 @@ class CreateDailyResults < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :daily_results, [:daily_id, :opponent_id], unique: true
   end
 end
