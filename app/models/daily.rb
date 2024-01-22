@@ -26,4 +26,6 @@ class Daily < ApplicationRecord
   has_many :daily_challenges, dependent: :destroy
   has_many :challenges, through: :daily_challenges
   has_many :daily_results, dependent: :destroy
+
+  attribute :tried_on, :date, default: -> { Date.today }
 end

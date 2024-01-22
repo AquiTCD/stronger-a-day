@@ -17,7 +17,9 @@ class User < ApplicationRecord
   devise :authenticatable
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy
+  has_many :dailies, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :challenges, dependent: :destroy
 
   def registered?
     registration.present?

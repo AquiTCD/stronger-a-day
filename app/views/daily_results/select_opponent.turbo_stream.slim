@@ -1,0 +1,21 @@
+= form_with(model: ResultForm.new, url: daily_daily_results_path(@game, @daily), id: "TEMP_FORM_GENERAL") do |f|
+  = turbo_stream.update 'general_challenges' do
+    = f.fields_for :challenges, child_index: "general" do |subform|
+      = render partial: "daily_challenges", locals: { form: subform, name: "general", challenges: @general_challenges }
+
+= form_with(model: ResultForm.new, url: daily_daily_results_path(@game, @daily), id: "TEMP_FORM_OPPONENT") do |f|
+  = turbo_stream.update 'opponent_challenges' do
+    p = "vs #{@opponent.display_name}戦のチャレンジ課題"
+    = f.fields_for :challenges, child_index: "opponent" do |subform|
+      = render partial: "daily_challenges", locals: { form: subform, name: "opponent", challenges: @opponent_challenges }
+    = f.hidden_field :opponent_id, value: @opponent.id
+
+= form_with(model: ResultForm.new, url: daily_daily_results_path(@game, @daily), id: "TEMP_RESULT") do |f|
+  = turbo_stream.update 'result' do
+    = f.submit "WIN", name: "result_form[result]", class: "text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+    = f.submit "LOSE", name: "result_form[result]", class: "text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+
+= turbo_stream.remove "opponents"
+= turbo_stream.remove "TEMP_FORM_GENERAL"
+= turbo_stream.remove "TEMP_FORM_OPPONENT"
+= turbo_stream.remove "TEMP_RESULT"

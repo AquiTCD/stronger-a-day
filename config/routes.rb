@@ -31,7 +31,14 @@ Rails.application.routes.draw do
   get "home", to: "home#show", as: "home"
 
   scope ":game_title" do
-    resource :dailies
+    resources :dailies do
+      resources :daily_challenges
+      resources :daily_results do
+        collection do
+          get "select_opponent"
+        end
+      end
+    end
     resources :challenges
     resource :note
   end

@@ -23,4 +23,6 @@
 class DailyChallenge < ApplicationRecord
   belongs_to :daily
   belongs_to :challenge
+
+  validates :challenge_id, uniqueness: { scope: :daily_id }
 end

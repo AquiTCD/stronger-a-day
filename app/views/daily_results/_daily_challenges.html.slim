@@ -1,0 +1,17 @@
+- index ||= nil
+= turbo_frame_tag name do
+  - if challenges.present?
+    ul
+      - challenges.each do |challenge|
+        li
+          = challenge.topic
+          div.flex
+            div
+              = form.check_box("#{challenge.id}", { id: "result_form_challenges_success_#{challenge.id}", class: "peer hidden" }, "success", false)
+              = form.label(:success, "できた", value: challenge.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-200 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-green-400 peer-checked:text-gray-900 peer-checked:border-gray-200")
+
+            div
+              = form.check_box("#{challenge.id}", { id: "result_form_challenges_failure_#{challenge.id}", class: "peer hidden"}, "failure", false)
+              = form.label(:failure, "できなかった", value: challenge.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-200 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-red-400 peer-checked:text-gray-900 peer-checked:border-gray-200")
+  - else
+    = "チャレンジがありません"

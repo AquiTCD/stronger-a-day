@@ -1,0 +1,15 @@
+p
+  | 今回、集中するチャレンジ課題を選択
+
+= form_with url: daily_daily_challenges_path(@game, @daily), method: :post do |f|
+  ul
+    - @challenges.each do |challenge|
+      li
+        = f.check_box(:challenge_ids, { multiple: true, checked: @selected_challenge_ids.include?(challenge.id), id: "challenge_id_#{challenge.id}", include_hidden: false}, challenge.id)
+        = f.label(:challenge_id, challenge.topic, value: challenge.id)
+  = f.submit "登録", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+
+dev.nav
+  ul
+    li = link_to "操作キャラ選択に戻る", new_daily_path(@game)
+    li = link_to "ゲームを終えてメニューに戻る", home_path(@game)

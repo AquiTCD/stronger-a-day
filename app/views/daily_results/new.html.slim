@@ -1,0 +1,26 @@
+p
+  span = @win_count
+  sapn 勝
+  span = @lose_count
+  span 敗
+
+= form_with(model: ResultForm.new, url: daily_daily_results_path(@game, @daily)) do |f|
+  p
+    | 現在 集中しているチャレンジ課題
+  ul#general_challenges
+    - @general_challenges.each do |challenge|
+      li = challenge.topic
+
+  div#opponent_challenges
+  div#result
+  = f.hidden_field :daily_id, value: @daily.id
+div#opponents
+  p = "対戦相手を選択"
+  - @opponents.each do |character|
+    = button_to character.display_name, select_opponent_daily_daily_results_path(@game, @daily), method: :get, params: { opponent_id: character.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2", data: { turbo_stream: true }
+
+dev.nav
+  ul
+    li = link_to "操作キャラ選択に戻る", new_daily_path(@game)
+    li = link_to "チャレンジ課題を再選択", new_daily_daily_challenge_path(@game, @daily)
+    li = link_to "ゲームを終えてメニューに戻る", home_path(@game)
