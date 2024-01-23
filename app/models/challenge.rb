@@ -8,6 +8,7 @@
 #  opponent_id :bigint
 #  topic       :string           not null
 #  private     :boolean          default(FALSE), not null
+#  in_progress :boolean          default(FALSE), not null
 #  achieved_at :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

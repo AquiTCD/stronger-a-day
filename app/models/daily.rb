@@ -7,7 +7,7 @@
 #  character_id :bigint           not null
 #  tried_on     :date             not null
 #  round        :integer          default(1), not null
-#  status       :string           default("in_progress"), not null
+#  status       :string           default("ready"), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
@@ -30,7 +30,7 @@ class Daily < ApplicationRecord
 
   attribute :tried_on, :date, default: -> { Date.today }
 
-  STATUSES = %w[in_progress finished reviewed].freeze
+  STATUSES = %w[ready in_progress finished reviewed].freeze
 
   enum status: STATUSES.zip(STATUSES).to_h
 end

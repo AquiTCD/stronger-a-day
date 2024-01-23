@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.bigint "opponent_id"
     t.string "topic", null: false
     t.boolean "private", default: false, null: false
+    t.boolean "in_progress", default: false, null: false
     t.datetime "achieved_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.bigint "character_id", null: false
     t.date "tried_on", null: false
     t.integer "round", default: 1, null: false
-    t.string "status", default: "in_progress", null: false
+    t.string "status", default: "ready", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_dailies_on_character_id"
