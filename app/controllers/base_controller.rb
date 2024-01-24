@@ -5,6 +5,7 @@ class BaseController < ApplicationController
   private
 
     def set_game
-      @game = Game.where("UPPER(abbreviation) = ?", params[:game_title].upcase).first
+      word = params[:abbreviation] || params[:game_abbreviation]
+      @game = Game.where("UPPER(abbreviation) = ?", word.upcase).first
     end
 end

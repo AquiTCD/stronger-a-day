@@ -18,7 +18,7 @@ class DailyChallengesController < BaseController
         DailyChallenge.create!(daily_id: params[:daily_id], challenge_id:)
       end
     end
-    redirect_to new_daily_daily_result_path(@game, params[:daily_id])
+    redirect_to new_game_daily_result_path(@game, params[:daily_id])
   end
 
   private

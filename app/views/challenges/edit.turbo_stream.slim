@@ -1,5 +1,5 @@
 = turbo_stream.update @challenge do
-  = form_with model: @challenge, url: challenge_path, class: "grid grid-cols-subgrid col-span-5" do |f|
+  = form_with model: @challenge, url: game_challenge_path(@game), class: "grid grid-cols-subgrid col-span-5" do |f|
     .grid.grid-cols-subgrid.col-span-5.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600
       .px-2.py-2
         |

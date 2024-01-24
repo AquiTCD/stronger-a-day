@@ -33,7 +33,7 @@ class ChallengesController < BaseController
   def update
     if @challenge.update(challenge_params)
       flash.now.notice = "更新しました。"
-      redirect_to challenge_path(@game, @challenge)
+      redirect_to game_challenge_path(@game, @challenge)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +42,7 @@ class ChallengesController < BaseController
   def start
     @challenge.toggle(:in_progress)
     if @challenge.save
-      redirect_to challenge_path(@game, @challenge)
+      redirect_to game_challenge_path(@game, @challenge)
     else
       render :edit, status: :unprocessable_entity
     end

@@ -13,7 +13,7 @@ class DailyResultsController < BaseController
     result_form = ResultForm.initialize_by_params(daily_result_params)
     result_form.save_result!
 
-    redirect_to new_daily_daily_result_path(@game, params[:daily_id])
+    redirect_to new_game_daily_result_path(@game, params[:daily_id])
   end
 
   def select_opponent

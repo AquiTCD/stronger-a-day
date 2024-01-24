@@ -1,5 +1,5 @@
 = turbo_frame_tag "new_challenge" do
-  = form_with model: Challenge.new do |f|
+  = form_with model: Challenge.new, url: game_challenges_path(@game) do |f|
     div.flex.mb-3
       div
         = f.label :opponent_id, "対戦相手指定", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"

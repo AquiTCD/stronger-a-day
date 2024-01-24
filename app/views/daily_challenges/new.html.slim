@@ -1,7 +1,7 @@
 p
   | 今回、集中するチャレンジ課題を選択
 
-= form_with url: daily_daily_challenges_path(@game, @daily), method: :post do |f|
+= form_with url: game_daily_challenges_path(@game, @daily), method: :post do |f|
   ul
     - @challenges.each do |challenge|
       li
@@ -11,5 +11,5 @@ p
 
 dev.nav
   ul
-    li = link_to "操作キャラ選択に戻る", new_daily_path(@game)
-    li = link_to "ゲームを終えてメニューに戻る", home_path(@game)
+    li = link_to "操作キャラ選択に戻る", new_game_daily_path(@game)
+    li = link_to "ゲームを終えてメニューに戻る", game_path(@game)

@@ -28,12 +28,11 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
 
   resources :users
-  get "home", to: "home#show", as: "home"
 
-  scope ":game_title" do
+  resources :games, param: :abbreviation, path: "", only: [:show] do
     resources :dailies do
-      resources :daily_challenges
-      resources :daily_results do
+      resources :daily_challenges, as: :challenges, path: "challenges"
+      resources :daily_results, as: :results, path: "results" do
         get :select_opponent, on: :collection
       end
     end
