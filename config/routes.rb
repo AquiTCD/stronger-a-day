@@ -34,12 +34,12 @@ Rails.application.routes.draw do
     resources :dailies do
       resources :daily_challenges
       resources :daily_results do
-        collection do
-          get "select_opponent"
-        end
+        get :select_opponent, on: :collection
       end
     end
-    resources :challenges
+    resources :challenges do
+      put :start, on: :member
+    end
     resource :note
   end
 end

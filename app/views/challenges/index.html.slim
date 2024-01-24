@@ -1,8 +1,19 @@
-h1.mb-2.mt-0.text-2xl.font-medium 挑戦
+h1.mb-4.text-4xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 挑戦課題を設定
 div#new_challenge
   = render "form", challenge: @challenge
 
-ul#challenges.list-disc
+div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_8rem_1fr_3rem_auto]")
+  / .grid.grid-cols-subgrid.col-span-5.text-xs.text-gray-700.uppercase.bg-gray-50.dark:bg-gray-700.dark:text-gray-400
+    div.px-6.py-3(scope="col")
+      | 選択
+    div.px-6.py-3(scope="col")
+      | 相手
+    div.px-6.py-3(scope="col")
+      | 挑戦課題
+    div.px-6.py-3(scope="col")
+      | 公開設定
+    div.px-6.py-3(scope="col")
+      |
   = render partial: @challenges
 
-= link_to "戻る", home_path
+= link_to "戻る", home_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
