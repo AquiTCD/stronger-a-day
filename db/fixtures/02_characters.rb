@@ -66,7 +66,7 @@ SF6_CHARACTERS = [
   },
   {
     name: 'MARISA',
-    display_name: 'マリ-ザ',
+    display_name: 'マリーザ',
     kana: 'マリーザ',
   },
   {
