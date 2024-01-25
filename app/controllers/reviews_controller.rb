@@ -1,14 +1,13 @@
 class ReviewsController < BaseController
   def index
     characters = @game.characters
-    dailies = current_user.dailies.where(character: characters).where.associated(:daily_results)
-    @latest_daily = dailies.finished.order(id: :desc).first
-    @latest_results = @latest_daily.daily_results
-    @win_count = @latest_results.sum(:win_count)
-    @lose_count = @latest_results.sum(:lose_count)
-    @latest_daily_challenges = @latest_daily.daily_challenges.includes(:challenge)
+    user_dailies = current_user.dailies.
+                     where(character: characters).
+                     where.associated(:daily_results)
+    @dailies = user_dailies.finished.order(id: :desc).
+                 includes(:daily_results, daily_challenges: :challenge)
 
-    total_dailies = dailies.reviewed
+    total_dailies = user_dailies.reviewed
     total_results = DailyResult.where(daily: total_dailies)
     @total_win_count = total_results.sum(:win_count)
     @total_lose_count = total_results.sum(:lose_count)
@@ -22,14 +21,20 @@ class ReviewsController < BaseController
                                Time.current
                              end
     if @challenge.save
-      # redirect_to game_challenge_path(@game, @challenge)
+      flash.now.notice =
+        if @challenge.achieved_at
+          "「#{@challenge.topic}」を達成にしました"
+        else
+          "「#{@challenge.topic}」の達成を取り消しました"
+        end
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def complete_review
-    daily = current_user.dailies.find(params[:daily_id])
-    daily.reviewed!
+    @daily = current_user.dailies.find(params[:daily_id])
+    @daily.reviewed!
+    flash.now.notice = "#{@daily.tried_on.strftime("%Y/%m/%d")}: ROUND #{@daily.round} のプレイをレビュー完了にしました"
   end
 end
