@@ -38,6 +38,7 @@ class Challenge < ApplicationRecord
   scope :only_public, -> { where(private: false) }
   scope :only_private, -> { where(private: true) }
   scope :achieved, -> { where.not(achieved: null) }
+  scope :in_progress, -> { where(in_progress: true) }
 
   def achieved?
     achieved_at.present?

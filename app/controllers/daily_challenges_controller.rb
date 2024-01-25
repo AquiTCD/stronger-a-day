@@ -2,7 +2,11 @@ class DailyChallengesController < BaseController
   def new
     @daily = current_user.dailies.find(params[:daily_id])
     @challenges = current_user.challenges.where(game: @game).order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
-    @selected_challenge_ids = @daily.daily_challenges.pluck(:challenge_id)
+    @selected_challenge_ids = if @daily.daily_challenges.pluck(:challenge_id).present?
+                                @daily.daily_challenges.pluck(:challenge_id)
+                              else
+                                @challenges.in_progress.pluck(:id)
+                              end
   end
 
   def create
