@@ -14,7 +14,6 @@ class DailiesController < BaseController
     )
     if @daily.save
       redirect_to new_game_daily_challenge_path(@game, @daily)
-    #   current_user.dailies.new(daily_params)
     else
       render :create, status: :unprocessable_entity
     end

@@ -1,11 +1,13 @@
 class DailyChallengesController < BaseController
   def new
     @daily = current_user.dailies.find(params[:daily_id])
-    @challenges = current_user.challenges.where(game: @game)
+    @challenges = current_user.challenges.where(game: @game).order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
     @selected_challenge_ids = @daily.daily_challenges.pluck(:challenge_id)
   end
 
   def create
+    validate_create_param!
+
     daily = current_user.dailies.find(params[:daily_id])
     @selected_challenges = daily.daily_challenges
     ActiveRecord::Base.transaction do
@@ -25,5 +27,12 @@ class DailyChallengesController < BaseController
 
     def daily_challenge_params
       params.permit(:daily_id, challenge_ids: [])
+    end
+
+    def validate_create_param!
+      return if daily_challenge_params[:challenge_ids].present?
+
+      flash.now[:alert] = "チャレンジする課題を選択してください"
+      redirect_to new_game_daily_challenge_path(@game, params[:daily_id])
     end
 end

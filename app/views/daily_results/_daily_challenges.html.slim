@@ -1,17 +1,21 @@
 - index ||= nil
-= turbo_frame_tag name do
-  - if challenges.present?
-    ul
-      - challenges.each do |challenge|
-        li
-          = challenge.topic
-          div.flex
-            div
-              = form.check_box("#{challenge.id}", { id: "result_form_challenges_success_#{challenge.id}", class: "peer hidden" }, "success", false)
-              = form.label(:success, "できた", value: challenge.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-200 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-green-400 peer-checked:text-gray-900 peer-checked:border-gray-200")
-
-            div
-              = form.check_box("#{challenge.id}", { id: "result_form_challenges_failure_#{challenge.id}", class: "peer hidden"}, "failure", false)
-              = form.label(:failure, "できなかった", value: challenge.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-200 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-red-400 peer-checked:text-gray-900 peer-checked:border-gray-200")
-  - else
-    = "チャレンジがありません"
+/ = turbo_frame_tag name do
+- if challenges.present?
+  - challenges.each do |challenge|
+    .grid.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.px-2.py-3.text-white(class="grid-cols-[1fr_auto_auto]")
+      div
+        = challenge.topic
+      div
+        = form.check_box("#{challenge.id}", { id: "result_form_challenges_success_#{challenge.id}", class: "peer hidden" }, "success", false)
+        = form.label(:success, value: challenge.id, class: "select-none cursor-pointer rounded-l-lg border-2 border-r border-gray-400 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-green-400 peer-checked:text-gray-900 peer-checked:border-gray-200") do
+          / | ✅
+          svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+            path(fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd")
+      div
+        = form.check_box("#{challenge.id}", { id: "result_form_challenges_failure_#{challenge.id}", class: "peer hidden"}, "failure", false)
+        = form.label(:failure, value: challenge.id, class: "select-none cursor-pointer rounded-r-lg border-2 border-l border-gray-400 py-1 px-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-red-400 peer-checked:text-gray-900 peer-checked:border-gray-200") do
+          | ❌
+          / svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+            path(fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd")
+- else
+  = "チャレンジはありません"

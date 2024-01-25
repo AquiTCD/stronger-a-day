@@ -1,26 +1,29 @@
-p
-  span = @win_count
-  sapn 勝
-  span = @lose_count
-  span 敗
+p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
+  span.text-5xl.text-green-400 = @win_count
+  sapn.text-2xl.mr-3 勝
+  span.text-5xl.text-red-400 = @lose_count
+  span.text-2xl 敗
 
 = form_with(model: ResultForm.new, url: game_daily_results_path(@game, @daily)) do |f|
-  p
-    | 現在 集中しているチャレンジ課題
-  ul#general_challenges
+  p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
+    | 課題
+  #general_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1")
     - @general_challenges.each do |challenge|
-      li = challenge.topic
+      .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.px-2.py-3.text-white
+        = challenge.topic
 
   div#opponent_challenges
   div#result
   = f.hidden_field :daily_id, value: @daily.id
-div#opponents
-  p = "対戦相手を選択"
-  - @opponents.each do |character|
-    = button_to character.display_name, select_opponent_game_daily_results_path(@game, @daily), method: :get, params: { opponent_id: character.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2", data: { turbo_stream: true }
+div#opponents.mb-4
+  p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
+     = "対戦相手を選択"
+  .grid.grid-cols-3.gap-2.mb-4
+    - @opponents.each do |character|
+      = button_to character.display_name, select_opponent_game_daily_results_path(@game, @daily), method: :get, params: { opponent_id: character.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full", data: { turbo_stream: true }
 
-dev.nav
-  ul
-    li = link_to "操作キャラ選択に戻る", new_game_daily_path(@game)
-    li = link_to "チャレンジ課題を再選択", new_game_daily_challenge_path(@game, @daily)
-    li = link_to "ゲームを終えてメニューに戻る", game_path(@game)
+= render "shared/hr", text: "MENU"
+div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
+  = link_to "操作キャラ選択に戻る", new_game_daily_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+  = link_to "チャレンジ課題を再選択", new_game_daily_challenge_path(@game, @daily), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+  = link_to "ゲームを終えてメニューに戻る", game_path(@game.abbreviation), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"

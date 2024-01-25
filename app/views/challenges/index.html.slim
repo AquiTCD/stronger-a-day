@@ -1,8 +1,8 @@
-h1.mb-4.text-4xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 挑戦課題を設定
+h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 課題管理
 div#new_challenge
   = render "form", challenge: @challenge
 
-div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_8rem_1fr_3rem_auto]")
+div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
   / .grid.grid-cols-subgrid.col-span-5.text-xs.text-gray-700.uppercase.bg-gray-50.dark:bg-gray-700.dark:text-gray-400
     div.px-6.py-3(scope="col")
       | 選択
