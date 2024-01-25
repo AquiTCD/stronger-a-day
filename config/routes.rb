@@ -39,6 +39,13 @@ Rails.application.routes.draw do
     resources :challenges do
       put :start, on: :member
     end
+
+    resources :reviews do
+      collection do
+        put :achieve_challenge
+        put :complete_review
+      end
+    end
     resource :note
   end
 end
