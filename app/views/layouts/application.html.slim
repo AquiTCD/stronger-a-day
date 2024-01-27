@@ -1,8 +1,8 @@
 doctype html
 html
   head
-    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
-    meta name="viewport" content=("width=device-width; initial-scale=1")
+    meta content=("text/html, charset=UTF-8") http-equiv="Content-Type"
+    meta name="viewport" content=("width=device-width, initial-scale=1")
     title ひとつよ
     = csrf_meta_tags
     = csp_meta_tag
@@ -10,13 +10,15 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
-    header
-      = render "layouts/header"
-      div#flash
-        = render "application/flash"
-    main.container.mx-auto.mt-5.px-5
-      .mb-3
-        = render "layouts/game_title"
-      = yield
-    = render "layouts/note"
-    = render "layouts/footer"
+    .container
+      = render "layouts/modal"
+      header
+        = render "layouts/header"
+        div#flash
+          = render "application/flash"
+      main.mx-auto.mt-5.px-5.w-screen
+        .mb-3
+          = render "layouts/game_title"
+        = yield
+      = render "layouts/note"
+      = render "layouts/footer"
