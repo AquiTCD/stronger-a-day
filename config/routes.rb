@@ -46,12 +46,6 @@ Rails.application.routes.draw do
         put :complete_review
       end
     end
-    resource :note do
-      put :add_line, on: :member
-      # collection do
-      #   # get :new
-      #   post :add_line
-      # end
-    end
+    resource :note
   end
 end

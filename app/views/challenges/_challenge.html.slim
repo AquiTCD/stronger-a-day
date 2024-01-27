@@ -1,5 +1,5 @@
 = turbo_frame_tag challenge, class:"grid grid-cols-subgrid col-span-5" do
-  .grid.grid-cols-subgrid.col-span-5.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
+  .grid.grid-cols-subgrid.col-span-5.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.items-center(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
     .px-2.py-2
       = button_to start_game_challenge_path(@game, challenge), method: :put do
         - if challenge.in_progress?

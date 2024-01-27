@@ -10,7 +10,7 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
-    .container
+    .container.mx-auto.p-8(data-controller="slideover" data-action="keydown.esc->modal#close" tabindex="-1")
       = render "layouts/modal"
       header
         = render "layouts/header"
@@ -20,5 +20,6 @@ html
         .mb-3
           = render "layouts/game_title"
         = yield
-      = render "layouts/note"
+      / = render "layouts/note"
+      = render "layouts/sideover"
       = render "layouts/footer"

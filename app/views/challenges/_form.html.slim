@@ -1,16 +1,16 @@
 = turbo_frame_tag "new_challenge" do
   = form_with model: Challenge.new, url: game_challenges_path(@game) do |f|
-    div.flex.mb-3
-      div
+    .grid.grid-rows-2.rounded-t-lg.gap-4.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.p-4.items-center(class="grid-cols-[1fr_auto_auto]")
+      .div
         = f.label :opponent_id, "対戦相手指定", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         = f.collection_select :opponent_id, @opponents, :id, :display_name, { include_blank: "相手指定なし" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      div
-        = f.label :private, "非公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
+      div.col-span-2.self-end
+        = f.label :private, "非公開/公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
           = f.check_box :private, class: "sr-only peer"
           div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
           span.ms-3.text-sm.font-medium.text-gray-900.dark:text-gray-300 非公開にする
-    div.flex.mb-3
-      = f.label :topic, "挑戦課題", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      = f.text_field :topic, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      div
-        = f.submit "追加", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      div.col-span-2
+        = f.label :topic, "挑戦課題", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        = f.text_field :topic, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      div.self-end
+        = f.submit "追加", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
