@@ -1,0 +1,27 @@
+h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 課題管理
+div#new_challenge
+  = render "form", challenge: @challenge
+
+div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
+  / .grid.grid-cols-subgrid.col-span-5.text-xs.text-gray-700.uppercase.bg-gray-50.dark:bg-gray-700.dark:text-gray-400
+    div.px-6.py-3(scope="col")
+      | 選択
+    div.px-6.py-3(scope="col")
+      | 相手
+    div.px-6.py-3(scope="col")
+      | 挑戦課題
+    div.px-6.py-3(scope="col")
+      | 公開設定
+    div.px-6.py-3(scope="col")
+      |
+  = render partial: @challenges
+
+= render "shared/hr", text: "達成した課題"
+#achieved_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1")
+  - @achieved_challenges.each do |challenge|
+    .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.px-2.py-3.text-white.font-bold
+      = challenge.topic
+
+= render "shared/hr", text: "MENU"
+div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
+  = link_to "メインメニューに戻る", game_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"

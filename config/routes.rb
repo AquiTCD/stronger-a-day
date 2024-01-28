@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "home#index"
+  root "site#index"
 
   devise_for :user, skip: :all
   devise_for(:registrations,
@@ -28,4 +28,26 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
 
   resources :users
+
+  resources :games, param: :abbreviation, path: "", only: [:show] do
+    resources :dailies do
+      resources :daily_challenges, as: :challenges, path: "challenges"
+      resources :daily_results, as: :results, path: "results" do
+        get :select_opponent, on: :collection
+      end
+
+      put :finish, on: :member
+    end
+    resources :challenges do
+      put :start, on: :member
+    end
+
+    resources :reviews do
+      collection do
+        put :achieve_challenge
+        put :complete_review
+      end
+    end
+    resource :note
+  end
 end

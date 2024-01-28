@@ -1,0 +1,6 @@
+= turbo_frame_tag "note"
+  .px-4.h-5/6
+    .markdown.rounded-lg.border.bg-gray-800.border-gray-700.p-4.items-center.h-full
+      = md_to_html(@note.content)
+    .grid.mt-4
+      = link_to "ノートを編集", edit_game_note_path(@game), class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"

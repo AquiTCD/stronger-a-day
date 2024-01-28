@@ -1,0 +1,17 @@
+#global-modal.relative.z-10(
+  tabindex="-1"
+  data-controller="modal"
+  data-action="turbo:frame-load->modal#open turbo:submit-end->modal#close keydown.esc->modal#close")
+  .hidden.fixed.inset-0.bg-black.bg-opacity-80.overflow-y-auto.flex.items-center.justify-center.p-4(
+    data-modal-target="background"
+    data-action="click->modal#closeBackground"
+    data-transition-enter="transition-all ease-in-out duration-200"
+    data-transition-enter-from="bg-opacity-0"
+    data-transition-enter-to="bg-opacity-80"
+    data-transition-leave="transition-all ease-in-out duration-200"
+    data-transition-leave-from="bg-opacity-80"
+    data-transition-leave-to="bg-opacity-0")
+    .max-h-screen.w-full.max-w-lg.relative(data-modal-target="container")
+      / -- Modal content --
+      .relative.bg-white.rounded-lg.shadow.dark:bg-gray-700
+        = turbo_frame_tag "modal"

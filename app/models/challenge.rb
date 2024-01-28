@@ -2,46 +2,48 @@
 #
 # Table name: challenges
 #
-#  id           :bigint           not null, primary key
-#  private      :boolean          default(FALSE), not null
-#  topic        :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  character_id :bigint
-#  opponent_id  :bigint
-#  title_id     :bigint           not null
-#  user_id      :bigint           not null
+#  id          :bigint           not null, primary key
+#  user_id     :bigint           not null
+#  game_id     :bigint           not null
+#  opponent_id :bigint
+#  topic       :string           not null
+#  private     :boolean          default(FALSE), not null
+#  in_progress :boolean          default(FALSE), not null
+#  achieved_at :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #
-#  index_challenges_on_character_id  (character_id)
-#  index_challenges_on_opponent_id   (opponent_id)
-#  index_challenges_on_title_id      (title_id)
-#  index_challenges_on_user_id       (user_id)
+#  index_challenges_on_game_id      (game_id)
+#  index_challenges_on_opponent_id  (opponent_id)
+#  index_challenges_on_user_id      (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (character_id => characters.id)
+#  fk_rails_...  (game_id => games.id)
 #  fk_rails_...  (opponent_id => characters.id)
-#  fk_rails_...  (title_id => titles.id)
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
   belongs_to :user
-  belongs_to :title
-  belongs_to :character, optional: true
+  belongs_to :game
   belongs_to :opponent, class_name: "Character", optional: true
 
   has_many :daily_challenges, dependent: :destroy
   has_many :dailies, through: :daily_challenges
 
-  has_many :daily_results, dependent: :destroy
-  has_many :daily_opponents, through: :daily_results, source: :opponent
-
   validates :topic, presence: true
 
-  scope :public_challenges, -> { where(private: false) }
-  scope :private_challenges, -> { where(private: true) }
+  scope :only_public, -> { where(private: false) }
+  scope :only_private, -> { where(private: true) }
+  scope :achieved, -> { where.not(achieved_at: nil) }
+  scope :not_achieved, -> { where(achieved_at: nil) }
+  scope :in_progress, -> { where(in_progress: true) }
+
+  def achieved?
+    achieved_at.present?
+  end
 
   # def daily_opponent_win_rate(user)
   #   return 0 if daily_opponent_result(user).nil?

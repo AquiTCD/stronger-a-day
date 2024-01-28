@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id           :bigint           not null, primary key
-#  display_name :string
 #  name         :string           not null
+#  display_name :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
@@ -17,6 +17,9 @@ class User < ApplicationRecord
   devise :authenticatable
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy
+  has_many :dailies, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :challenges, dependent: :destroy
 
   def registered?
     registration.present?

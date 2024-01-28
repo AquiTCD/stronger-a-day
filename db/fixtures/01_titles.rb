@@ -1,5 +1,6 @@
-Title.seed(:name,
+Game.seed(:title,
   {
-    name: 'STREET FIGHTER 6',
+    title: 'STREET FIGHTER 6',
+    abbreviation: 'SF6'
   }
 )

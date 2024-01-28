@@ -1,16 +1,25 @@
 doctype html
 html
   head
-    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
-    meta name="viewport" content=("width=device-width; initial-scale=1")
+    meta content=("text/html, charset=UTF-8") http-equiv="Content-Type"
+    meta name="viewport" content=("width=device-width, initial-scale=1")
     title ひとつよ
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    / = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
-    header
-      = render "layouts/header"
-    main.container.mx-auto.mt-28.px-5.flex
-      = yield
+    = javascript_importmap_tags
+  body.bg-gray-900.text-gray-200.antialiased
+    .container(data-controller="slideover" data-action="keydown.esc->modal#close" tabindex="-1")
+      #flash.z-50
+        = render "shared/flash"
+      = render "layouts/modal"
+      header
+        = render "layouts/header"
+      main.mx-auto.mt-5.px-5.w-vh
+        .mb-3
+          = render "layouts/game_title"
+        = yield
+      / = render "layouts/note"
+      = render "layouts/sideover"
+      = render "layouts/footer"

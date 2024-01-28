@@ -1,10 +1,27 @@
-ul
-  - if current_user
-    li
-      = current_user.display_name || current_user.name
-    li
-      = button_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo: false }
-  - else
-    li
+nav.bg-white.border-gray-200.dark:bg-gray-900
+  .max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-4
+    - if current_page?(root_path)
+      flex.items-center.space-x-3.rtl:space-x-reverse
+        span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
+          | ヒトツヨ
+    - else
+      = link_to game_path(@game), class: "flex items-center space-x-3 rtl:space-x-reverse" do
+        span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
+          | ヒトツヨ
+    - if current_user
+      = button_tag(type: "button", class: "inline-flex items-center p-2 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", id: "user-menu-button", aria: {  expanded: "false", controls: "navbar-default" }, data: { "collapse-toggle": "navbar-default" }) do
+        div
+          span = current_user.display_name
+          / img(class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo")
+    - else
+      li
       = button_to "Sign in with twitter", authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }
       = link_to "Sign in", sign_in_user_session_path if Rails.env.development?
+    #navbar-default.hidden.w-full.md:w-auto
+      ul
+        li
+          = link_to "アカウント編集", root_path, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+        li
+          = link_to "設定", root_path, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+        li
+          = button_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
