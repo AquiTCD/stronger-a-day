@@ -28,9 +28,11 @@ class DailiesController < BaseController
     @daily.finished!
 
     if params[:to_review] == "true"
-      redirect_to game_reviews_path(@game)
+      notice = "プレイを終了しました\n続けて振り返りレビューを行います"
+      redirect_to game_reviews_path(@game), notice:
     else
-      redirect_to game_path(@game)
+      alert = "プレイを終了しました\n次のプレイを開始前に振り返りを忘れずに"
+      redirect_to game_path(@game), alert:
     end
   end
 

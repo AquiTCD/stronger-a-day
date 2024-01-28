@@ -9,8 +9,9 @@ class DailyChallengesController < BaseController
                               end
   end
 
-  def create
-    validate_create_param!
+  def create # rubocop:disable Metrics/AbcSize
+    error = validate_create_param!
+    return redirect_to new_game_daily_challenge_path(@game, params[:daily_id]), flash: { error: } if error
 
     daily = current_user.dailies.find(params[:daily_id])
     @selected_challenges = daily.daily_challenges
@@ -24,7 +25,8 @@ class DailyChallengesController < BaseController
         DailyChallenge.create!(daily_id: params[:daily_id], challenge_id:)
       end
     end
-    redirect_to new_game_daily_result_path(@game, params[:daily_id])
+    notice = "「#{daily.character.display_name}」でプレイを開始します"
+    redirect_to new_game_daily_result_path(@game, params[:daily_id]), notice:
   end
 
   private
@@ -36,7 +38,6 @@ class DailyChallengesController < BaseController
     def validate_create_param!
       return if daily_challenge_params[:challenge_ids].present?
 
-      flash.now[:alert] = "チャレンジする課題を選択してください"
-      redirect_to new_game_daily_challenge_path(@game, params[:daily_id])
+      "チャレンジする課題を選択してください"
     end
 end

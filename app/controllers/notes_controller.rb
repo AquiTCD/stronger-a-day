@@ -2,16 +2,16 @@ class NotesController < BaseController
   def show
   end
 
-  def create
-    @note.content = params[:note][:content]
-    @note.save
-  end
+  # def create
+  #   @note.content = params[:note][:content]
+  #   @note.save
+  # end
 
   def edit
   end
 
   def update
     @note.update(content: params[:note][:content])
-    redirect_to game_note_path(@game)
+    redirect_to game_note_path(@game), flash: { success: "保存しました" }
   end
 end

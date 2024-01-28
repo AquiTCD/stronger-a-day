@@ -23,12 +23,11 @@ class ReviewsController < BaseController
                                Time.current
                              end
     if @challenge.save
-      flash.now.notice =
-        if @challenge.achieved_at
-          "「#{@challenge.topic}」を達成にしました"
-        else
-          "「#{@challenge.topic}」の達成を取り消しました"
-        end
+      if @challenge.achieved_at
+        flash.now[:success] = "「#{@challenge.topic}」\nを達成にしました"
+      else
+        flash.now.alert = "「#{@challenge.topic}」\nの達成を取り消しました"
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,6 +43,6 @@ class ReviewsController < BaseController
 
     @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
 
-    flash.now.notice = "#{@daily.tried_on.strftime("%Y/%m/%d")}: ROUND #{@daily.round} のプレイをレビュー完了にしました"
+    flash.now[:success] = "#{@daily.tried_on.strftime("%Y/%m/%d")}: ROUND #{@daily.round}\nのプレイをレビュー完了にしました"
   end
 end

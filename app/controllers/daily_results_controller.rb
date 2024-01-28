@@ -13,7 +13,8 @@ class DailyResultsController < BaseController
     result_form = ResultForm.initialize_by_params(daily_result_params)
     result_form.save_result!
 
-    redirect_to new_game_daily_result_path(@game, params[:daily_id])
+    notice = "結果を記録しました\n次の相手を選択してください"
+    redirect_to new_game_daily_result_path(@game, params[:daily_id]), notice:
   end
 
   def select_opponent

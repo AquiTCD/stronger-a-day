@@ -23,7 +23,7 @@ class ChallengesController < BaseController
     )
     if @challenge.save
       @opponents = Character.where(game: @game)
-      flash.now.notice = "登録しました。"
+      flash.now.notice = "課題を追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,8 +35,8 @@ class ChallengesController < BaseController
 
   def update
     if @challenge.update(challenge_params)
-      flash.now.notice = "更新しました。"
-      redirect_to game_challenge_path(@game, @challenge)
+      notice = "更新しました"
+      redirect_to game_challenge_path(@game, @challenge), notice:
     else
       render :edit, status: :unprocessable_entity
     end
@@ -53,7 +53,7 @@ class ChallengesController < BaseController
 
   def destroy
     if @challenge.destroy
-      flash.now.notice = "削除しました。"
+      flash.now.alert = "課題を削除しました"
     else
       render :new, status: :unprocessable_entity
     end

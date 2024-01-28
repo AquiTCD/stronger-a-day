@@ -11,12 +11,12 @@ html
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
     .container(data-controller="slideover" data-action="keydown.esc->modal#close" tabindex="-1")
+      #flash.z-50
+        = render "shared/flash"
       = render "layouts/modal"
       header
         = render "layouts/header"
-        div#flash
-          = render "application/flash"
-      main.mx-auto.mt-5.px-5.w-dvh
+      main.mx-auto.mt-5.px-5.w-vh
         .mb-3
           = render "layouts/game_title"
         = yield
