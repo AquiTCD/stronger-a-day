@@ -1,11 +1,22 @@
-h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 操作キャラクターを選択
+- if @playing
+  p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight
+    | 既にプレイ中のデータが見つかりました
+  p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight
+    = "開始: #{@playing.tried_on.strftime('%Y/%m/%d')}"
+    br
+    = "操作キャラクター: #{@playing.character.display_name}"
 
-.grid.grid-cols-3.gap-2.mb-4
-  - @characters.each do |character|
-    = button_to game_dailies_path(@game), method: :post, params: {character_id: character.id }, class: "relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800 w-full" do
-      span.relative.px-2.py-2.transition-all.ease-in.duration-75.bg-gray-900.rounded-md.group-hover:bg-opacity-0.w-full.font-bold
-        =  character.display_name
+  = button_to "続きから始める", new_game_daily_challenge_path(@game, @playing), method: :get, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+  = button_to "終了して新しいプレイを開始する", finish_game_daily_path(@game, @playing), method: :put, params: { move_to: "new" }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+- else
+  h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 操作キャラクターを選択
 
-= render "shared/hr", text: "MENU"
-div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
-  = link_to "メインメニューに戻る", game_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+  .grid.grid-cols-3.gap-2.mb-4
+    - @characters.each do |character|
+      = button_to game_dailies_path(@game), method: :post, params: {character_id: character.id }, class: "relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800 w-full" do
+        span.relative.px-2.py-2.transition-all.ease-in.duration-75.bg-gray-900.rounded-md.group-hover:bg-opacity-0.w-full.font-bold
+          =  character.display_name
+
+  = render "shared/hr", text: "MENU"
+  div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
+    = link_to "メインメニューに戻る", game_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"

@@ -1,5 +1,9 @@
 class DailiesController < BaseController
   def new
+    # TODO: playing ならモーダル
+    # 終了して新しいキャラ選択 or 続きから
+    @playing = current_user.dailies.where(character: @game.characters).in_progress.first
+
     @daily = current_user.dailies.new
     @characters = @game.characters
   end
@@ -27,13 +31,24 @@ class DailiesController < BaseController
     @daily = current_user.dailies.find(params[:id])
     @daily.finished!
 
-    if params[:to_review] == "true"
+    case params[:move_to]
+    when "review"
       notice = "プレイを終了しました\n続けて振り返りレビューを行います"
       redirect_to game_reviews_path(@game), notice:
+    when "new"
+      notice = "プレイを終了しました\n新しいプレイを開始します"
+      redirect_to new_game_daily_path(@game), notice:
     else
       alert = "プレイを終了しました\n次のプレイを開始前に振り返りを忘れずに"
       redirect_to game_path(@game), alert:
     end
+    # if params[:to_review] == "true"
+    #   notice = "プレイを終了しました\n続けて振り返りレビューを行います"
+    #   redirect_to game_reviews_path(@game), notice:
+    # else
+    #   alert = "プレイを終了しました\n次のプレイを開始前に振り返りを忘れずに"
+    #   redirect_to game_path(@game), alert:
+    # end
   end
 
   private

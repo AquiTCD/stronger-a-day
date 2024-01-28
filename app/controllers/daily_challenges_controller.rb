@@ -24,6 +24,7 @@ class DailyChallengesController < BaseController
 
         DailyChallenge.create!(daily_id: params[:daily_id], challenge_id:)
       end
+      daily.in_progress!
     end
     notice = "「#{daily.character.display_name}」でプレイを開始します"
     redirect_to new_game_daily_result_path(@game, params[:daily_id]), notice:
