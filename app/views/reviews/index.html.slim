@@ -17,6 +17,10 @@ h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:tex
     sapn.text-2xl.mr-3 勝
     span.text-5xl.text-red-400 = @total_lose_count
     span.text-2xl 敗
+p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.lg:text-6xl
+    | 達成した課題
+#achieved_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1")
+  = render "achieved_challenges", challenges: @achieved_challenges
 
 = render "shared/hr", text: "MENU"
 div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white

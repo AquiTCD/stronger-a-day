@@ -11,6 +11,8 @@ class ReviewsController < BaseController
     total_results = DailyResult.where(daily: total_dailies)
     @total_win_count = total_results.sum(:win_count)
     @total_lose_count = total_results.sum(:lose_count)
+
+    @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
   end
 
   def achieve_challenge
@@ -35,6 +37,13 @@ class ReviewsController < BaseController
   def complete_review
     @daily = current_user.dailies.find(params[:daily_id])
     @daily.reviewed!
+
+    challenges = @daily.challenges
+    challenges.not_achieved.update_all(in_progress: true)
+    challenges.achieved.update_all(in_progress: false)
+
+    @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
+
     flash.now.notice = "#{@daily.tried_on.strftime("%Y/%m/%d")}: ROUND #{@daily.round} のプレイをレビュー完了にしました"
   end
 end

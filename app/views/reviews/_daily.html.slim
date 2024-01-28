@@ -1,6 +1,6 @@
 - results = daily.daily_results
 - challenges = daily.daily_challenges
-div(id="daily_#{daily.id}")
+div.mb-4(id="daily_#{daily.id}")
   .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
     div.text-gray-400.mb-2
       span.text-lg
@@ -8,10 +8,10 @@ div(id="daily_#{daily.id}")
       span.text-lg
         = ": ROUND #{daily.round}"
     div
-      span
+      span.text-base
         | 使用キャラクター
       br
-      span.text-5xl.text-white
+      span.text-3xl.text-white
         = daily.character.display_name
     div
       span.text-5xl.text-green-400 = results.sum(:win_count)

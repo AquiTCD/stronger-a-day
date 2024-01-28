@@ -5,7 +5,11 @@ class DailiesController < BaseController
   end
 
   def create
-    existed_dailies = current_user.dailies.where(character_id: daily_params[:character_id], tried_on: Date.today)
+    user_dailies = current_user.dailies
+    # まだ関連データがないものを削除
+    user_dailies.where(daily_results: nil).destroy_all
+
+    existed_dailies = user_dailies.where(character_id: daily_params[:character_id], tried_on: Date.today)
     round = existed_dailies.size + 1
     @daily = current_user.dailies.new(
       character_id: daily_params[:character_id],
@@ -16,6 +20,17 @@ class DailiesController < BaseController
       redirect_to new_game_daily_challenge_path(@game, @daily)
     else
       render :create, status: :unprocessable_entity
+    end
+  end
+
+  def finish
+    @daily = current_user.dailies.find(params[:id])
+    @daily.finished!
+
+    if params[:to_review] == "true"
+      redirect_to game_reviews_path(@game)
+    else
+      redirect_to game_path(@game)
     end
   end
 

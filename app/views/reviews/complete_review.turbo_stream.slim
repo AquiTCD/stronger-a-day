@@ -1,11 +1,16 @@
-= turbo_stream.update "challenge_#{daily_challenge.challenge.id}" do
+= turbo_stream.update "daily_#{@daily.id}" do
   .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white(id="daily_#{@daily.id}")
     div.text-gray-400.mb-2
       span.text-lg
         = @daily.tried_on.strftime("%Y/%m/%d")
       span.text-lg
         = ": ROUND #{@daily.round}"
+    div.text-base
+      = @daily.character.display_name
     div.text-lg.text-gray-400
       | レビュー済
+
+= turbo_stream.update "achieved_challenges" do
+  = render "achieved_challenges", challenges: @achieved_challenges
 
 = turbo_stream_flash

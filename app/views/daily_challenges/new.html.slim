@@ -1,5 +1,7 @@
 h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 課題選択
-p
+div.text-lg.font-bold.font-gray-900
+  = @daily.character.display_name
+p.text-sm.mb-4.text-gray-300
   | 今回集中するチャレンジ課題を選択
   br
   | キャラ指定なしが2つ、各対キャラ指定が1つの計3つ程度を推奨
@@ -14,7 +16,7 @@ p
           = f.label(:challenge_id, value: challenge.id) do
             p = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
             p.dark:text-white = challenge.topic
-  = f.submit "登録", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+  = f.submit "選択した課題でプレイを開始", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
 
 = render "shared/hr", text: "MENU"
 div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white

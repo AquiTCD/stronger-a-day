@@ -35,6 +35,8 @@ Rails.application.routes.draw do
       resources :daily_results, as: :results, path: "results" do
         get :select_opponent, on: :collection
       end
+
+      put :finish, on: :member
     end
     resources :challenges do
       put :start, on: :member
