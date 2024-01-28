@@ -2,7 +2,7 @@ class DailiesController < BaseController
   def new
     # TODO: playing ならモーダル
     # 終了して新しいキャラ選択 or 続きから
-    @playing = current_user.dailies.where(character: @game.characters).in_progress.first
+    @playing = current_user.dailies.where(character: @game.characters).where.associated(:daily_results).in_progress.first
 
     @daily = current_user.dailies.new
     @characters = @game.characters
@@ -11,7 +11,7 @@ class DailiesController < BaseController
   def create
     user_dailies = current_user.dailies
     # まだ関連データがないものを削除
-    user_dailies.where(daily_results: nil).destroy_all
+    user_dailies.where.missing(:daily_results).destroy_all
 
     existed_dailies = user_dailies.where(character_id: daily_params[:character_id], tried_on: Date.today)
     round = existed_dailies.size + 1
@@ -42,13 +42,6 @@ class DailiesController < BaseController
       alert = "プレイを終了しました\n次のプレイを開始前に振り返りを忘れずに"
       redirect_to game_path(@game), alert:
     end
-    # if params[:to_review] == "true"
-    #   notice = "プレイを終了しました\n続けて振り返りレビューを行います"
-    #   redirect_to game_reviews_path(@game), notice:
-    # else
-    #   alert = "プレイを終了しました\n次のプレイを開始前に振り返りを忘れずに"
-    #   redirect_to game_path(@game), alert:
-    # end
   end
 
   private

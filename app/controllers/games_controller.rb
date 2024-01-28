@@ -1,6 +1,6 @@
 class GamesController < BaseController
   def show
-    daily_statuses = current_user.dailies.where(character: @game.characters).pluck(:status)
+    daily_statuses = current_user.dailies.where(character: @game.characters).where.associated(:daily_results).pluck(:status)
     challenge_achieves = current_user.challenges.where(game: @game).pluck(:achieved_at)
 
     @all_challenging_count = challenge_achieves.size
