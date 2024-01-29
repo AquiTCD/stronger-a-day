@@ -1,9 +1,9 @@
 h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 振り返り
 
-- if @dailies.present?
-  = render "shared/hr", text: "直近の未レビュー: #{@dailies.size}件"
-  - @dailies.each do |daily|
-    = render "daily", daily: daily
+- if @plays.present?
+  = render "shared/hr", text: "直近の未レビュー: #{@plays.size}件"
+  - @plays.each do |play|
+    = render "play", play: play
 
 - else
   = render "shared/hr", text: "直近の未レビュー: 0件"

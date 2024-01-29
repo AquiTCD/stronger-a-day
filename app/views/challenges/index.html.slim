@@ -3,17 +3,6 @@ div#new_challenge
   = render "form", challenge: @challenge
 
 div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
-  / .grid.grid-cols-subgrid.col-span-5.text-xs.text-gray-700.uppercase.bg-gray-50.dark:bg-gray-700.dark:text-gray-400
-    div.px-6.py-3(scope="col")
-      | 選択
-    div.px-6.py-3(scope="col")
-      | 相手
-    div.px-6.py-3(scope="col")
-      | 挑戦課題
-    div.px-6.py-3(scope="col")
-      | 公開設定
-    div.px-6.py-3(scope="col")
-      |
   = render partial: @challenges
 
 = render "shared/hr", text: "達成した課題"

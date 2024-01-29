@@ -1,18 +1,18 @@
-- results = daily.daily_results
-- challenges = daily.daily_challenges
-div.mb-4(id="daily_#{daily.id}")
+- results = play.play_results
+- challenges = play.play_challenges
+div.mb-4(id="play_#{play.id}")
   .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
     div.text-gray-400.mb-2
       span.text-lg
-        = daily.tried_on.strftime("%Y/%m/%d")
+        = play.tried_on.strftime("%Y/%m/%d")
       span.text-lg
-        = ": ROUND #{daily.round}"
+        = ": ROUND #{play.round}"
     div
       span.text-base
         | 使用キャラクター
       br
       span.text-3xl.text-white
-        = daily.character.display_name
+        = play.character.display_name
     div
       span.text-5xl.text-green-400 = results.sum(:win_count)
       sapn.text-2xl.mr-3 勝
@@ -20,17 +20,17 @@ div.mb-4(id="daily_#{daily.id}")
       span.text-2xl 敗
 
   div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
-    - challenges.select { |c| c.challenge.opponent_id == nil }.each do |daily_challenge|
+    - challenges.select { |c| c.challenge.opponent_id == nil }.each do |play_challenge|
       .grid.grid-cols-subgrid.col-span-4.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.font-bold
         .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
-          = daily_challenge.success_count
+          = play_challenge.success_count
         .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
-          = daily_challenge.failure_count
+          = play_challenge.failure_count
         .px-2.py-2.self-center.text-gray-200
-          = daily_challenge.challenge.topic
-        .px-2.py-2.self-center.justify-self-center(id="challenge_#{daily_challenge.challenge.id}")
-          = render "challenge_achieved", challenge: daily_challenge.challenge
-          / - if daily_challenge.challenge.achieved_at
+          = play_challenge.challenge.topic
+        .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
+          = render "challenge_achieved", challenge: play_challenge.challenge
+          / - if play_challenge.challenge.achieved_at
           /   svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
           /     path(fill-rule="evenodd" d="M4 4a2 2 0 1 0 0 4h16a2 2 0 1 0 0-4H4Zm0 6h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8Zm10.7 5.7a1 1 0 0 0-1.4-1.4l-.3.3V12a1 1 0 1 0-2 0v2.6l-.3-.3a1 1 0 0 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l2-2Z" clip-rule="evenodd")
           / - else
@@ -50,14 +50,14 @@ div.mb-4(id="daily_#{daily.id}")
         span.text-red-400.text-xl = result.lose_count
         span.text-sm 敗
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
-        - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |daily_challenge|
+        - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |play_challenge|
           .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
-            = daily_challenge.success_count
+            = play_challenge.success_count
           .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
-            = daily_challenge.failure_count
+            = play_challenge.failure_count
           .px-2.py-2.self-center.text-gray-200
-            = daily_challenge.challenge.topic
-          .px-2.py-2.self-center.justify-self-center(id="challenge_#{daily_challenge.challenge.id}")
-            = render "challenge_achieved", challenge: daily_challenge.challenge
+            = play_challenge.challenge.topic
+          .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
+            = render "challenge_achieved", challenge: play_challenge.challenge
 
-  = button_to "振り返りレビュー完了", complete_review_game_reviews_path(@game), method: :put, params: {daily_id: daily.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
+  = button_to "振り返りレビュー完了", complete_review_game_reviews_path(@game), method: :put, params: {play_id: play.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
