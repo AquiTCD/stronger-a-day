@@ -17,5 +17,8 @@ div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left
           = challenge.topic
 
 = render "shared/hr", text: "MENU"
+div.mb-2
+  = button_to "新しいプレイを始める", new_game_play_path(@game), method: :get, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+
 div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
   = link_to "メインメニューに戻る", game_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
