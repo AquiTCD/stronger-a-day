@@ -1,7 +1,9 @@
 class Plays::ChallengesController < BaseController
   def new
     @play = current_user.plays.find(params[:play_id])
-    @challenges = current_user.challenges.where(game: @game).not_achieved.order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
+    @challenges = current_user.challenges.where(game: @game, character_id: nil).not_achieved.
+                    or(current_user.challenges.where(game: @game, character_id: @play.character_id).not_achieved).
+                    order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
     @selected_challenge_ids = if @play.play_challenges.pluck(:challenge_id).present?
                                 @play.play_challenges.pluck(:challenge_id)
                               else

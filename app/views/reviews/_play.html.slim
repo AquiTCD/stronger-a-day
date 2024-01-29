@@ -49,13 +49,14 @@ div.mb-4(id="play_#{play.id}")
         span.text-sm 敗
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
         - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |play_challenge|
-          .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
-            = play_challenge.success_count
-          .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
-            = play_challenge.failure_count
-          .px-2.py-2.self-center.text-gray-200
-            = play_challenge.challenge.topic
-          .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
-            = render "challenge_achieved", challenge: play_challenge.challenge
+          .grid.grid-cols-subgrid.col-span-4.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.font-bold
+            .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
+              = play_challenge.success_count
+            .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
+              = play_challenge.failure_count
+            .px-2.py-2.self-center.text-gray-200
+              = play_challenge.challenge.topic
+            .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
+              = render "challenge_achieved", challenge: play_challenge.challenge
 
   = button_to "振り返りレビュー完了", complete_review_game_reviews_path(@game), method: :put, params: {play_id: play.id }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"

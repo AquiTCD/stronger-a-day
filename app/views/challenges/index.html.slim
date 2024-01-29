@@ -6,10 +6,15 @@ div#challenges.shadow-md.sm:rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left
   = render partial: @challenges
 
 = render "shared/hr", text: "達成した課題"
-#achieved_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1")
+#achieved_challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
   - @achieved_challenges.each do |challenge|
-    .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.px-2.py-3.text-white.font-bold
-      = challenge.topic
+    .border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600
+      .px-4.py-2.font-medium
+        p.text-gray-400
+          span = challenge.character ? "#{challenge.character.display_name} " : ""
+          span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
+        p.text-white.font-bold
+          = challenge.topic
 
 = render "shared/hr", text: "MENU"
 div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white

@@ -5,7 +5,7 @@ class ChallengesController < BaseController
     user_challenges = current_user.challenges.where(user: current_user, game: @game)
     @challenges = user_challenges.not_achieved.order(:id)
     @challenge = Challenge.new(user: current_user, game: @game)
-    @opponents = Character.where(game: @game)
+    @characters = Character.where(game: @game)
 
     @achieved_challenges = user_challenges.achieved.order(achieved_at: :desc)
   end
@@ -18,11 +18,12 @@ class ChallengesController < BaseController
       user: current_user,
       game: @game,
       topic: challenge_params[:topic],
+      character_id: challenge_params[:character_id],
       opponent_id: challenge_params[:opponent_id],
       public: challenge_params[:public],
     )
     if @challenge.save
-      @opponents = Character.where(game: @game)
+      @characters = Character.where(game: @game)
       flash.now.notice = "課題を追加しました"
     else
       render :new, status: :unprocessable_entity
@@ -30,7 +31,7 @@ class ChallengesController < BaseController
   end
 
   def edit
-    @opponents = Character.where(game: @game)
+    @characters = Character.where(game: @game)
   end
 
   def update
@@ -62,7 +63,7 @@ class ChallengesController < BaseController
   private
 
     def challenge_params
-      params.require(:challenge).permit(:topic, :opponent_id, :public)
+      params.require(:challenge).permit(:topic, :character_id, :opponent_id, :public)
     end
 
     def set_challenge
