@@ -6,14 +6,16 @@ class ResultForm
   attribute :opponent_id, :integer
   attribute :result
   attribute :challenges
+  attribute :comment
 
   def self.initialize_by_params(params)
     play_id = params[:play_id].to_i
     opponent_id = params[:opponent_id].to_i
     challenges = params[:challenges].to_h { |k, v| [k.to_i, v.to_sym] }
     result = params[:result].downcase.to_sym
+    comment = params[:comment].strip
 
-    self.new(play_id:, opponent_id:, challenges:, result:)
+    self.new(play_id:, opponent_id:, challenges:, result:, comment:)
   end
 
   def save_result!
@@ -50,6 +52,7 @@ class ResultForm
       when :lose
         play_result.lose_count += 1
       end
+      play_result.comment += "#{comment}\n" if comment.present?
       play_result.save!
     end
 end

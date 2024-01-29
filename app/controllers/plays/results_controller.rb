@@ -30,6 +30,6 @@ class Plays::ResultsController < BaseController
     end
 
     def play_result_params
-      params.require(:result_form).permit(:play_id, :opponent_id, :result, challenges: {})
+      params.require(:result_form).permit(:play_id, :opponent_id, :result, :comment, challenges: {})
     end
 end

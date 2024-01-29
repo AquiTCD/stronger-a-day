@@ -36,17 +36,20 @@ div.mb-4(id="play_#{play.id}")
           /     path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v5m0 0 2-2m-2 2-2-2M3 6v1c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V6c0-.6-.4-1-1-1H4a1 1 0 0 0-1 1Zm2 2v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V8H5Z")
 
   - results.each do |result|
-    .mb-4.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white
-      div
+    .mb-4.leading-none.tracking-tight.text-gray-900.text-white
+      div.font-extrabold
         span.mr-2
           | vs
         span.text-xl.text-white
           = result.opponent.display_name
-      div
+      div.font-extrabold
         span.text-green-400.text-xl = result.win_count
         sapn.mr-1.text-sm 勝
         span.text-red-400.text-xl = result.lose_count
         span.text-sm 敗
+      ul.list-disc.pl-4
+        - result.comment.split("\n").each do |comment|
+          li.text-gray-400.text-sm = comment
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
         - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |play_challenge|
           .grid.grid-cols-subgrid.col-span-4.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.font-bold

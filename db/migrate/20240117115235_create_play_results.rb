@@ -7,6 +7,8 @@ class CreatePlayResults < ActiveRecord::Migration[7.1]
       t.integer :win_count, null: false, default: 0
       t.integer :lose_count, null: false, default: 0
 
+      t.text :comment, null: false, default: ""
+
       t.timestamps
     end
 

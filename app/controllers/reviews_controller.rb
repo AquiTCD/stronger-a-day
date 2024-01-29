@@ -43,6 +43,6 @@ class ReviewsController < BaseController
 
     @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
 
-    flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d")}}\nのプレイをレビュー完了にしました"
+    flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d %H:%M")}\nのプレイをレビュー完了にしました"
   end
 end
