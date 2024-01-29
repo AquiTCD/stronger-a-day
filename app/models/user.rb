@@ -14,6 +14,10 @@
 #  index_users_on_name          (name) UNIQUE
 #
 class User < ApplicationRecord
+  def self.table_name_prefix
+    (self == User) ? "" : "user_"
+  end
+
   devise :authenticatable
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy
