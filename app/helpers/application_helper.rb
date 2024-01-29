@@ -4,7 +4,7 @@ module ApplicationHelper
     turbo_stream.update "flash", partial: "shared/flash"
   end
 
-  def md_to_html(text)
+  def md_to_html(text = "")
     html = Commonmarker.to_html(text)
     raw(html)
   end

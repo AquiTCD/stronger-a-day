@@ -21,9 +21,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Play < ApplicationRecord
-  def self.table_name_prefix
-    (self == Play) ? "" : "play_"
-  end
   belongs_to :user
   belongs_to :character
   has_many :play_challenges, dependent: :destroy

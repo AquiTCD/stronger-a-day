@@ -2,7 +2,7 @@
   p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight
     | 既にプレイ中のデータが見つかりました
   p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight
-    = "開始: #{@playing.tried_on.strftime('%Y/%m/%d')}"
+    = "開始: #{@playing.started_at.strftime('%Y/%m/%d %H:%M')}"
     br
     = "操作キャラクター: #{@playing.character.display_name}"
 

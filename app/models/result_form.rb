@@ -26,7 +26,7 @@ class ResultForm
   private
 
     def play
-      @play ||= play.find(play_id)
+      @play ||= Play.find(play_id)
     end
 
     def convert_to_play_challenge

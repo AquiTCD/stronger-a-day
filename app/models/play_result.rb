@@ -21,7 +21,7 @@
 #  fk_rails_...  (opponent_id => characters.id)
 #  fk_rails_...  (play_id => plays.id)
 #
-class Play::Result < ApplicationRecord
+class PlayResult < ApplicationRecord
   belongs_to :play
   belongs_to :opponent, class_name: "Character"
 

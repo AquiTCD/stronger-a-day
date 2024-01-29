@@ -1,4 +1,4 @@
-class Play::ResultsController < BaseController
+class Plays::ResultsController < BaseController
   before_action :set_play
 
   def new

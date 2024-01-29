@@ -1,11 +1,11 @@
-class Play::ChallengesController < BaseController
+class Plays::ChallengesController < BaseController
   def new
     @play = current_user.plays.find(params[:play_id])
     @challenges = current_user.challenges.where(game: @game).not_achieved.order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
     @selected_challenge_ids = if @play.play_challenges.pluck(:challenge_id).present?
                                 @play.play_challenges.pluck(:challenge_id)
                               else
-                                @challenges.in_progress.pluck(:id)
+                                @challenges.selected.pluck(:id)
                               end
   end
 
@@ -22,7 +22,7 @@ class Play::ChallengesController < BaseController
       play_challenge_params[:challenge_ids].each do |challenge_id|
         next if @selected_challenges.present? && @selected_challenges.pluck(:challenge_id).include?(challenge_id.to_i)
 
-        playChallenge.create!(play_id: params[:play_id], challenge_id:)
+        PlayChallenge.create!(play_id: params[:play_id], challenge_id:)
       end
       play.in_progress!
     end

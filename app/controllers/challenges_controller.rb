@@ -19,7 +19,7 @@ class ChallengesController < BaseController
       game: @game,
       topic: challenge_params[:topic],
       opponent_id: challenge_params[:opponent_id],
-      private: challenge_params[:private],
+      public: challenge_params[:public],
     )
     if @challenge.save
       @opponents = Character.where(game: @game)
@@ -43,7 +43,7 @@ class ChallengesController < BaseController
   end
 
   def start
-    @challenge.toggle(:in_progress)
+    @challenge.toggle(:selected)
     if @challenge.save
       redirect_to game_challenge_path(@game, @challenge)
     else
@@ -62,7 +62,7 @@ class ChallengesController < BaseController
   private
 
     def challenge_params
-      params.require(:challenge).permit(:topic, :opponent_id, :private)
+      params.require(:challenge).permit(:topic, :opponent_id, :public)
     end
 
     def set_challenge

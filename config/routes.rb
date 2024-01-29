@@ -31,9 +31,11 @@ Rails.application.routes.draw do
 
   resources :games, param: :abbreviation, path: "", only: [:show] do
     resources :plays do
-      resources :play_challenges, as: :challenges, path: "challenges"
-      resources :play_results, as: :results, path: "results" do
-        get :select_opponent, on: :collection
+      scope module: :plays do
+        resources :challenges
+        resources :results do
+          get :select_opponent, on: :collection
+        end
       end
 
       put :finish, on: :member

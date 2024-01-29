@@ -21,7 +21,7 @@
 #  fk_rails_...  (challenge_id => challenges.id)
 #  fk_rails_...  (play_id => plays.id)
 #
-class Play::Challenge < ApplicationRecord
+class PlayChallenge < ApplicationRecord
   belongs_to :play
   belongs_to :challenge
 

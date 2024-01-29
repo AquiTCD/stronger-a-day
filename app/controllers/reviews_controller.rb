@@ -8,7 +8,7 @@ class ReviewsController < BaseController
                includes(:play_results, play_challenges: :challenge)
 
     total_plays = user_plays.reviewed
-    total_results = playResult.where(play: total_plays)
+    total_results = PlayResult.where(play: total_plays)
     @total_win_count = total_results.sum(:win_count)
     @total_lose_count = total_results.sum(:lose_count)
 
@@ -38,11 +38,11 @@ class ReviewsController < BaseController
     @play.reviewed!
 
     challenges = @play.challenges
-    challenges.not_achieved.update_all(in_progress: true)
-    challenges.achieved.update_all(in_progress: false)
+    challenges.not_achieved.update_all(selected: true)
+    challenges.achieved.update_all(selected: false)
 
     @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
 
-    flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d")}: ROUND #{@play.round}\nのプレイをレビュー完了にしました"
+    flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d")}}\nのプレイをレビュー完了にしました"
   end
 end
