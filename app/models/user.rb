@@ -18,6 +18,13 @@ class User < ApplicationRecord
     (self == User) ? "" : "user_"
   end
 
+  # for devise
+  def self.new_with_session(params, session)
+    auth = session["devise.authentication"]
+
+    new(name: auth["username"], display_name: auth["display_name"])
+  end
+
   devise :authenticatable
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy

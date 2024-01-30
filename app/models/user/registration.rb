@@ -23,11 +23,4 @@
 #
 class User::Registration < ApplicationRecord
   belongs_to :user
-  devise :confirmable
-
-  def self.new_with_session(params, session)
-    new(
-      unconfirmed_email: params[:email],
-    )
-  end
 end
