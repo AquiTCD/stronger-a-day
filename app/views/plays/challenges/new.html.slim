@@ -1,12 +1,12 @@
 h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white 課題選択
 div.text-lg.font-bold.font-gray-900
-  = @daily.character.display_name
+  = @play.character.display_name
 p.text-sm.mb-4.text-gray-300
   | 今回集中するチャレンジ課題を選択
   br
   | キャラ指定なしが2つ、各対キャラ指定が1つの計3つ程度を推奨
 
-= form_with url: game_daily_challenges_path(@game, @daily), method: :post do |f|
+= form_with url: game_play_challenges_path(@game, @play), method: :post do |f|
   .shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr]")
     - @challenges.each do |challenge|
       .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600
@@ -14,11 +14,13 @@ p.text-sm.mb-4.text-gray-300
           = f.check_box(:challenge_ids, { multiple: true, checked: @selected_challenge_ids.include?(challenge.id), id: "challenge_id_#{challenge.id}", include_hidden: false}, challenge.id)
         .px-2.py-2
           = f.label(:challenge_id, value: challenge.id) do
-            p = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-            p.dark:text-white = challenge.topic
+            p
+              span = challenge.character ? "#{challenge.character.display_name} " : ""
+              span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
+            p.text-white = challenge.topic
   = f.submit "選択した課題でプレイを開始", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
 
 = render "shared/hr", text: "MENU"
 div.w-full.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.dark:bg-gray-700.dark:border-gray-600.dark:text-white
-  = link_to "操作キャラ選択に戻る", new_game_daily_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+  = link_to "操作キャラ選択に戻る", new_game_play_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
   = link_to "メインメニューに戻る", game_path(@game), class: "block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"

@@ -1,17 +1,19 @@
 = turbo_stream.update @challenge, class:"grid grid-cols-subgrid col-span-5" do
   = form_with model: @challenge, url: game_challenge_path(@game), class: "grid grid-cols-subgrid col-span-5" do |f|
     .grid.grid-cols-subgrid.col-span-5.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.items-center
-      .col-span-3.grid.grid-rows-2
-        .px-2.pt-2.pb-1
-          = f.collection_select :opponent_id, @opponents, :id, :display_name, { include_blank: "相手指定なし" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        .px-2.pb-2
-          = f.text_field :topic, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      .col-span-3.grid.grid-subgrid.grid-rows-2.grid-cols-2
+        .pl-2.pt-2.pb-1
+          = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full"
+        .pl-1.pt-2.pb-1
+          = f.collection_select :opponent_id, @characters, :id, :display_name, { include_blank: "相手指定なし" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full"
+        .pl-2.pb-2.col-span-2
+          = f.text_field :topic, autofocus: true, required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       .col-span-2.px-2.py-2.justify-self-end
         p.text-sm.pb-1
           | 公開
-        = f.label "private_#{@challenge.id}", "非公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
-          = f.check_box :private, { id: "challenge_private_#{@challenge.id}", class: "sr-only peer" }
+        = f.label "public_#{@challenge.id}", "公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
+          = f.check_box :public, { id: "challenge_public_#{@challenge.id}", class: "sr-only peer" }
           div class="mr-1 w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-        = button_tag type: "submit", class: "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" do
+        = button_tag type: "submit", class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do
           svg.w-6.h-6.text-gray-800.dark:text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9")

@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: play_challenges
+#
+#  id            :bigint           not null, primary key
+#  play_id       :bigint           not null
+#  challenge_id  :bigint           not null
+#  success_count :integer          default(0), not null
+#  failure_count :integer          default(0), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_play_challenges_on_challenge_id              (challenge_id)
+#  index_play_challenges_on_play_id                   (play_id)
+#  index_play_challenges_on_play_id_and_challenge_id  (play_id,challenge_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (challenge_id => challenges.id)
+#  fk_rails_...  (play_id => plays.id)
+#
+class PlayChallenge < ApplicationRecord
+  belongs_to :play
+  belongs_to :challenge
+
+  validates :challenge_id, uniqueness: { scope: :play_id }
+end

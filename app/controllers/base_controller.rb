@@ -11,8 +11,6 @@ class BaseController < ApplicationController
     end
 
     def set_note
-      @note = current_user.notes.find_or_initialize_by(game: @game) do |note|
-        note.content = ""
-      end
+      @note = current_user.notes.find_or_initialize_by(game: @game)
     end
 end

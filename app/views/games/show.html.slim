@@ -28,9 +28,9 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
           br
           | 挑戦は操作キャラクター別に保存されます
           br
-          |戦績と課題が達成できたかを記録しましょう
+          | 戦績と課題が達成できたかを記録しましょう
     - else
-      = link_to new_game_daily_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
+      = link_to new_game_play_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
         - if @playing
           div.mb-1
             span.bg-red-100.text-red-800.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.dark:bg-red-900.dark:text-red-300
@@ -43,7 +43,7 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
           br
           | 挑戦は操作キャラクター別に保存されます
           br
-          |戦績と課題が達成できたかを記録しましょう
+          | 戦績と課題が達成できたかを記録しましょう
   .div.justify-self-center.self-center
     svg(class="w-[48px] h-[48px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 19V5m0 14-4-4m4 4 4-4")

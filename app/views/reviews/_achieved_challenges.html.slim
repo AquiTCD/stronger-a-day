@@ -1,3 +1,8 @@
 - challenges.each do |challenge|
-  .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark:hover:bg-gray-600.px-2.py-3.text-white.font-bold
-    = challenge.topic
+  .border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600
+    .px-4.py-2.font-medium
+      p.text-gray-400
+        span = challenge.character ? "#{challenge.character.display_name} " : ""
+        span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
+      p.text-white.font-bold
+        = challenge.topic

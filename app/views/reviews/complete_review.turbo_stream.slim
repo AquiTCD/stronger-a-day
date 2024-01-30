@@ -1,12 +1,10 @@
-= turbo_stream.update "daily_#{@daily.id}" do
-  .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white(id="daily_#{@daily.id}")
+= turbo_stream.update "play_#{@play.id}" do
+  .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.text-gray-900.md:text-5xl.lg:text-6xl.dark:text-white(id="play_#{@play.id}")
     div.text-gray-400.mb-2
       span.text-lg
-        = @daily.tried_on.strftime("%Y/%m/%d")
-      span.text-lg
-        = ": ROUND #{@daily.round}"
+        = @play.started_at.strftime('%Y/%m/%d %H:%M')
     div.text-base
-      = @daily.character.display_name
+      = @play.character.display_name
     div.text-lg.text-gray-400
       | レビュー済
 

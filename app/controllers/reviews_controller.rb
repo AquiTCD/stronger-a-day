@@ -1,14 +1,14 @@
 class ReviewsController < BaseController
   def index
     characters = @game.characters
-    user_dailies = current_user.dailies.
-                     where(character: characters).
-                     where.associated(:daily_results)
-    @dailies = user_dailies.finished.order(id: :desc).
-                 includes(:daily_results, daily_challenges: :challenge)
+    user_plays = current_user.plays.
+                   where(character: characters).
+                   where.associated(:play_results).distinct
+    @plays = user_plays.finished.order(id: :desc).
+               includes(:play_results, play_challenges: :challenge)
 
-    total_dailies = user_dailies.reviewed
-    total_results = DailyResult.where(daily: total_dailies)
+    total_plays = user_plays.reviewed
+    total_results = PlayResult.where(play: total_plays)
     @total_win_count = total_results.sum(:win_count)
     @total_lose_count = total_results.sum(:lose_count)
 
@@ -34,15 +34,15 @@ class ReviewsController < BaseController
   end
 
   def complete_review
-    @daily = current_user.dailies.find(params[:daily_id])
-    @daily.reviewed!
+    @play = current_user.plays.find(params[:play_id])
+    @play.reviewed!
 
-    challenges = @daily.challenges
-    challenges.not_achieved.update_all(in_progress: true)
-    challenges.achieved.update_all(in_progress: false)
+    challenges = @play.challenges
+    challenges.not_achieved.update_all(selected: true)
+    challenges.achieved.update_all(selected: false)
 
     @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
 
-    flash.now[:success] = "#{@daily.tried_on.strftime("%Y/%m/%d")}: ROUND #{@daily.round}\nのプレイをレビュー完了にしました"
+    flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d %H:%M")}\nのプレイをレビュー完了にしました"
   end
 end
