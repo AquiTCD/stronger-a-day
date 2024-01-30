@@ -1,8 +1,7 @@
 class PlaysController < BaseController
   def new
-    # TODO: playing ならモーダル
-    # 終了して新しいキャラ選択 or 続きから
-    @playing = current_user.plays.where(character: @game.characters).where.associated(:play_results).in_progress.first
+    # NOTE: playing なら終了して新しいキャラ選択 or 続きから
+    @playing = current_user.plays.where(character: @game.characters).where.associated(:play_results).distinct.in_progress.first
 
     @play = current_user.plays.new
     @characters = @game.characters

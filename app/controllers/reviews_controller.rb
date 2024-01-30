@@ -3,7 +3,7 @@ class ReviewsController < BaseController
     characters = @game.characters
     user_plays = current_user.plays.
                    where(character: characters).
-                   where.associated(:play_results)
+                   where.associated(:play_results).distinct
     @plays = user_plays.finished.order(id: :desc).
                includes(:play_results, play_challenges: :challenge)
 
