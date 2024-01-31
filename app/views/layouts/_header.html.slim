@@ -1,27 +1,25 @@
-nav.bg-white.border-gray-200.dark:bg-gray-900
+nav.border-b.border-gray-400.bg-gray-900
   .max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-4
-    - if current_page?(root_path)
-      flex.items-center.space-x-3.rtl:space-x-reverse
-        span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
-          | ヒトツヨ
-    - else
-      = link_to game_path(@game), class: "flex items-center space-x-3 rtl:space-x-reverse" do
-        span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
-          | ヒトツヨ
-    - if current_user
-      = button_tag(type: "button", class: "inline-flex items-center p-2 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", id: "user-menu-button", aria: {  expanded: "false", controls: "navbar-default" }, data: { "collapse-toggle": "navbar-default" }) do
-        div
-          span = current_user.display_name
-          / img(class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo")
-    - else
-      li
-      = button_to "Sign in with twitter", authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }
-      = link_to "Sign in", sign_in_user_session_path if Rails.env.development?
-    #navbar-default.hidden.w-full.md:w-auto
-      ul
-        li
-          = link_to "アカウント編集", root_path, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-        li
-          = link_to "設定", root_path, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-        li
-          = button_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+    = link_to root_path do
+      = image_tag 'logo_w.svg', class: "max-w-32 h-6"
+    - if user_signed_in?
+      div(data-controller="dropdown"
+          data-action="click->dropdown#toggle click@window->dropdown#hide")
+        div(id="dropdown-button" class="relative inline-block")
+          div(role="button" tabindex="0" data-dropdown-target="button" class="inline-block select-none")
+            span.appearance-none.flex.items-center.inline-block
+              span.text-xs.mr-2 = current_user.display_name
+              = image_tag current_user.authentications.first.image_url, class: "rounded-full h-8 w-8"
+          div(data-dropdown-target="menu"
+              data-transition-enter="transition ease-out duration-200"
+              data-transition-enter-from="opacity-0 translate-y-1"
+              data-transition-enter-to="opacity-100 translate-y-0"
+              data-transition-leave="transition ease-in duration-150"
+              data-transition-leave-from="opacity-100 translate-y-0"
+              data-transition-leave-to="opacity-0 translate-y-1"
+              class="hidden absolute top-4 right-0 z-10 mt-5 flex w-screen max-w-max")
+            .text-sm.bg-white.shadow-lg.rounded.border.overflow-hidden.w-32
+              span.no-underline.block.pl-4.py-2.text-gray-900.bg-white.hover:bg-gray-100.whitespace-no-wrap.text-xs = "@#{current_user.name}"
+              = button_to "マイページ", me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
+              = button_to "アカウント設定", edit_me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
+              = button_to "ログアウト", sign_out_path, method: :delete, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"

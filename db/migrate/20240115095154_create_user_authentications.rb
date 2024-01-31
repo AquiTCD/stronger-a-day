@@ -10,7 +10,6 @@ class CreateUserAuthentications < ActiveRecord::Migration[7.1]
 
       t.string :username
       t.string :display_name
-      t.string :email
       t.string :url
       t.string :image_url
 

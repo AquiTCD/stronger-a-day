@@ -9,25 +9,26 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "site#index"
 
-  devise_for :user, skip: :all
-  devise_for(:registrations,
-             class_name: "User::Registration",
-             controllers: { confirmations: "user/registrations" })
-  devise_scope :registration do
-    get "user/registration/sign_up", to: "user/registrations#new", as: "new_user_registration"
-    post "user/registration", to: "user/registrations#create", as: "create_user_registration"
-    delete "user/registration", to: "user/registrations#destroy", as: "destroy_user_registration"
-  end
+  devise_for :users, skip: :all
   devise_scope :user do
-    delete "logout", to: "user/sessions#destroy", as: "destroy_user_session"
-    get "login", to: "user/sessions#login", as: "sign_in_user_session"
+    get "sign_up", to: "users/registrations#new", as: :sign_up
+    post "sign_up", to: "users/registrations#create", as: :create_user_registration
+    delete "destroy", to: "users/registrations#destroy", as: :destroy_me
+
+    get "sign_in", to: "users/sessions#sign_in", as: :sign_in
+    delete "sign_out", to: "users/sessions#destroy", as: :sign_out
   end
   devise_for(:authentications,
              class_name: "User::Authentication",
-             path: "user",
-             controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
+             path: "users",
+             controllers: { omniauth_callbacks: "users/omniauth_callbacks" })
 
-  resources :users
+  get "home", as: :home, to: "games#index"
+
+  resources :users, param: :name, only: [:show]
+  get "me", as: :me, to: "users#me"
+  get "me/edit", as: :edit_me, to: "users#edit"
+  patch "me/update", as: :update_me, to: "users#update"
 
   resources :games, param: :abbreviation, path: "", only: [:show] do
     resources :plays do
@@ -51,5 +52,10 @@ Rails.application.routes.draw do
       end
     end
     resource :note
+  end
+
+  resource :page, only: [] do
+    get :terms_of_service, on: :collection
+    get :privacy_policy, on: :collection
   end
 end

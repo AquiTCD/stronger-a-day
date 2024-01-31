@@ -2,11 +2,13 @@
 #
 # Table name: users
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                  :bigint           not null, primary key
+#  name                :string           not null
+#  display_name        :string
+#  remember_token      :string
+#  remember_created_at :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 # Indexes
 #
@@ -18,14 +20,26 @@ class User < ApplicationRecord
     (self == User) ? "" : "user_"
   end
 
-  devise :authenticatable
-  has_one :registration, dependent: :destroy
+  # for devise
+  devise :authenticatable, :rememberable
+  def self.new_with_session(params, session)
+    user_params =
+      if params.present?
+        params
+      else
+        {
+          name: session["devise.authentication"]["username"],
+          display_name: session["devise.authentication"]["display_name"]
+        }
+      end
+    new(user_params)
+  end
+
   has_many :authentications, dependent: :destroy
   has_many :plays, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :challenges, dependent: :destroy
 
-  def registered?
-    registration.present?
-  end
+  validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
+  validates :display_name, presence: true, uniqueness: true
 end

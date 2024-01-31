@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.bigint "character_id", null: false
     t.datetime "started_at", null: false
     t.string "status", default: "ready", null: false
+    t.text "comment", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_plays_on_character_id"
@@ -103,7 +104,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.string "uid", null: false
     t.string "username"
     t.string "display_name"
-    t.string "email"
     t.string "url"
     t.string "image_url"
     t.datetime "created_at", null: false
@@ -112,22 +112,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.index ["user_id"], name: "index_user_authentications_on_user_id", unique: true
   end
 
-  create_table "user_registrations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "email", null: false
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_user_registrations_on_email", unique: true
-    t.index ["user_id"], name: "index_user_registrations_on_user_id", unique: true
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "display_name"
+    t.string "remember_token"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["display_name"], name: "index_users_on_display_name", unique: true
@@ -148,5 +137,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
   add_foreign_key "user_authentications", "users"
-  add_foreign_key "user_registrations", "users"
 end

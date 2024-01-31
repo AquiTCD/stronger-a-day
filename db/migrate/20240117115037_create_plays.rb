@@ -6,6 +6,8 @@ class CreatePlays < ActiveRecord::Migration[7.1]
       t.datetime :started_at, null: false
       t.string :status, null: false, default: "ready"
 
+      t.text :comment, null: false, default: ""
+
       t.timestamps
     end
   end
