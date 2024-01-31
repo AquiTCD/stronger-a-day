@@ -8,6 +8,9 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true)
+    link(href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet")
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
     .container(data-controller="slideover" data-action="keydown.esc->modal#close" tabindex="-1")
