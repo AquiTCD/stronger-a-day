@@ -8,7 +8,6 @@
 #  uid          :string           not null
 #  username     :string
 #  display_name :string
-#  email        :string
 #  url          :string
 #  image_url    :string
 #  created_at   :datetime         not null
@@ -29,4 +28,7 @@ class User::Authentication < ApplicationRecord
 
   PROVIDERS = %i[twitter2 steam discord].freeze
   enum :provider, PROVIDERS.zip(PROVIDERS.map(&:to_s)).to_h
+
+  # NOTE: devise認証にemail attributeが求められるので強制的にnilで扱う
+  attribute :email, :string, default: nil
 end

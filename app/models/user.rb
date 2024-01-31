@@ -2,11 +2,13 @@
 #
 # Table name: users
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                  :bigint           not null, primary key
+#  name                :string           not null
+#  display_name        :string
+#  remember_token      :string
+#  remember_created_at :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 # Indexes
 #
@@ -19,6 +21,7 @@ class User < ApplicationRecord
   end
 
   # for devise
+  devise :authenticatable, :rememberable
   def self.new_with_session(params, session)
     user_params =
       if params.present?
@@ -31,7 +34,7 @@ class User < ApplicationRecord
       end
     new(user_params)
   end
-  devise :authenticatable
+
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy
   has_many :plays, dependent: :destroy

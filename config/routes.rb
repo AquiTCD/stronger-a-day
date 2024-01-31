@@ -22,8 +22,6 @@ Rails.application.routes.draw do
              path: "users",
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" })
 
-  resources :users
-
   get "home", as: :home, to: "games#index"
 
   resources :games, param: :abbreviation, path: "", only: [:show] do
