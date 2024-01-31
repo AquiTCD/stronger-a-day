@@ -31,7 +31,6 @@ class User < ApplicationRecord
       end
     new(user_params)
   end
-
   devise :authenticatable
   has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy

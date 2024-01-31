@@ -9,37 +9,18 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "site#index"
 
-  # devise_for :users,
-  #   path: "",
-  #     controllers: {
-  #       registrations: "users/registrations",
-  #       sessions: "users/sessions",
-  #       # passwords: "users/passwords"
-  #   }
-  devise_for :user, skip: :all
-
-  # devise_scope :registration do
-  #   get "user/registration/sign_up", to: "user/registrations#new", as: "new_user_registration"
-  #   post "user/registration", to: "user/registrations#create", as: "create_user_registration"
-  #   delete "user/registration", to: "user/registrations#destroy", as: "destroy_user_registration"
-  # end
+  devise_for :users, skip: :all
   devise_scope :user do
-    get "sign_in", to: "user/sessions#sign_in", as: "sign_in_user_session"
-    delete "sign_out", to: "user/sessions#destroy", as: "destroy_user_session"
-  end
+    get "sign_up", to: "users/registrations#new", as: :sign_up
+    post "sign_up", to: "users/registrations#create", as: "create_user_registration"
 
-  devise_for(:registrations,
-             class_name: "User",
-             controllers: { confirmations: "user/registrations" })
-  devise_scope :registration do
-    get "sign_up", to: "user/registrations#new", as: "new_user_registration"
-    post "sign_up", to: "user/registrations#create", as: "create_user_registration"
-    delete "user/registration", to: "user/registrations#destroy", as: "destroy_user_registration"
+    get "sign_in", to: "users/sessions#sign_in", as: :sign_in
+    delete "sign_out", to: "users/sessions#destroy", as: :sign_out
   end
   devise_for(:authentications,
              class_name: "User::Authentication",
-             path: "user",
-             controllers: { omniauth_callbacks: "user/omniauth_callbacks" })
+             path: "users",
+             controllers: { omniauth_callbacks: "users/omniauth_callbacks" })
 
   resources :users
 
