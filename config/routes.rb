@@ -53,4 +53,9 @@ Rails.application.routes.draw do
     end
     resource :note
   end
+
+  resource :page, only: [] do
+    get :terms_of_service, on: :collection
+    get :privacy_policy, on: :collection
+  end
 end

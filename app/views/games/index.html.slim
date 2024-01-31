@@ -1,3 +1,31 @@
-ul
-  - @games.each do |game|
-    li = link_to game.title, game_path(game)
+section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
+  .py-4.px-2.mx-auto.max-w-screen-xl.w-full
+    - @games.each do |game|
+      = link_to game_path(game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700 mb-5"
+        / div.mb-1
+          span.bg-green-100.text-green-800.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.dark:bg-green-900.dark:text-green-300
+            = label
+        h2.text-gray-900.dark:text-white.mb-2
+          span.text-3xl.font-extrabold.mr-2
+            = game.title
+    .w-full.block.bg-gray-900.border.border-gray-800.rounded-lg.p-6.shadow
+        div.mb-1
+          span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-yellow-900.text-yellow-500
+            | 予定（未実装）
+        h2.text-gray-500.mb-2
+          span.text-3xl.font-extrabold.mr-2
+            | 鉄拳8
+    .w-full.block.bg-gray-900.border.border-gray-800.rounded-lg.p-6.shadow
+        div.mb-1
+          span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-yellow-900.text-yellow-500
+            | 予定（未実装）
+        h2.text-gray-500.mb-2
+          span.text-3xl.font-extrabold.mr-2
+            | GUILTY GEAR -STRIVE-
+    .w-full.block.bg-gray-900.border.border-gray-800.rounded-lg.p-6.shadow
+        div.mb-1
+          span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-yellow-900.text-yellow-500
+            | 予定（未実装）
+        h2.text-gray-500.mb-2
+          span.text-3xl.font-extrabold.mr-2
+            | グランブルーファンタジーヴァーサス -ライジング-
