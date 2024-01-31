@@ -68,9 +68,13 @@ ja:
         we_need_your_current_password_to_confirm_your_changes: "変更を反映するには現在のパスワードを入力してください"
       new:
         sign_up: "アカウント登録"
+      user:
+        signed_up: "ユーザー登録が完了しました\nようこそ、ヒトツヨへ！"
     sessions:
       new:
         sign_in: "ログイン"
+      user:
+        signed_out: "ログアウトしました"
     shared:
       links:
         back: "戻る"
