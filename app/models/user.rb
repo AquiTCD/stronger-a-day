@@ -35,7 +35,6 @@ class User < ApplicationRecord
     new(user_params)
   end
 
-  has_one :registration, dependent: :destroy
   has_many :authentications, dependent: :destroy
   has_many :plays, dependent: :destroy
   has_many :notes, dependent: :destroy

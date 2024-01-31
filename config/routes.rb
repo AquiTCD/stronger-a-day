@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   devise_for :users, skip: :all
   devise_scope :user do
     get "sign_up", to: "users/registrations#new", as: :sign_up
-    post "sign_up", to: "users/registrations#create", as: "create_user_registration"
+    post "sign_up", to: "users/registrations#create", as: :create_user_registration
+    delete "destroy", to: "users/registrations#destroy", as: :destroy_me
 
     get "sign_in", to: "users/sessions#sign_in", as: :sign_in
     delete "sign_out", to: "users/sessions#destroy", as: :sign_out
@@ -23,6 +24,11 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" })
 
   get "home", as: :home, to: "games#index"
+
+  resources :users, param: :name, only: [:show]
+  get "me", as: :me, to: "users#me"
+  get "me/edit", as: :edit_me, to: "users#edit"
+  patch "me/update", as: :update_me, to: "users#update"
 
   resources :games, param: :abbreviation, path: "", only: [:show] do
     resources :plays do

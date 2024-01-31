@@ -70,6 +70,7 @@ ja:
         sign_up: "アカウント登録"
       user:
         signed_up: "ユーザー登録が完了しました\nようこそ、ヒトツヨへ！"
+        destroyed: "アカウントを削除しました\nまたのご利用をお待ちしております"
     sessions:
       new:
         sign_in: "ログイン"
