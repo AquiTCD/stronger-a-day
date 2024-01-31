@@ -1,4 +1,6 @@
 class GamesController < BaseController
+  skip_before_action :set_game, only: [:index]
+
   def index
     @games = Game.all
   end

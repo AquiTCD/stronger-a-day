@@ -1,17 +1,35 @@
-= form_with url: create_user_registration_path, html: { method: :post } do |f|
-  = render "user/shared/error_messages", resource: resource
-  .field
-    f.label :name
-    = f.text_field :name, value: resource.name, autofocus: true
-  .field
-    f.label :display_name
-    = f.text_field :display_name, value: resource.display_name
-  .field
-    f.label :email
-    = f.email_field :email, value: resource.authentications.first.email
 
-  .actions
-    = f.submit "登録する"
+section.bg-gray-900
+  .w-full.lg:max-w-xl.p-6.space-y-8.sm:p-8.bg-white.rounded-lg.shadow-xl.dark:bg-gray-800
+    h2.text-2xl.font-bold.text-gray-900.dark:text-white
+      | ヒトツヨに登録
+    | ヒトツヨ内で使用するアカウント名、表示名を登録します。
+    br
+    | すでに使われているものは登録できませんが、登録後でもいつでも変更することができます。
+    = form_with model: resource, scope: resource_name, url: create_user_registration_path, html: { method: :post, data: { turbo: false } } do |f|
+      div.mb-5
+        = f.label :name, "アカウント名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        span.text-xs.text-gray-400 （英数字、ハイフン、アンダースコアのみ）
+        - if e = resource.errors.find { |e| e.attribute == :name }
+          - message = "#{e.options[:value]} は既に使用されています" if e.type == :taken
+          - message = "#{e.options[:value]} は適切ではありません" if e.type == :invalid
+          p.text-red-500 = message
+        = f.text_field :name, value: resource.name, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: resource.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
+      div.mb-5
+        = f.label :display_name, "表示名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        - if e = resource.errors.find { |e| e.attribute == :display_name && e.type == :taken }
+          p.text-red-500
+            = "#{e.options[:value]} は既に使用されています。"
+        = f.text_field :display_name, value: resource.display_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: resource.display_name, required: true
+      div
+        = f.check_box :agreement, { required: true }
+        = f.label :agreement do
+          = link_to "利用規約", "#", class: "text-blue-500"
+          | に同意する
+      = f.submit "登録", class: "w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      .text-sm.font-medium.text-gray-900.dark:text-white
+        | なんか注意書きとか戻るとか
+
 
 / h3 Cancel my account
 

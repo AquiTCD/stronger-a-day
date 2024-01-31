@@ -5,18 +5,12 @@ nav.bg-white.border-gray-200.dark:bg-gray-900
         span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
           | ヒトツヨ
     - else
-      = link_to game_path(@game), class: "flex items-center space-x-3 rtl:space-x-reverse" do
+      = link_to root_path, class: "flex items-center space-x-3 rtl:space-x-reverse" do
         span.self-center.text-2xl.font-semibold.whitespace-nowrap.dark:text-white
           | ヒトツヨ
     - if current_user
-      = button_tag(type: "button", class: "inline-flex items-center p-2 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", id: "user-menu-button", aria: {  expanded: "false", controls: "navbar-default" }, data: { "collapse-toggle": "navbar-default" }) do
-        div
+      = button_to destroy_user_session_path, method: :delete, class: "font-medium border-gray-400 rounded-lg text-sm py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700"
           span = current_user.display_name
-          / img(class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo")
-    - else
-      li
-      = button_to "Sign in with twitter", authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }
-      = link_to "Sign in", sign_in_user_session_path if Rails.env.development?
     #navbar-default.hidden.w-full.md:w-auto
       ul
         li

@@ -12,10 +12,10 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = result.authentication.user
       if @user
         sign_in_and_redirect @user, event: :authentication # this will throw if @user is not activated
-        set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
+        set_flash_message(:success, :success, kind: provider.to_s.capitalize) if is_navigational_format?
       else
         session["devise.authentication"] = result.authentication.attributes
-        redirect_to new_user_registration_url
+        redirect_to new_user_registration_path
       end
     end
 
@@ -24,11 +24,6 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def after_sign_in_path_for(resource)
-      if resource.registered?
-        flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: provider.to_s.capitalize)
-        home_path
-      else
-        root_path
-      end
+      home_path
     end
 end

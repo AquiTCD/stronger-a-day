@@ -20,9 +20,16 @@ class User < ApplicationRecord
 
   # for devise
   def self.new_with_session(params, session)
-    auth = session["devise.authentication"]
-
-    new(name: auth["username"], display_name: auth["display_name"])
+    user_params =
+      if params.present?
+        params
+      else
+        {
+          name: session["devise.authentication"]["username"],
+          display_name: session["devise.authentication"]["display_name"]
+        }
+      end
+    new(user_params)
   end
 
   devise :authenticatable
@@ -32,7 +39,6 @@ class User < ApplicationRecord
   has_many :notes, dependent: :destroy
   has_many :challenges, dependent: :destroy
 
-  def registered?
-    registration.present?
-  end
+  validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9]+\z/ }
+  validates :display_name, presence: true, uniqueness: true
 end
