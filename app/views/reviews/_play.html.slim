@@ -31,7 +31,7 @@ div.mb-4(id="play_#{play.id}")
     | を押すと達成済みになります
   div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
     - challenges.select { |c| c.challenge.opponent_id == nil }.each do |play_challenge|
-      .grid.grid-cols-subgrid.col-span-4.bg-white.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
+      .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
         .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
           = play_challenge.success_count
         .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
@@ -64,7 +64,7 @@ div.mb-4(id="play_#{play.id}")
           li.text-gray-400.text-sm = comment
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
         - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |play_challenge|
-          .grid.grid-cols-subgrid.col-span-4.bg-white.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
+          .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
             .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
               = play_challenge.success_count
             .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center

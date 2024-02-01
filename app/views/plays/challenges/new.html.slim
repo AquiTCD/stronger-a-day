@@ -13,7 +13,7 @@ div.text-lg.font-bold.font-gray-900
 = form_with url: game_play_challenges_path(@game, @play), method: :post do |f|
   .shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr]")
     - @challenges.each do |challenge|
-      .grid.grid-cols-subgrid.col-span-2.bg-white.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
+      .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
         .px-2.py-2.self-center
           = f.check_box(:challenge_ids, { multiple: true, checked: @selected_challenge_ids.include?(challenge.id), id: "challenge_id_#{challenge.id}", include_hidden: false}, challenge.id)
         .px-2.py-2
