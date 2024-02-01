@@ -1,17 +1,4 @@
 h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white 課題管理
-
-- if @challenges.blank? || @challenges.size <= 3
-  .mx-auto.max-w-screen-xl.w-full
-    .w-full.block.bg-gray-800.border.border-gray-700.rounded-lg.p-3.shadow.mb-5
-      .flex.items-center
-        div.mr-2
-          svg(class="w-[21px] h-[21px] text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
-        div.text-sm
-          p.font-bold.text-white チュートリアル
-          p.text-gray-200
-            | サンプル課題をコピーしますか？
-          = button_to ">> コピーする", copy_sample_game_challenges_path(@game), method: :post, class: "text-blue-400 underline"
   = render "shared/usage" do
     p.mb-1
       | 操作キャラ、相手キャラ設定がある場合は他のキャラ選択時は表示が隠れます。
@@ -42,6 +29,20 @@ h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-whi
       | 例えば「暴れない」ではなく「ガードを固める」に言い変えると
       br
       | 行動を明確にしつつ、悪い癖をより良い行動で上書きするつもりで課題を作りましょう
+
+- if @challenges.blank? || @challenges.size <= 3
+  .mx-auto.max-w-screen-xl.w-full
+    .w-full.block.bg-gray-800.border.border-gray-700.rounded-lg.p-3.shadow.mb-5
+      .flex.items-center
+        div.mr-2
+          svg(class="w-[21px] h-[21px] text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+        div.text-sm
+          p.font-bold.text-white チュートリアル
+          p.text-gray-200
+            | サンプル課題をコピーしますか？
+          = button_to ">> コピーする", copy_sample_game_challenges_path(@game), method: :post, class: "text-blue-400 underline"
+
 div#new_challenge
   = render "form", challenge: @challenge
 
