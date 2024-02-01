@@ -27,8 +27,8 @@ div#sidebar-mobile
       - if @game
         .flex-shrink-0.flex.items-center.px-4
           h1.text-white.text-2xl.font-bold クイックメモ
-        .mt-5.flex-1.h-0.overflow-y-auto
-          = render "notes/note"
+        .mt-5.flex-1.h-0.overflow-y-auto#note
+          = render "notes/form", note: @note
 
     .flex-shrink-0.w-14
       / <!-- Dummy element to force sidebar to shrink to fit close icon -->
