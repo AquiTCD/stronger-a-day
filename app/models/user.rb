@@ -20,6 +20,10 @@ class User < ApplicationRecord
     (self == User) ? "" : "user_"
   end
 
+  def self.system
+    find_by(name: "SYSTEM")
+  end
+
   # for devise
   devise :authenticatable, :rememberable
   def self.new_with_session(params, session)
