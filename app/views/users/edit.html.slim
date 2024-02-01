@@ -1,14 +1,13 @@
-
 section.bg-gray-900
-  .w-full.lg:max-w-xl.p-6.space-y-8.sm:p-8.bg-white.rounded-lg.shadow-xl.dark:bg-gray-800
-    h2.text-2xl.font-bold.text-gray-300text-white
+  .w-full.p-6.space-y-8.md:p-8.rounded-lg.shadow-xl.bg-gray-800
+    h2.text-2xl.font-bold.text-gray-300.text-white
       | アカウント編集
     | ヒトツヨ内で使用するアカウント名、表示名を変更します。
     br
     | すでに使われているものは登録できませんが、いつでも変更することができます。
     = form_with model: @user, url: update_me_path, method: :patch do |f|
       div.mb-5
-        = f.label :name, "アカウント名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        = f.label :name, "アカウント名", class: "block text-sm font-medium text-white"
         span.text-xs.text-gray-400 （英数字、ハイフン、アンダースコアのみ）
         - if e = @user.errors.find { |e| e.attribute == :name }
           - message = "#{e.options[:value]} は既に使用されています" if e.type == :taken
@@ -16,16 +15,16 @@ section.bg-gray-900
           p.text-red-500 = message
         = f.text_field :name, value: @user.name, autofocus: true, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: @user.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
       div.mb-5
-        = f.label :display_name, "表示名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        = f.label :display_name, "表示名", class: "block text-sm font-medium text-white"
         - if e = @user.errors.find { |e| e.attribute == :display_name && e.type == :taken }
           p.text-red-500
             = "#{e.options[:value]} は既に使用されています。"
         = f.text_field :display_name, value: @user.display_name, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: @user.display_name, required: true
-      = f.submit "変更", class: "w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      = f.submit "変更", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
 
 section.bg-gray-900.mt-5
-  .w-full.lg:max-w-xl.p-6.space-y-8.sm:p-8.bg-white.rounded-lg.shadow-xl.dark:bg-gray-800
+  .w-full.p-6.space-y-8.md:p-8.rounded-lg.shadow-xl.bg-gray-800
     h2.text-2xl.font-bold.text-gray-900.text-red-500
       | アカウント削除
     | ログアウトしてアカウント削除します。この操作は取り消せません。
-    = button_to "アカウント削除", destroy_me_path, method: :delete, class: "text-white bg-gradient-to-br from-yellow-600 to-red-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-yellow-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2", form: { data: { turbo_confirm: "本当に削除してよろしいですか？" } }
+    = button_to "アカウント削除", destroy_me_path, method: :delete, class: "text-white bg-gradient-to-br from-yellow-600 to-red-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-yellow-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2", form: { data: { turbo_confirm: "本当に削除してよろしいですか？" } }
