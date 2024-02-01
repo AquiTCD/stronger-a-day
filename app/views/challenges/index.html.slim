@@ -12,6 +12,36 @@ h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-whi
           p.text-gray-200
             | サンプル課題をコピーしますか？
           = button_to ">> コピーする", copy_sample_game_challenges_path(@game), method: :post, class: "text-blue-400"
+  = render "shared/usage" do
+    p.mb-1
+      | 操作キャラ、相手キャラ設定がある場合は他のキャラ選択時は表示が隠れます。
+    p.mb-1
+      | 追加した課題にも以下の操作が可能です。
+      br
+      svg(class="w-[16px] h-[16px] inline-block text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+        path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z")
+      | : 編集
+      br
+      svg(class="w-[16px] h-[16px] inline-block text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+        path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z")
+      | : 削除
+      br
+      svg(class="w-[16px] h-[16px] text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+        path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.9c0-.2 0-.5.2-.6l.6-.3h8.4c.2 0 .4 0 .6.3l.2.6V21Z")
+      | : ブックマーク（プレイ開始時に自動的に選択）
+    p.mb-1
+      | 前回プレイで選択した課題も自動的にブックマークされます。
+    p.mb-1
+      | 公開/非公開は、他のユーザーから課題が見えるかどうかの設定です（が、未実装です）。
+  = render "shared/tips" do
+    p.mb-1
+      | 否定表現よりも肯定表現のほうが効果的だそうです
+      br
+      | 「○○しない」ではなく「○○する」と言い変えて課題を作るのがオススメです
+    p.mb-1
+      | 例えば「暴れない」ではなく「ガードを固める」に言い変えると
+      br
+      | 行動を明確にしつつ、悪い癖をより良い行動で上書きするつもりで課題を作りましょう
 div#new_challenge
   = render "form", challenge: @challenge
 

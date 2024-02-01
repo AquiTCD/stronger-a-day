@@ -1,11 +1,15 @@
 h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white 課題選択
+= render "shared/usage" do
+  p.mb-1
+    | 今回集中するチャレンジ課題を選択します
+  p.mb-1
+    | 前回選択したもの、課題管理でブックマークしたものは自動的に選択状態になっています
+    br
+    | 相手キャラ指定があるものは別のキャラ選択時には非表示になります
+= render "shared/tips" do
+  | 選択が多すぎると改善点が絞れず逆効果になるため、キャラ指定無しが2つ、各対キャラ指定は1つづつ程度が推奨です
 div.text-lg.font-bold.font-gray-900
   = @play.character.display_name
-p.text-sm.mb-4.text-gray-300
-  | 今回集中するチャレンジ課題を選択
-  br
-  | キャラ指定なしが2つ、各対キャラ指定が1つの計3つ程度を推奨
-
 = form_with url: game_play_challenges_path(@game, @play), method: :post do |f|
   .shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr]")
     - @challenges.each do |challenge|
