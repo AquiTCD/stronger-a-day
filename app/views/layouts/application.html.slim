@@ -23,6 +23,8 @@ html
       data-action="keydown.esc->modal#close"
       tabindex="-1")
       .mb-3
+        = render "layouts/feedback"
+      .mb-3
         = render "layouts/game_title"
       = yield
       / = render "layouts/note"
