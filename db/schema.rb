@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_01_012158) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_115929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,6 +122,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_012158) do
     t.index ["user_id"], name: "index_user_authentications_on_user_id", unique: true
   end
 
+  create_table "user_preferences", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "public", default: true, null: false
+    t.boolean "show_usage", default: true, null: false
+    t.boolean "show_tips", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_preferences_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "display_name"
@@ -149,4 +159,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_012158) do
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
   add_foreign_key "user_authentications", "users"
+  add_foreign_key "user_preferences", "users"
 end

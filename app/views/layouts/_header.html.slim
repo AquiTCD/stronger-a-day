@@ -21,5 +21,6 @@ nav.border-b.border-gray-400.bg-gray-900
             .text-sm.bg-white.shadow-lg.rounded.border.overflow-hidden.w-32
               span.no-underline.block.pl-4.py-2.text-gray-900.bg-white.hover:bg-gray-100.whitespace-no-wrap.text-xs = "@#{current_user.name}"
               = button_to "マイページ", me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
+              = button_to "ユーザー設定", edit_preference_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
               = button_to "アカウント設定", edit_me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
               = button_to "ログアウト", sign_out_path, method: :delete, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"

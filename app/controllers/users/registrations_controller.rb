@@ -14,6 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     ActiveRecord::Base.transaction do
       super do |user|
         user.authentications.create!(session["devise.authentication"])
+        user.create_preference
       end
     end
   rescue ActiveRecord::RecordNotSaved
