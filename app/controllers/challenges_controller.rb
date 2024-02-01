@@ -60,6 +60,15 @@ class ChallengesController < BaseController
     end
   end
 
+  def copy_sample
+    user = User.system
+    user.challenges.where(game: @game).each do |challenge|
+      challenge.copy_to(current_user)
+    end
+    flash.now.notice = "サンプル課題を追加しました"
+    redirect_to game_challenges_path(@game)
+  end
+
   private
 
     def challenge_params

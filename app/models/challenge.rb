@@ -29,6 +29,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
+  def self.table_name_prefix
+    (self == Challenge) ? "" : "challenge_"
+  end
   belongs_to :user
   belongs_to :game
   belongs_to :character, optional: true
@@ -36,6 +39,9 @@ class Challenge < ApplicationRecord
 
   has_many :play_challenges, dependent: :destroy
   has_many :plays, through: :play_challenges
+
+  has_one :referred_to, class_name: "Challenge::Reference", foreign_key: :from_id, dependent: :nullify
+  has_one :referred_from, class_name: "Challenge::Reference", foreign_key: :to_id, dependent: :destroy
 
   validates :topic, presence: true
 
@@ -47,6 +53,13 @@ class Challenge < ApplicationRecord
 
   def achieved?
     achieved_at.present?
+  end
+
+  def copy_to(user)
+    ActiveRecord::Base.transaction do
+      new_challenge = user.challenges.create!(game:, character:, opponent:, topic:)
+      Challenge::Reference.create!(to: new_challenge, from: self)
+    end
   end
 
   # def daily_opponent_win_rate(user)

@@ -20,6 +20,10 @@ class User < ApplicationRecord
     (self == User) ? "" : "user_"
   end
 
+  def self.system
+    find_by(name: "SYSTEM")
+  end
+
   # for devise
   devise :authenticatable, :rememberable
   def self.new_with_session(params, session)
@@ -39,7 +43,10 @@ class User < ApplicationRecord
   has_many :plays, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :challenges, dependent: :destroy
+  has_one :preference, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true
+
+  delegate :public, :show_usage, :show_tips, to: :preference
 end

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "home", as: :home, to: "games#index"
 
   resources :users, param: :name, only: [:show]
+  resource :preference, module: :users, only: [:edit, :update]
   get "me", as: :me, to: "users#me"
   get "me/edit", as: :edit_me, to: "users#edit"
   patch "me/update", as: :update_me, to: "users#update"
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
     end
     resources :challenges do
       put :start, on: :member
+      post :copy_sample, to: "challenges#copy_sample", on: :collection
     end
 
     resources :reviews do

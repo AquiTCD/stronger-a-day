@@ -1,14 +1,14 @@
 nav.border-b.border-gray-400.bg-gray-900
-  .max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-4
+  .max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-2.md:p-4
     = link_to root_path do
       = image_tag 'logo_w.svg', class: "max-w-32 h-6"
     - if user_signed_in?
       div(data-controller="dropdown"
           data-action="click->dropdown#toggle click@window->dropdown#hide")
-        div(id="dropdown-button" class="relative inline-block")
-          div(role="button" tabindex="0" data-dropdown-target="button" class="inline-block select-none")
+        div(id="dropdown-button" class="relative inline-block mr-1")
+          div(role="button" tabindex="0" data-dropdown-target="button" class="inline-block select-none border-2 border-gray-600 rounded-full px-2.5 py-1.5")
             span.appearance-none.flex.items-center.inline-block
-              span.text-xs.mr-2 = current_user.display_name
+              span.text-xs.mr-2.font-bold = current_user.display_name
               = image_tag current_user.authentications.first.image_url, class: "rounded-full h-8 w-8"
           div(data-dropdown-target="menu"
               data-transition-enter="transition ease-out duration-200"
@@ -21,5 +21,6 @@ nav.border-b.border-gray-400.bg-gray-900
             .text-sm.bg-white.shadow-lg.rounded.border.overflow-hidden.w-32
               span.no-underline.block.pl-4.py-2.text-gray-900.bg-white.hover:bg-gray-100.whitespace-no-wrap.text-xs = "@#{current_user.name}"
               = button_to "マイページ", me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
+              = button_to "ユーザー設定", edit_preference_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
               = button_to "アカウント設定", edit_me_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
               = button_to "ログアウト", sign_out_path, method: :delete, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"

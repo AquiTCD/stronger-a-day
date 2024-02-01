@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_115929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenge_references", force: :cascade do |t|
+    t.bigint "from_id"
+    t.bigint "to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id", "to_id"], name: "index_challenge_references_on_from_id_and_to_id", unique: true
+    t.index ["from_id"], name: "index_challenge_references_on_from_id"
+    t.index ["to_id"], name: "index_challenge_references_on_to_id"
+  end
 
   create_table "challenges", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -112,6 +122,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.index ["user_id"], name: "index_user_authentications_on_user_id", unique: true
   end
 
+  create_table "user_preferences", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "public", default: true, null: false
+    t.boolean "show_usage", default: true, null: false
+    t.boolean "show_tips", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_preferences_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "display_name"
@@ -123,6 +143,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "challenge_references", "challenges", column: "from_id"
+  add_foreign_key "challenge_references", "challenges", column: "to_id"
   add_foreign_key "challenges", "characters"
   add_foreign_key "challenges", "characters", column: "opponent_id"
   add_foreign_key "challenges", "games"
@@ -137,4 +159,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131100) do
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
   add_foreign_key "user_authentications", "users"
+  add_foreign_key "user_preferences", "users"
 end

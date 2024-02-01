@@ -1,30 +1,46 @@
 
+.mx-auto.max-w-screen-xl.w-full
+  .w-full.block.bg-gray-800.border.border-yellow-700.rounded-lg.p-3.shadow.mb-5
+    .flex.items-center
+      div.mr-2
+        svg(class="w-[21px] h-[21px] text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+          path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+      div.text-sm
+        p.text-yellow-200
+          | 「ヒトツヨ」は現在ベータ版です
+          br
+          | 開発中のため予期せぬ挙動やエラーが発生する可能性があります
+          br
+          | また（極力しませんが）予告なくデータを削除する可能性があります
+          br
+          | 以上、ご了承の上ご利用ください
+
 section.bg-gray-900
-  .w-full.lg:max-w-xl.p-6.space-y-8.sm:p-8.bg-white.rounded-lg.shadow-xl.dark:bg-gray-800
-    h2.text-2xl.font-bold.text-gray-900.dark:text-white
+  .w-full.p-6.space-y-8.md:p-8.rounded-lg.shadow-xl.bg-gray-800
+    h2.text-2xl.font-bold.text-gray-300.text-white
       | ヒトツヨに登録
     | ヒトツヨ内で使用するアカウント名、表示名を登録します。
     br
     | すでに使われているものは登録できませんが、登録後でもいつでも変更することができます。
     = form_with model: resource, scope: resource_name, url: create_user_registration_path, html: { method: :post, data: { turbo: false } } do |f|
       div.mb-5
-        = f.label :name, "アカウント名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        = f.label :name, "アカウント名", class: "block text-sm font-medium text-white"
         span.text-xs.text-gray-400 （英数字、ハイフン、アンダースコアのみ）
         - if e = resource.errors.find { |e| e.attribute == :name }
           - message = "#{e.options[:value]} は既に使用されています" if e.type == :taken
           - message = "#{e.options[:value]} は適切ではありません" if e.type == :invalid
           p.text-red-500 = message
-        = f.text_field :name, value: resource.name, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: resource.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
+        = f.text_field :name, value: resource.name, autofocus: true, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: resource.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
       div.mb-5
-        = f.label :display_name, "表示名", class: "block text-sm font-medium text-gray-900 dark:text-white"
+        = f.label :display_name, "表示名", class: "block text-sm font-medium text-white"
         - if e = resource.errors.find { |e| e.attribute == :display_name && e.type == :taken }
           p.text-red-500
             = "#{e.options[:value]} は既に使用されています。"
-        = f.text_field :display_name, value: resource.display_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: resource.display_name, required: true
+        = f.text_field :display_name, value: resource.display_name, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: resource.display_name, required: true
       div.mb-4
         = f.check_box :agreement, { required: true }
         = f.label :agreement do
           = link_to '利用規約', terms_of_service_page_path, target: :_blank, rel: "noopener noreferrer", class: "ml-2 hover:underline mr-1"
           | に同意する
-      = f.submit "登録", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
-      .text-sm.font-medium.text-gray-900.dark:text-white
+      = f.submit "登録", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+      .text-sm.font-medium.text-gray-300.text-white
