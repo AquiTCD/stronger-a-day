@@ -1,7 +1,7 @@
 
 section.bg-gray-900
   .w-full.lg:max-w-xl.p-6.space-y-8.sm:p-8.bg-white.rounded-lg.shadow-xl.dark:bg-gray-800
-    h2.text-2xl.font-bold.text-gray-900.dark:text-white
+    h2.text-2xl.font-bold.text-gray-300text-white
       | アカウント編集
     | ヒトツヨ内で使用するアカウント名、表示名を変更します。
     br
@@ -14,13 +14,13 @@ section.bg-gray-900
           - message = "#{e.options[:value]} は既に使用されています" if e.type == :taken
           - message = "#{e.options[:value]} は適切ではありません" if e.type == :invalid
           p.text-red-500 = message
-        = f.text_field :name, value: @user.name, autofocus: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: @user.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
+        = f.text_field :name, value: @user.name, autofocus: true, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: @user.name, required: true, pattern: "[a-zA-Z0-9_\\-]+"
       div.mb-5
         = f.label :display_name, "表示名", class: "block text-sm font-medium text-gray-900 dark:text-white"
         - if e = @user.errors.find { |e| e.attribute == :display_name && e.type == :taken }
           p.text-red-500
             = "#{e.options[:value]} は既に使用されています。"
-        = f.text_field :display_name, value: @user.display_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: @user.display_name, required: true
+        = f.text_field :display_name, value: @user.display_name, class: "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: @user.display_name, required: true
       = f.submit "変更", class: "w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 
 section.bg-gray-900.mt-5

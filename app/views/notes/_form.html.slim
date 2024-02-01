@@ -1,6 +1,6 @@
 = turbo_frame_tag "note" do
   .px-4.h-5/6
     = form_with model: note, url: game_note_path do |f|
-      = f.text_area :content, class: 'w-full rounded-lg border-gray-200 align-top shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm h-[calc(100svh-14rem)]', value: note.content
+      = f.text_area :content, class: 'w-full rounded-lg align-top shadow-sm border-gray-700 bg-gray-800 text-white text-sm h-[calc(100svh-14rem)]', value: note.content
       .mt-4
-        = f.submit 'ノートを更新', class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
+        = f.submit 'ノートを更新', class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"

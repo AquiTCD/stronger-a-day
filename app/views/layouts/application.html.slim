@@ -14,16 +14,18 @@ html
     link(href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet")
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
-    .container(data-controller="slideover" data-action="keydown.esc->modal#close" tabindex="-1")
-      #flash.z-50
-        = render "shared/flash"
-      = render "layouts/modal"
-      header
-        = render "layouts/header"
-      main.mx-auto.mt-5.px-5.w-vh
-        .mb-3
-          = render "layouts/game_title"
-        = yield
+    #flash.z-50
+      = render "shared/flash"
+    header
+      = render "layouts/header"
+    main.container.mx-auto.mt-5.px-5(
+      data-controller="slideover"
+      data-action="keydown.esc->modal#close"
+      tabindex="-1")
+      .mb-3
+        = render "layouts/game_title"
+      = yield
       / = render "layouts/note"
+      / = render "layouts/modal"
       = render "layouts/sideover"
-      = render "layouts/footer"
+    = render "layouts/footer"

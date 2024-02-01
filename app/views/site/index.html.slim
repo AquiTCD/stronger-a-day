@@ -9,22 +9,22 @@ section.bg-gray-900.mx-auto.max-w-screen-xl.px-8
     P.mt-4
       | 格闘ゲームの上達のために、
       br
-      | 効果的にPDCAを回すサポートシステム
+      | 効果的にPDCAを回す支援システム
   div.my-4
     h1.flex.place-content-center
       = image_tag 'logo_w.svg', class: "max-w-80"
     p.text-center.text-lg.text-gray-400(style="font-family: 'Outfit', sans-serif; font-optical-sizing: auto; font-weight: 600;  font-style: normal; line-height: 1.2; letter-spacing: -0.05em;")
-      | - STORONGER A DAY -
+      | - STRONGER A DAY -
   div
     - if user_signed_in?
       .grid.grid-rows-1
-        = link_to home_path, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2" do
+        = link_to home_path, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2" do
           = image_tag 'logo_w.svg', class: "max-w-20 inline-block mr-2"
           span を始める
     - else
       .grid.grid-rows-1
-        = button_to authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2 w-full border border-gray-600" do
-          svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+        = button_to authentication_twitter2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "text-white bg-[#050708] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-[#050708]/50 hover:bg-[#050708]/30 me-2 mb-2 w-full border border-gray-600" do
+          svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(fill="currentColor" d="M13.8 10.5 20.7 2h-3l-5.3 6.5L7.7 2H1l7.8 11-7.3 9h3l5.7-7 5.1 7H22l-8.2-11.5Zm-2.4 3-1.4-2-5.6-7.9h2.3l4.5 6.3 1.4 2 6 8.5h-2.3l-4.9-7Z")
           span.ml-2 X(Twitter)でサインイン
         / = button_to "#", class: "text-white bg-[#7289da] hover:bg-[#7289da]/90 focus:ring-4 focus:outline-none focus:ring-[#7289da]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#7289da]/50 dark:hover:bg-[#7289da]/30 me-2 mb-2 w-full border border-gray-600" do
@@ -38,45 +38,45 @@ section.bg-gray-900.mx-auto.max-w-screen-xl.px-8
           span.ml-2 Steam でサインイン
 section.bg-gray-900
   .py-8.px-4.mx-auto.max-w-screen-xl.lg:py-16
-    .bg-gray-50.dark:bg-gray-800.border.border-gray-200.dark:border-gray-700.rounded-lg.p-8.md:p-12.mb-8
-      h2.text-gray-900.dark:text-white.mb-2
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
+      h2.text-white.mb-2
         span.text-3xl.font-extrabold.mr-2
           | 1. Plan:
         span.text-2xl.font-bold
           |  課題を設定する
-      p.text-lg.font-normal.text-gray-500.dark:text-gray-400.mb-6
+      p.text-lg.font-normal.text-gray-400.mb-6
         | まずは課題を設定します。
         br
         | 次にやろうとしてること、いつもできてない行動、意識していることなどを書き出してみましょう。
         br
         | また特定の相手限定の課題を設定することもできます。
-    .bg-gray-50.dark:bg-gray-800.border.border-gray-200.dark:border-gray-700.rounded-lg.p-8.md:p-12.mb-8
-      h2.text-gray-900.dark:text-white.mb-2
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
+      h2.text-white.mb-2
         span.text-3xl.font-extrabold.mr-2
           | 2. Do:
         span.text-2xl.font-bold
           | プレイして実戦する
-      p.text-lg.font-normal.text-gray-500.dark:text-gray-400.mb-6
+      p.text-lg.font-normal.text-gray-400.mb-6
         | 設定した課題のなかから、今回はこの課題を意識して取り組むというものを選択します。
         br
         | 多くの課題を全てやろうとするのではなく、いくつかに絞ることで結局何もできなかったを防ぎます。
-    .bg-gray-50.dark:bg-gray-800.border.border-gray-200.dark:border-gray-700.rounded-lg.p-8.md:p-12.mb-8
-      h2.text-gray-900.dark:text-white.mb-2
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
+      h2.text-white.mb-2
         span.text-3xl.font-extrabold.mr-2
           | 3. Check:
         span.text-2xl.font-bold
           | 試合ごとに確認する
-      p.text-lg.font-normal.text-gray-500.dark:text-gray-400.mb-6
+      p.text-lg.font-normal.text-gray-400.mb-6
         | 選択した課題ができたのか、できなかったのかを試合ごとに計測します。
         br
         | 体感で「今日はできた/できなかった」とするのではなく実際の計測値を見ることで、自分の成長を実感できます。
-    .bg-gray-50.dark:bg-gray-800.border.border-gray-200.dark:border-gray-700.rounded-lg.p-8.md:p-12.mb-8
-      h2.text-gray-900.dark:text-white.mb-2
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
+      h2.text-white.mb-2
         span.text-3xl.font-extrabold.mr-2
           | 4. Action:
         span.text-2xl.font-bold
           | 振り返りで次の課題を見つける
-      p.text-lg.font-normal.text-gray-500.dark:text-gray-400.mb-6
+      p.text-lg.font-normal.text-gray-400.mb-6
         | その日のプレイが終わったら、振り返りを行います。
         br
         | 今回のプレイでできたこと、できなかったことを数値をみながら振り返り、次の課題を見つけます。
