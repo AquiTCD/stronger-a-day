@@ -6,30 +6,33 @@ section.bg-gray-900.mb-4
       div.mb-5
         .grid(class="grid-cols-[1fr_auto]")
           .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
-            p.text-white
-              span.text-bold.text-lg ログイン状態を記憶する
-              br
-              | お使いのブラウザにログイン状態を記憶させます
+            div.text-white
+              p.text-bold.text-lg
+                | ログイン状態を記憶する
+              p.text-sm
+                | お使いのブラウザにログイン状態を記憶させます
             div
               = f.label :remember_me, "", class: "relative inline-flex items-center cursor-pointer" do
                 = f.check_box :remember_me, { class: "sr-only peer", checked: @remember_me }
                 div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
                 span.ms-3.text-sm.font-medium.text-gray-300 記憶する
           .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
-            p.text-white
-              span.text-bold.text-lg 使い方を表示する
-              br
-              | 使い方の説明を表示します
+            div.text-white
+              p.text-bold.text-lg
+                | 使い方を表示する
+              p.text-sm
+                | 各ページ上部に使い方の説明を表示します
             div
               = f.label :show_usage, "", class: "relative inline-flex items-center cursor-pointer" do
                 = f.check_box :show_usage, class: "sr-only peer"
                 div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
                 span.ms-3.text-sm.font-medium.text-gray-300 表示する
           .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
-            p.text-white
-              span.text-bold.text-lg TIPSを表示する
-              br
-              | 使い方のアドバイスを表示します
+            div.text-white
+              p.text-bold.text-lg
+                | TIPSを表示する
+              p.text-sm
+                | 使い方のアドバイスがある場合、表示します
             div
               = f.label :show_tips, "", class: "relative inline-flex items-center cursor-pointer" do
                 = f.check_box :show_tips, class: "sr-only peer"
