@@ -22,6 +22,14 @@ class Users::PreferencesController < ApplicationController
     end
   end
 
+  def clear_win_lose_count
+    reviewed_plays = current_user.plays.reviewed.where.associated(:play_results).distinct
+    total_results = PlayResult.where(play: reviewed_plays)
+    total_results.update_all(win_count: 0, lose_count: 0)
+    alert = "全ての勝敗数をリセットしました"
+    redirect_to edit_preference_path, alert:
+  end
+
   private
 
     def update_params
