@@ -1,4 +1,21 @@
-oauth:
-  twitter:
-    key: set each environment
-    secret: set each environment
+site:
+  name: ヒトツヨ - 格ゲー上達支援システム
+  title: ヒトツヨ - 格ゲー上達支援システム
+  description: |-
+    「ヒトツヨ - 格ゲー上達支援システム」は、
+    格闘ゲームの上達のために効果的にPDCAを回す支援システムです
+    あなたの「1日ひとつ強くなる」をサポートします
+  favicon: /favicon.ico
+  meta:
+    og:
+      # title:
+      # description:
+      type: website
+      image: /images/site_ogp.png
+    # twitter:
+      # title:
+      # description:
+      # image: achievement_unlock_sample.jpg
+    fb:
+      app_id: xxxxxxxxx
+    webclip_icon: /apple-touch-icon-180x180.png

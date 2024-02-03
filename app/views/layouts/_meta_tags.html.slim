@@ -1,0 +1,42 @@
+/ = favicon_link_tag('favicon.ico') # in meta_tags
+meta(content='NOYDIR' name='ROBOTS')
+meta(content='NOODP' name='ROBOTS')
+link(media='handheld' rel='alternate')
+
+/ link(rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" onload="this.rel='stylesheet'")
+
+
+meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
+meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no")
+meta(name="format-detection" content="telephone=no, address=no, email=no")
+= csrf_meta_tags
+= csp_meta_tag
+
+/ TODO: set varification
+/ meta(name="google-site-verification" content="")
+/ meta(property="fb:app_id" content=Settings.site.meta.fb.app_id)
+
+meta(http-equiv="X-UA-Compatible" content="IE=Edge")
+
+/ webclip icon
+meta(name="apple-mobile-web-app-capable" content='yes')
+meta(name="apple-mobile-web-app-status-bar-style" content='default')
+link(rel="apple-touch-icon" href="#{image_url(Settings.site.meta.webclip_icon)}")
+
+- if noindex?
+  - set_meta_tags noindex: true, nofollow: true
+
+= display_meta_tags(default_meta_tags)
+
+/ TODO: set analytics
+/ - if Rails.env.production?
+/   script async="" src="https://www.googletagmanager.com/gtag/js?id=#{Settings.ga.tracking_id}"
+/   javascript:
+/     window.dataLayer = window.dataLayer || [];
+/     function gtag(){dataLayer.push(arguments);}
+/     gtag('js', new Date());
+
+/     gtag('config', '#{Settings.ga.tracking_id}');
+/     if (#{current_user.present?}) {
+/       gtag('set', {'user_id': #{raw current_user&.id&.to_json}});
+/     }
