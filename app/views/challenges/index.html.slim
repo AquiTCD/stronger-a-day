@@ -1,9 +1,15 @@
-h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white 課題管理
+h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white チャレンジ管理
 = render "shared/usage" do
   p.mb-1
-    | 操作キャラ、相手キャラ設定がある場合は他のキャラ選択時は表示が隠れます。
+    | チャレンジ課題を追加、編集、削除します
+    br
+    | チャレンジは
+    span.underline「次、実戦で何をしたら良くなるか」
+    | を明確にしたものです。
   p.mb-1
-    | 追加した課題にも以下の操作が可能です。
+    | 操作キャラ、相手キャラ設定がある場合は他のキャラ選択時は表示が隠れます
+  p.mb-1
+    | 追加したチャレンジにも以下の操作が可能です。
     br
     svg(class="w-[16px] h-[16px] inline-block text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z")
@@ -17,18 +23,20 @@ h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-whi
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.9c0-.2 0-.5.2-.6l.6-.3h8.4c.2 0 .4 0 .6.3l.2.6V21Z")
     | : ブックマーク（プレイ開始時に自動的に選択）
   p.mb-1
-    | 前回プレイで選択した課題も自動的にブックマークされます。
+    | 前回プレイで選択したチャレンジも自動的にブックマークされます。
   p.mb-1
-    | 公開/非公開は、他のユーザーから課題が見えるかどうかの設定です（が、未実装です）。
+    | 公開/非公開は、他のユーザーからチャレンジが見えるかどうかの設定です。
 = render "shared/tips" do
   p.mb-1
     | 否定表現よりも肯定表現のほうが効果的だそうです
     br
-    | 「○○しない」ではなく「○○する」と言い変えて課題を作るのがオススメです
+    | 「○○しない」ではなく「○○する」と言い変えてチャレンジを作るのがオススメです
+    br
+    | またより具体的
   p.mb-1
     | 例えば「暴れない」ではなく「ガードを固める」に言い変えると
     br
-    | 行動を明確にしつつ、悪い癖をより良い行動で上書きするつもりで課題を作りましょう
+    | 行動を明確にしつつ、悪い癖をより良い行動で上書きするつもりでチャレンジを作りましょう
 
 - if @challenges.blank? || @challenges.size <= 3
   .mx-auto.max-w-screen-xl.w-full
@@ -49,7 +57,7 @@ div#new_challenge
 #challenges.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
   = render partial: @challenges
 
-= render "shared/hr", text: "達成した課題"
+= render "shared/hr", text: "達成したチャレンジ"
 #achieved_challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
   - @achieved_challenges.each do |challenge|
     .border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600

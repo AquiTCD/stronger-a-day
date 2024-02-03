@@ -56,6 +56,10 @@ Rails.application.routes.draw do
       end
     end
     resource :note
+
+    resource :social do
+      post :copy_challenge, on: :collection
+    end
   end
 
   resource :page, only: [] do
