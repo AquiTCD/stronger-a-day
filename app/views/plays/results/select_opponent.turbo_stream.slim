@@ -8,7 +8,7 @@
     p.mb-4.leading-none.tracking-tight
       span.text-xl.font-extrabold.text-white.mr-2
         = "vs #{@opponent.display_name}"
-      span.text-lg.font-base のチャレンジ課題
+      span.text-lg.font-base のチャレンジ
     = f.fields_for :challenges, child_index: "opponent" do |subform|
       = render partial: "play_challenges", locals: { form: subform, name: "opponent", challenges: @opponent_challenges }
     = f.hidden_field :opponent_id, value: @opponent.id
