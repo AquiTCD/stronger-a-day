@@ -40,6 +40,7 @@ gem "omniauth-twitter2"
 # gem "draper"
 # gem "kaminari"
 gem "jbuilder" # by rails Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "meta-tags"
 gem "slim-rails"
 
 # === Others
