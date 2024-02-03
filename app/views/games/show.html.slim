@@ -17,9 +17,9 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
           = "#{@achieved_challenge_count}/#{@all_challenging_count}"
       h2.text-white.mb-2
         span.text-2xl.md:text-4xl.font-extrabold.mr-2
-          | 課題管理
+          | チャレンジ管理
       p.text-base.md:text-lg.font-normal.text-gray-400
-        | 新しく課題を設定したり、次の課題を選択します
+        | 新しくチャレンジを設定したり、次のチャレンジを選択します
         br
         | 編集や削除もここで行ないます
   .div.justify-self-center.self-center
@@ -30,16 +30,16 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
       div(class="w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700")
         div.mb-1
           span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-red-900.text-red-300
-              | まずは課題を設定してください
+              | まずはチャレンジを設定してください
         h2.text-white.mb-2
           span.text-2xl.md:text-4xl.font-extrabold.mr-2
             | CHALLENGE!!
         p.text-base.md:text-lg.font-normal.text-gray-400
-          | 課題を選択して、今日の挑戦を始めます
+          | チャレンジを選択して、今日の挑戦を始めます
           br
           | 挑戦は操作キャラクター別に保存されます
           br
-          | 戦績と課題が達成できたかを記録しましょう
+          | 戦績とチャレンジが達成できたかを記録しましょう
     - else
       = link_to new_game_play_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
         - if @playing
@@ -50,11 +50,11 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
           span.text-2xl.md:text-4xl.font-extrabold.mr-2
             | CHALLENGE!!
         p.text-base.md:text-lg.font-normal.text-gray-400
-          | 課題を選択して、今日の挑戦を始めます
+          | チャレンジを選択して、今日の挑戦を始めます
           br
           | 挑戦は操作キャラクター別に保存されます
           br
-          | 戦績と課題が達成できたかを記録しましょう
+          | 戦績とチャレンジが達成できたかを記録しましょう
   .div.justify-self-center.self-center
     svg(class="w-[48px] h-[48px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 19V5m0 14-4-4m4 4 4-4")

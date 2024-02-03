@@ -24,7 +24,7 @@ class ChallengesController < BaseController
     )
     if @challenge.save
       @characters = Character.where(game: @game)
-      flash.now.notice = "課題を追加しました"
+      flash.now.notice = "チャレンジを追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -54,7 +54,7 @@ class ChallengesController < BaseController
 
   def destroy
     if @challenge.destroy
-      flash.now.alert = "課題を削除しました"
+      flash.now.alert = "チャレンジを削除しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -65,7 +65,7 @@ class ChallengesController < BaseController
     user.challenges.where(game: @game).each do |challenge|
       challenge.copy_to(current_user)
     end
-    flash.now.notice = "サンプル課題を追加しました"
+    flash.now.notice = "サンプルチャレンジを追加しました"
     redirect_to game_challenges_path(@game)
   end
 

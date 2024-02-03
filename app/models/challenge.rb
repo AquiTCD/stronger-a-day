@@ -40,7 +40,7 @@ class Challenge < ApplicationRecord
   has_many :play_challenges, dependent: :destroy
   has_many :plays, through: :play_challenges
 
-  has_one :referred_to, class_name: "Challenge::Reference", foreign_key: :from_id, dependent: :nullify
+  has_many :referred_tos, class_name: "Challenge::Reference", foreign_key: :from_id, dependent: :nullify
   has_one :referred_from, class_name: "Challenge::Reference", foreign_key: :to_id, dependent: :destroy
 
   validates :topic, presence: true
