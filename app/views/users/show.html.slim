@@ -3,12 +3,12 @@ section.bg-gray-900.mb-4
   .w-full.p-6.space-y-8.p-8.rounded-lg.shadow-xl.bg-gray-800
     .grid.grid-cols-2
       div.row-span-2.md:row-span-3
-        = image_tag current_user.authentications.first.image_url, class: "rounded-full h-24 w-24"
+        = image_tag @user.authentications.first.image_url, class: "rounded-full h-24 w-24"
       h2.text-2xl.font-bold.text-gray-300.text-white
         = @user.display_name
       p.text-gray-400.text-base
         = "@#{@user.name}"
-      div.markdown.mt-4
+      .markdown.mt-4.col-span-2.md:col-span-1
         = md_to_html(@user.description.presence || "自己紹介はまだありません")
 - @games.each do |game|
   = render "shared/hr", text: game.title
@@ -28,7 +28,7 @@ section.bg-gray-900.mb-4
             p.ml-2.text-xs
               span.ml-2 = "人気度: #{challenge.referred_tos.size}"
           .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")
-            - unless @user == current_user
+            - unless @user == @user
               = button_to copy_challenge_game_social_path(game), method: :post, params: {challenge_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-1 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "このチャレンジを自分にも追加しますか？" } } do
                 svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
                   path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V9a3 3 0 0 0-3-3h-3m1.5-2-2 2 2 2")
@@ -46,7 +46,7 @@ section.bg-gray-900.mb-4
             p.ml-2.text-xs
               span.ml-2 = "人気度: #{challenge.referred_tos.size}"
           .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")
-            - unless @user == current_user
+            - unless @user == @user
               = button_to copy_challenge_game_social_path(game), method: :post, params: {challenge_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-1 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "このチャレンジを自分にも追加しますか？" } } do
                 svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
                   path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V9a3 3 0 0 0-3-3h-3m1.5-2-2 2 2 2")
