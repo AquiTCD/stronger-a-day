@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   resource :preference, module: :users, only: [:edit, :update] do
     put :clear_win_lose_count, on: :member
   end
-  get "me", as: :me, to: "users#me"
   get "me/edit", as: :edit_me, to: "users#edit"
   patch "me/update", as: :update_me, to: "users#update"
 

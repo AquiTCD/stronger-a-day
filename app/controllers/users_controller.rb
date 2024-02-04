@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  def show
-    @user = User.find_by!(params[:name])
-  end
+  before_action :authenticate_user!
 
-  def me
-    @user = current_user
+  def show
+    @user = User.find_by!(name: params[:name])
+
+    played_character_ids = @user.plays.where.associated(:play_results).distinct.pluck(:character_id)
+    @games = Game.joins(:characters).where(characters: { id: played_character_ids })
+    @challenges = current_user.challenges.where(game: @games, public: true).includes(:referred_tos)
   end
 
   def edit
@@ -23,6 +25,6 @@ class UsersController < ApplicationController
   private
 
     def update_params
-      params.require(:user).permit(:name, :display_name)
+      params.require(:user).permit(:name, :display_name, :description)
     end
 end

@@ -9,6 +9,7 @@
 #  remember_created_at :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  description         :string           default(""), not null
 #
 # Indexes
 #
@@ -22,6 +23,10 @@ class User < ApplicationRecord
 
   def self.system
     find_by(name: "SYSTEM")
+  end
+
+  def to_param
+    name
   end
 
   # for devise
