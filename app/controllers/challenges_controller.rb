@@ -30,6 +30,22 @@ class ChallengesController < BaseController
     end
   end
 
+  def add
+    @challenge = Challenge.new(
+      user: current_user,
+      game: @game,
+      topic: challenge_params[:topic],
+      character_id: challenge_params[:character_id],
+      opponent_id: challenge_params[:opponent_id],
+      public: challenge_params[:public],
+    )
+    if @challenge.save
+      flash.now.notice = "課題を追加しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def edit
     @characters = Character.where(game: @game)
   end
