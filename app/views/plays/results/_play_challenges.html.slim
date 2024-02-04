@@ -2,7 +2,7 @@
 - if challenges.present?
   - challenges.each do |challenge|
     .grid.border-b.border-gray-700.hover:bg-gray-600.px-2.py-3.text-white(class="grid-cols-[1fr_auto_auto]")
-      div.font-bold
+      div.font-bold.text-base
         = challenge.topic
       div
         = form.check_box("#{challenge.id}", { id: "result_form_challenges_success_#{challenge.id}", class: "peer hidden" }, "success", false)
