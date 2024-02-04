@@ -23,12 +23,16 @@ html
       data-controller="slideover"
       tabindex="-1")
       .mb-3
-        = render "layouts/feedback"
+        = render "layouts/top_notice"
       .mb-3
         = render "layouts/game_title"
       = yield
-      = render "layouts/add_challenge_modal"
-      = render "layouts/quick_note"
+      - if @game.present?
+        / z-50
+        = render "layouts/global/challenge_modal"
+        / z-40 z-30
+        = render "layouts/global/quick_note"
+        / z-20
+        = render "layouts/global/bottom_nav"
     footer
       = render "layouts/footer"
-    = render "layouts/bottom_nav"
