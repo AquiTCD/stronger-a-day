@@ -4,6 +4,14 @@ section.bg-gray-900.mb-4
       | ユーザー設定
     = form_with model: @preference, url: preference_path, method: :patch do |f|
       div.mb-5
+        .grid.grid-cols-1.lg:grid-cols-2.border-b.mb-4
+          div.text-white.mb-2
+            p.text-bold.text-lg
+              | 自己紹介文
+            p.text-sm
+              | 最大256文字、マークダウン記法が使えます
+          div
+            = f.text_area :description, class: "w-full h-24 bg-gray-700 border border-gray-600 rounded-lg text-white px-2 py-2", placeholder: "自己紹介文を入力してください", value: current_user.description
         .grid(class="grid-cols-[1fr_auto]")
           / .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
             div.text-white
