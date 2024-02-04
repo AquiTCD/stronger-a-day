@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_04_041302) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_041302) do
     t.bigint "opponent_id", null: false
     t.integer "win_count", default: 0, null: false
     t.integer "lose_count", default: 0, null: false
-    t.text "comment", default: "", null: false
+    t.string "comment", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["opponent_id"], name: "index_play_results_on_opponent_id"
