@@ -1,0 +1,20 @@
+- if @game
+  .mx-auto.max-w-screen-xl.w-full
+    .w-full.block.bg-gray-800.border.border-red-700.rounded-lg.p-3.shadow.mb-5
+      .flex.items-center
+        div.mr-2
+          svg(class="w-[21px] h-[21px] text-red-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+        div.text-sm
+          p.text-red-200
+            | 今後の機能拡充に向けて内部的なデータ構成を変更しました
+            br
+            | そのためやむを得ず、今までのプレイ履歴に関するデータをリセットしました
+            br
+            | 大変ご迷惑をおかけしますが、なにとぞご理解いただきますようお願い申し上げます
+            br
+            | また、システムに関する告知やフィードバックのため、
+            = link_to "Discordサーバー", "https://discord.gg/mdrcHnsGz7", target: :_blank, rel: "noopener noreferrer", class: "underline font-bold mx-2 text-red-400"
+            | を立てました。
+            br
+            | ぜひご参加いただいてご意見いただけましたら幸いです。
