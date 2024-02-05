@@ -22,6 +22,18 @@ p.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-whit
 #achieved_challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
   = render "achieved_challenges", challenges: @achieved_challenges
 
+p.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white
+  | プレイ履歴
+- @reviewed_plays.each do |play|
+  .mb-3
+    .mb-1.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
+      span.text-xl.text-gray-white.mr-3
+        = play.character.display_name
+      span.text-lg.text-gray-400
+        = "(#{play.started_at.strftime('%Y/%m/%d %H:%M')})"
+    - if play.comment.present?
+      p.px-4 = play.comment
+
 = render "shared/hr", text: "MENU"
 = render "shared/usage" do
   | 振り返り後、新しいチャレンジを思いついたらチャレンジ管理へと進み、入力します
