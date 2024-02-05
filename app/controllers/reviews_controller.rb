@@ -3,14 +3,16 @@ class ReviewsController < BaseController
     characters = @game.characters
     user_plays = current_user.plays.
                    where(character: characters).
-                   where.associated(:play_results).distinct
+                   where.associated(:results).distinct
     @plays = user_plays.finished.order(id: :desc).
-               includes(:play_results, play_challenges: :challenge)
+               includes(:results)
+    #  { play_challenges: :challenge }
 
     @reviewed_plays = user_plays.reviewed
-    total_results = PlayResult.where(play: @reviewed_plays)
-    @total_win_count = total_results.sum(:win_count)
-    @total_lose_count = total_results.sum(:lose_count)
+    total_results = Play::Result.where(play: @reviewed_plays).pluck(:result)
+
+    @total_win_count = total_results.count("win")
+    @total_lose_count = total_results.count("lose")
 
     @achieved_challenges = current_user.challenges.where(game: @game).achieved.order(achieved_at: :desc)
   end

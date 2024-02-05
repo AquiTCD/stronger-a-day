@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by!(name: params[:name])
 
-    played_character_ids = @user.plays.where.associated(:play_results).distinct.pluck(:character_id)
+    played_character_ids = @user.plays.where.associated(:results).distinct.pluck(:character_id)
     @games = Game.joins(:characters).where(characters: { id: played_character_ids })
     @challenges = @user.challenges.where(game: @games, public: true).includes(:referred_tos)
   end

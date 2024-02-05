@@ -4,7 +4,7 @@ class ResultForm
 
   attribute :play_id, :integer
   attribute :opponent_id, :integer
-  attribute :result
+  attribute :match_result
   attribute :challenges
   attribute :comment
 
@@ -12,16 +12,16 @@ class ResultForm
     play_id = params[:play_id].to_i
     opponent_id = params[:opponent_id].to_i
     challenges = params[:challenges].to_h { |k, v| [k.to_i, v.to_sym] }
-    result = params[:result].downcase.to_sym
+    match_result = params[:match_result]
     comment = params[:comment].strip
 
-    self.new(play_id:, opponent_id:, challenges:, result:, comment:)
+    self.new(play_id:, opponent_id:, challenges:, match_result:, comment:)
   end
 
   def save_result!
     ActiveRecord::Base.transaction do
-      convert_to_play_challenge
-      convert_to_play_result
+      play_result = create_result!
+      create_challenges!(play_result)
     end
   end
 
@@ -31,28 +31,21 @@ class ResultForm
       @play ||= Play.find(play_id)
     end
 
-    def convert_to_play_challenge
+    def create_challenges!(play_result)
       challenges.each do |challenge_id, result|
-        play_challenge = play.play_challenges.find_or_initialize_by(challenge_id:)
-        case result
-        when :success
-          play_challenge.success_count += 1
-        when :failure
-          play_challenge.failure_count += 1
-        end
-        play_challenge.save!
+        play_result.challenge_results.create!(challenge_id:, result:)
       end
     end
 
-    def convert_to_play_result
-      play_result = play.play_results.find_or_initialize_by(opponent_id:)
-      case result
-      when :win
-        play_result.win_count += 1
-      when :lose
-        play_result.lose_count += 1
-      end
-      play_result.comment += "#{comment}\n" if comment.present?
-      play_result.save!
+    def create_result!
+      result =
+        case match_result
+        when "WIN", "LOSE"
+          match_result.downcase.to_sym
+        else
+          :no_contest
+        end
+
+      play.results.create!(opponent_id:, result:, comment:)
     end
 end

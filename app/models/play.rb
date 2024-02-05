@@ -22,11 +22,14 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Play < ApplicationRecord
+  def self.table_name_prefix
+    (self == Play) ? "" : "play_"
+  end
   belongs_to :user
   belongs_to :character
-  has_many :play_challenges, dependent: :destroy
+  has_many :play_challenges, class_name: "Play::Challenge", dependent: :destroy
   has_many :challenges, through: :play_challenges
-  has_many :play_results, dependent: :destroy
+  has_many :results, class_name: "Play::Result", dependent: :destroy
 
   attribute :started_at, :datetime, default: -> { Time.current }
 

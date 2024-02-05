@@ -17,7 +17,10 @@ div.text-lg.font-bold.font-gray-900
     - @challenges.each do |challenge|
       .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
         .px-2.py-2.self-center
-          = f.check_box(:challenge_ids, { multiple: true, checked: @selected_challenge_ids.include?(challenge.id), id: "challenge_id_#{challenge.id}", include_hidden: false}, challenge.id)
+          - disabled = @playing_challenge_ids.include?(challenge.id)
+          - if disabled
+            = f.hidden_field(:challenge_ids, name: "challenge_ids[]", value: challenge.id)
+          = f.check_box(:challenge_ids, { multiple: true, checked: @selected_challenge_ids.include?(challenge.id), id: "challenge_id_#{challenge.id}", include_hidden: false, disabled: disabled, class: "#{disabled ? 'opacity-50' : ''}" }, challenge.id)
         .px-2.py-2
           = f.label(:challenge_id, value: challenge.id) do
             p

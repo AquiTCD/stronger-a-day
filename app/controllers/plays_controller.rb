@@ -1,7 +1,7 @@
 class PlaysController < BaseController
   def new
     # NOTE: playing なら終了して新しいキャラ選択 or 続きから
-    @playing = current_user.plays.where(character: @game.characters).where.associated(:play_results).distinct.in_progress.first
+    @playing = current_user.plays.where(character: @game.characters).where.associated(:results).distinct.in_progress.first
 
     @play = current_user.plays.new
     @characters = @game.characters
@@ -10,7 +10,7 @@ class PlaysController < BaseController
   def create
     user_plays = current_user.plays
     # まだ関連データがないものを削除
-    user_plays.where.missing(:play_results).destroy_all
+    user_plays.where.missing(:results).destroy_all
 
     @play = current_user.plays.new(character_id: play_params[:character_id])
     if @play.save
