@@ -37,7 +37,7 @@ class Challenge < ApplicationRecord
   belongs_to :character, optional: true
   belongs_to :opponent, class_name: "Character", optional: true
 
-  has_many :play_challenges, dependent: :destroy
+  has_many :play_challenges, class_name: "Play::Challenge", dependent: :destroy
   has_many :plays, through: :play_challenges
 
   has_many :referred_tos, class_name: "Challenge::Reference", foreign_key: :from_id, dependent: :nullify

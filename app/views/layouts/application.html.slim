@@ -19,9 +19,9 @@ html
       = render "shared/flash"
     header
       = render "layouts/header"
-    main.container.mx-auto.mt-5.px-5(
-      data-controller="slideover"
-      tabindex="-1")
+    main.container.mx-auto.mt-5.px-5(data-controller="#{'slideover' if @game.present?}")
+      .mb-3
+        = render "layouts/top_alert"
       .mb-3
         = render "layouts/top_notice"
       .mb-3

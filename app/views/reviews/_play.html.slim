@@ -1,5 +1,7 @@
-- results = play.play_results
+- results = play.results
 - challenges = play.play_challenges
+- challenge_results = Play::ChallengeResult.where(play_result: results)
+
 div.mb-4(id="play_#{play.id}")
   .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
     div.text-gray-400.mb-2
@@ -12,9 +14,9 @@ div.mb-4(id="play_#{play.id}")
       span.text-3xl.text-white
         = play.character.display_name
     div
-      span.text-5xl.text-green-400 = results.sum(:win_count)
+      span.text-5xl.text-green-400 = results.select { |r| r.result == "win" }.size
       sapn.text-2xl.mr-3 勝
-      span.text-5xl.text-red-400 = results.sum(:lose_count)
+      span.text-5xl.text-red-400 = results.select { |r| r.result == "lose" }.size
       span.text-2xl 敗
 
   = render "shared/usage" do
@@ -33,9 +35,9 @@ div.mb-4(id="play_#{play.id}")
     - challenges.select { |c| c.challenge.opponent_id == nil }.each do |play_challenge|
       .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
         .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
-          = play_challenge.success_count
+          = challenge_results.select { |cr| cr.challenge_id == play_challenge.challenge.id && cr.result == "success" }.size
         .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
-          = play_challenge.failure_count
+          = challenge_results.select { |cr| cr.challenge_id == play_challenge.challenge.id && cr.result == "failure" }.size
         .px-2.py-2.self-center.text-gray-200
           = play_challenge.challenge.topic
         .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
@@ -46,29 +48,31 @@ div.mb-4(id="play_#{play.id}")
           / - else
           /   svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
           /     path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v5m0 0 2-2m-2 2-2-2M3 6v1c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V6c0-.6-.4-1-1-1H4a1 1 0 0 0-1 1Zm2 2v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V8H5Z")
-
-  - results.each do |result|
+  - grouped_result = results.group_by(&:opponent_id)
+  - grouped_result.each do |grouped|
+    - opponent_id = grouped.first
     .mb-4.leading-none.tracking-tight.text-gray-900.text-white
       div.font-extrabold
         span.mr-2
           | vs
         span.text-xl.text-white
-          = result.opponent.display_name
+          = Character.find(opponent_id).display_name
       div.font-extrabold
-        span.text-green-400.text-xl = result.win_count
+        span.text-green-400.text-xl = grouped_result[opponent_id].select { |r| r.result == "win" }.size
         sapn.mr-1.text-sm 勝
-        span.text-red-400.text-xl = result.lose_count
+        span.text-red-400.text-xl = grouped_result[opponent_id].select { |r| r.result == "lose" }.size
         span.text-sm 敗
       ul.list-disc.pl-4
-        - result.comment.split("\n").each do |comment|
-          li.text-gray-400.text-sm = comment
+        - grouped_result[opponent_id].each do |result|
+          - if result.comment.present?
+            li.text-gray-400.text-sm = result.comment
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
-        - challenges.select { |c| c.challenge.opponent_id == result.opponent_id }.each do |play_challenge|
+        - challenges.select { |c| c.challenge.opponent_id == opponent_id }.each do |play_challenge|
           .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
             .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
-              = play_challenge.success_count
+              = challenge_results.select { |cr| cr.challenge_id == play_challenge.challenge_id && cr.result == "success" }.size
             .px-2.py-2.self-center.text-red-400.text-xl.justify-self-center
-              = play_challenge.failure_count
+              = challenge_results.select { |cr| cr.challenge_id == play_challenge.challenge_id && cr.result == "lose" }.size
             .px-2.py-2.self-center.text-gray-200
               = play_challenge.challenge.topic
             .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")

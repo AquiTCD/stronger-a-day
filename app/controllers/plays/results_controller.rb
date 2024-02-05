@@ -4,9 +4,9 @@ class Plays::ResultsController < BaseController
   def new
     @general_challenges = @play.challenges.where(opponent: nil).order(:id)
     @opponents = @game.characters
-    results = @play.play_results
-    @win_count = results.sum(:win_count)
-    @lose_count = results.sum(:lose_count)
+    results = @play.results.pluck(:result)
+    @win_count = results.count("win")
+    @lose_count = results.count("lose")
   end
 
   def create
@@ -30,6 +30,6 @@ class Plays::ResultsController < BaseController
     end
 
     def play_result_params
-      params.require(:result_form).permit(:play_id, :opponent_id, :result, :comment, challenges: {})
+      params.require(:result_form).permit(:play_id, :opponent_id, :match_result, :comment, challenges: {})
     end
 end

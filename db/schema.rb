@@ -71,11 +71,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "play_challenge_results", force: :cascade do |t|
+    t.bigint "play_result_id", null: false
+    t.bigint "challenge_id", null: false
+    t.string "result", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_play_challenge_results_on_challenge_id"
+    t.index ["play_result_id", "challenge_id"], name: "idx_on_play_result_id_challenge_id_beb5077770", unique: true
+    t.index ["play_result_id"], name: "index_play_challenge_results_on_play_result_id"
+  end
+
   create_table "play_challenges", force: :cascade do |t|
     t.bigint "play_id", null: false
     t.bigint "challenge_id", null: false
-    t.integer "success_count", default: 0, null: false
-    t.integer "failure_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_play_challenges_on_challenge_id"
@@ -86,13 +95,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
   create_table "play_results", force: :cascade do |t|
     t.bigint "play_id", null: false
     t.bigint "opponent_id", null: false
-    t.integer "win_count", default: 0, null: false
-    t.integer "lose_count", default: 0, null: false
-    t.text "comment", default: "", null: false
+    t.string "result", null: false
+    t.string "comment", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["opponent_id"], name: "index_play_results_on_opponent_id"
-    t.index ["play_id", "opponent_id"], name: "index_play_results_on_play_id_and_opponent_id", unique: true
     t.index ["play_id"], name: "index_play_results_on_play_id"
   end
 
@@ -153,6 +160,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
   add_foreign_key "characters", "games"
   add_foreign_key "notes", "games"
   add_foreign_key "notes", "users"
+  add_foreign_key "play_challenge_results", "challenges"
+  add_foreign_key "play_challenge_results", "play_results"
   add_foreign_key "play_challenges", "challenges"
   add_foreign_key "play_challenges", "plays"
   add_foreign_key "play_results", "characters", column: "opponent_id"
