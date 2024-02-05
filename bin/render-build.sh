@@ -8,4 +8,4 @@ bundle install
 
 # ./bin/rake RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1 db:reset
 ./bin/rails db:migrate
-./bin/rails db:seedfu
+./bin/rails db:seed_fu
