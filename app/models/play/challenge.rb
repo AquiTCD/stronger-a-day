@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_play_challenges_on_challenge_id  (challenge_id)
-#  index_play_challenges_on_play_id       (play_id)
+#  index_play_challenges_on_challenge_id              (challenge_id)
+#  index_play_challenges_on_play_id                   (play_id)
+#  index_play_challenges_on_play_id_and_challenge_id  (play_id,challenge_id) UNIQUE
 #
 # Foreign Keys
 #
