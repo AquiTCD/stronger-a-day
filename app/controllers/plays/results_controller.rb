@@ -2,7 +2,7 @@ class Plays::ResultsController < BaseController
   before_action :set_play
 
   def new
-    @general_challenges = @play.challenges.where(opponent: nil)
+    @general_challenges = @play.challenges.where(opponent: nil).order(:id)
     @opponents = @game.characters
     results = @play.play_results
     @win_count = results.sum(:win_count)
@@ -20,7 +20,7 @@ class Plays::ResultsController < BaseController
   def select_opponent
     @general_challenges = @play.challenges.where(opponent: nil)
     @opponent = @game.characters.find(params[:opponent_id])
-    @opponent_challenges = @play.challenges.where(opponent: @opponent)
+    @opponent_challenges = @play.challenges.where(opponent: @opponent).order(:id)
   end
 
   private

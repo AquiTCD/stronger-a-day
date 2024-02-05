@@ -7,8 +7,8 @@ class ReviewsController < BaseController
     @plays = user_plays.finished.order(id: :desc).
                includes(:play_results, play_challenges: :challenge)
 
-    total_plays = user_plays.reviewed
-    total_results = PlayResult.where(play: total_plays)
+    @reviewed_plays = user_plays.reviewed
+    total_results = PlayResult.where(play: @reviewed_plays)
     @total_win_count = total_results.sum(:win_count)
     @total_lose_count = total_results.sum(:lose_count)
 
@@ -33,8 +33,9 @@ class ReviewsController < BaseController
     end
   end
 
-  def complete_review
-    @play = current_user.plays.find(params[:play_id])
+  def complete
+    @play = current_user.plays.find(params[:id])
+    @play.comment = complete_params[:comment] if complete_params[:comment].present?
     @play.reviewed!
 
     challenges = @play.challenges
@@ -45,4 +46,10 @@ class ReviewsController < BaseController
 
     flash.now[:success] = "#{@play.started_at.strftime("%Y/%m/%d %H:%M")}\nのプレイをレビュー完了にしました"
   end
+
+  private
+
+    def complete_params
+      params.permit(:id, :comment)
+    end
 end
