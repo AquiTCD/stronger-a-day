@@ -50,9 +50,10 @@ Rails.application.routes.draw do
     end
 
     resources :reviews do
+      post :complete, on: :member
+
       collection do
         put :achieve_challenge
-        put :complete_review
       end
     end
     resource :note
