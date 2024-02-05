@@ -22,10 +22,10 @@ bundle install
 ###  up     20240201115929  Create user preferences
 #  up     20240204041302  Add description column to user
 ###  up     20240204225951  Change plays comment
-.bin/rake db:migrate:down VERSION='20240204225951' #Change plays comment
-.bin/rake db:migrate:down VERSION='20240201115929' #Create user preferences
-.bin/rake db:migrate:down VERSION='20240117115235' #Create play results
-.bin/rake db:migrate:down VERSION='20240117115156' #Create play challenges
+.bin/rails db:migrate:down VERSION='20240204225951' #Change plays comment
+.bin/rails db:migrate:down VERSION='20240201115929' #Create user preferences
+.bin/rails db:migrate:down VERSION='20240117115235' #Create play results
+.bin/rails db:migrate:down VERSION='20240117115156' #Create play challenges
 
 # ./bin/rails db:migrate
 # ./bin/rails db:seed_fu
