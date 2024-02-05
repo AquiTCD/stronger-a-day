@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
     t.bigint "opponent_id", null: false
     t.integer "win_count", default: 0, null: false
     t.integer "lose_count", default: 0, null: false
-    t.string "comment", default: "", null: false
+    t.text "comment", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["opponent_id"], name: "index_play_results_on_opponent_id"
@@ -101,7 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
     t.bigint "character_id", null: false
     t.datetime "started_at", null: false
     t.string "status", default: "ready", null: false
-    t.text "comment", default: "", null: false
+    t.string "comment", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_plays_on_character_id"
