@@ -7,7 +7,7 @@
 #  character_id :bigint           not null
 #  started_at   :datetime         not null
 #  status       :string           default("ready"), not null
-#  comment      :text             default(""), not null
+#  comment      :string           default(""), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

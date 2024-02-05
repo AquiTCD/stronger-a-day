@@ -7,7 +7,7 @@
 #  opponent_id :bigint           not null
 #  win_count   :integer          default(0), not null
 #  lose_count  :integer          default(0), not null
-#  comment     :string           default(""), not null
+#  comment     :text             default(""), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
