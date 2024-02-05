@@ -1,4 +1,4 @@
-h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white 振り返り
+h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white 振り返り
 
 - if @plays.present?
   = render "shared/hr", text: "直近の未レビュー: #{@plays.size}件"
@@ -11,18 +11,18 @@ h1.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-whi
     | 直近の挑戦はありません
 
 = render "shared/hr", text: "レビュー済み累計"
-.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white
+.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
   div
     span.text-5xl.text-green-400 = @total_win_count
     sapn.text-2xl.mr-3 勝
     span.text-5xl.text-red-400 = @total_lose_count
     span.text-2xl 敗
-p.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white
+p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
   | 達成したチャレンジ
 #achieved_challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
   = render "achieved_challenges", challenges: @achieved_challenges
 
-p.mb-4.text-3xl.font-extrabold.leading-none.tracking-tight.md:text-5xl.text-white
+p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
   | プレイ履歴
 - @reviewed_plays.each do |play|
   .mb-3
