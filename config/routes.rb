@@ -26,9 +26,15 @@ Rails.application.routes.draw do
   get "home", as: :home, to: "games#index"
 
   resources :users, param: :name, only: [:show]
-  resource :preference, module: :users, only: [:edit, :update] do
-    put :clear_win_lose_count, on: :member
+  scope "user", module: :users do
+    resource :preference, only: [:edit, :update] do
+      put :clear_win_lose_count, on: :member
+    end
+    resources :notifications, only: [:index] do
+      put :confirm, on: :member
+    end
   end
+
   get "me/edit", as: :edit_me, to: "users#edit"
   patch "me/update", as: :update_me, to: "users#update"
 
@@ -61,10 +67,6 @@ Rails.application.routes.draw do
     resource :social do
       post :copy_challenge, on: :collection
     end
-  end
-
-  resources :notification do
-    put :confirm, on: :member
   end
 
   resource :page, only: [] do
