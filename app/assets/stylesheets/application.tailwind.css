@@ -37,8 +37,11 @@
   @apply font-semibold;
 }
 
-.markdown a {
+/* .markdown a {
   @apply text-blue-400 font-semibold;
+} */
+.markdown a {
+  @apply underline font-semibold;
 }
 
 .markdown strong a {
@@ -86,11 +89,11 @@
 }
 
 .markdown ul {
-  @apply text-base pl-8 list-disc;
+  @apply pl-8 list-disc;
 }
 
 .markdown ol {
-  @apply text-base pl-8 list-decimal;
+  @apply pl-8 list-decimal;
 }
 
 .markdown kbd {

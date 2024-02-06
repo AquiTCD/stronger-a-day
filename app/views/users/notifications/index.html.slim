@@ -1,0 +1,16 @@
+- @user_notifications.each do |notification|
+  - color_theme = { highest: "red", higher: "yellow", normal: "gray" }
+  - color = color_theme[notification.importance.to_sym]
+  .mx-auto.max-w-screen-xl.w-full(id="notification_#{notification.id}")
+    .w-full.block.bg-gray-800.border.rounded-lg.p-3.shadow.mb-5.relative(class="border-#{color}-700")
+      .flex.items-center
+        div.mr-2
+          svg(class="w-[21px] h-[21px] text-#{color}-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+        div.text-sm(class="text-#{color}-200")
+          p.font-bold = notification.subject
+          .markdown
+            = md_to_html(notification.content)
+
+div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white
+  = link_to "ゲームメニューに戻る", home_path, class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"

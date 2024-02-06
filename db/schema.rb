@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_031543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "subject", null: false
+    t.text "content", null: false
+    t.string "importance", default: "normal", null: false
+    t.datetime "released_at"
+    t.datetime "closed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "play_challenge_results", force: :cascade do |t|
     t.bigint "play_result_id", null: false
     t.bigint "challenge_id", null: false
@@ -129,6 +139,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
     t.index ["user_id"], name: "index_user_authentications_on_user_id", unique: true
   end
 
+  create_table "user_notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "notification_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_user_notifications_on_notification_id"
+    t.index ["user_id"], name: "index_user_notifications_on_user_id"
+  end
+
   create_table "user_preferences", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.boolean "public", default: true, null: false
@@ -169,5 +188,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_225951) do
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
   add_foreign_key "user_authentications", "users"
+  add_foreign_key "user_notifications", "notifications"
+  add_foreign_key "user_notifications", "users"
   add_foreign_key "user_preferences", "users"
 end
