@@ -49,6 +49,7 @@ class User < ApplicationRecord
   has_many :notes, dependent: :destroy
   has_many :challenges, dependent: :destroy
   has_one :preference, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true

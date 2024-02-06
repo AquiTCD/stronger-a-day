@@ -63,6 +63,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :notification do
+    put :confirm, on: :member
+  end
+
   resource :page, only: [] do
     get :terms_of_service, on: :collection
     get :privacy_policy, on: :collection
