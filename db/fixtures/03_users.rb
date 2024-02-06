@@ -11,7 +11,7 @@ User.seed(:name,
 #   }
 # )
 # DB作りなおし時のみ
-User.all.each do |user|
+User.order(:id).each do |user|
   User::Preference.seed(:user_id,
     {
       user: user
