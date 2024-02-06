@@ -37,8 +37,11 @@
   @apply font-semibold;
 }
 
-.markdown a {
+/* .markdown a {
   @apply text-blue-400 font-semibold;
+} */
+.markdown a {
+  @apply underline font-semibold;
 }
 
 .markdown strong a {
