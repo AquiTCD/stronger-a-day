@@ -1,6 +1,6 @@
 nav.border-b.border-gray-400.bg-gray-900
   .max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-2.md:p-4
-    div(data-controller="dropdown"
+    div#site-title-button(data-controller="dropdown"
         data-action="click->dropdown#toggle click@window->dropdown#hide")
       div(id="dropdown-button" class="relative inline-block mr-1")
         div(role="button" tabindex="0" data-dropdown-target="button" class="inline-block select-none rounded-full px-2 text-center")
@@ -27,7 +27,7 @@ nav.border-b.border-gray-400.bg-gray-900
             = link_to "フィードバック", "https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit", method: :delete, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
 
     - if user_signed_in?
-      div(data-controller="dropdown"
+      div#user-menu-button(data-controller="dropdown"
           data-action="click->dropdown#toggle click@window->dropdown#hide")
         div(id="dropdown-button" class="relative inline-block mr-1")
           div(role="button" tabindex="0" data-dropdown-target="button" class="inline-block select-none border-2 border-gray-600 rounded-full px-2.5 py-1.5")

@@ -10,11 +10,15 @@ html
     / = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    link(rel="preconnect" href="https://fonts.googleapis.com")
-    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true)
-    link(href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css")
+    - if current_page?(root_path)
+      link(rel="preconnect" href="https://fonts.googleapis.com")
+      link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true)
+      link(href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet")
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
+    div.hidden(data-controller="tutorial")
+      div.hidden(data-tutorial-target="page" data-page="#{controller_name}-#{action_name}")
     #flash.z-50
       = render "shared/flash"
     header
@@ -22,7 +26,7 @@ html
     main.container.mx-auto.mt-5.px-5(data-controller="#{'slideover' if @game.present?}")
       - if @notifications
         = render "layouts/notifications"
-      .mb-3
+      .mb-3#some-element
         = render "layouts/game_title"
       = yield
       - if @game.present?
