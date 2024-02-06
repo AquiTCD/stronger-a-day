@@ -28,7 +28,7 @@ Notifications = [
   {
     subject: "アップデート: v0.1.3",
     content:<<~TXT,
-        - チャレンジ登録モーダルを追加
+        - 振り返り時のレビューコメント機能を追加
       TXT
     importance: :normal,
     released_at: "2024-02-05 10:00:00".in_time_zone,
