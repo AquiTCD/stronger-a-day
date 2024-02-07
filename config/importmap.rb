@@ -10,3 +10,4 @@ pin "tailwindcss-stimulus-components" # @4.0.4
 pin "driver.js" # @1.3.1
 
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.9

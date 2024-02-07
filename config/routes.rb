@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index] do
       put :confirm, on: :member
     end
+    resources :tutorials, only: [:create]
   end
 
   get "me/edit", as: :edit_me, to: "users#edit"

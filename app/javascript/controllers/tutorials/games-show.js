@@ -1,6 +1,11 @@
 import { driver } from "driver.js"
+import { post } from '@rails/request.js'
+
 const Tutorial = driver({
   showProgress: true,
+  nextBtnText: "次へ →",
+  prevBtnText: "← 戻る",
+  doneBtnText: "終了",
   steps: [
     { popover: {
         title: 'ようこそ ヒトツヨ へ',
@@ -31,6 +36,14 @@ const Tutorial = driver({
         description: '左下のアイコンでは、チャレンジ追加のフォームが表示されます。\n思いついたらすぐに追加することができます。',
       }
     },
-  ]
+  ],
+  onDestroyStarted: () => {
+    if (Tutorial.isLastStep()) {
+      const response = post("/user/tutorials", {
+        body: { page: 'games-show' }
+      })
+    }
+    Tutorial.destroy()
+  },
 })
 export default Tutorial

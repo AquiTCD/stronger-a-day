@@ -17,8 +17,7 @@ html
       link(href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet")
     = javascript_importmap_tags
   body.bg-gray-900.text-gray-200.antialiased
-    div.hidden(data-controller="tutorial")
-      div.hidden(data-tutorial-target="page" data-page="#{controller_name}-#{action_name}")
+    = render "layouts/tutorial"
     #flash.z-50
       = render "shared/flash"
     header
