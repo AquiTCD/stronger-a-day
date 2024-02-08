@@ -1,7 +1,7 @@
 import { driver } from "driver.js"
 import { post } from '@rails/request.js'
 
-const baseTutorial = function(page, steps){
+export default function (page, steps) {
   console.log(`base: ${page}`)
   const d = driver({
     showProgress: true,
@@ -10,7 +10,7 @@ const baseTutorial = function(page, steps){
     doneBtnText: "終了",
     steps: steps,
     onDestroyStarted: () => {
-      if (baseTutorial.isLastStep()) {
+      if (d.isLastStep()) {
         post("/user/tutorials", {
           body: { page: page }
         })
@@ -20,4 +20,4 @@ const baseTutorial = function(page, steps){
   })
   return d
 }
-export default baseTutorial
+// export default baseTutorial

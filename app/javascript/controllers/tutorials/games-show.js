@@ -1,6 +1,6 @@
 import baseTutorial from "controllers/tutorials/base"
 
-const gamesShowTutorial = baseTutorial("games-show", [
+export default function () { return baseTutorial("games-show", [
   { popover: {
       title: 'ようこそ ヒトツヨ へ',
       description: 'これからチュートリアルを始めます。<br />まずはじめに、常に表示されているものについて説明です'
@@ -48,5 +48,4 @@ const gamesShowTutorial = baseTutorial("games-show", [
       description: 'チュートリアルは初回のみ表示されますが、ユーザー設定からいつでも再表示することができます。'
     }
   }
-])
-export default gamesShowTutorial
+])}

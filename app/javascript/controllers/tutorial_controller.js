@@ -6,8 +6,8 @@ import gamesShow from "controllers/tutorials/games-show"
 import challengesIndex from "controllers/tutorials/challenges-"
 
 const pageTutorials = {
-  "games-show": gamesShow,
-  "challenges-index": challengesIndex,
+  "games-show": gamesShow(),
+  "challenges-index": challengesIndex(),
 }
 
 export default class extends Controller {
@@ -19,8 +19,6 @@ export default class extends Controller {
     console.log(`tutorial: ${this.pageValue}`)
     const pageTutorial = pageTutorials[this.pageValue]
     if (pageTutorial) {
-      console.log(pageTutorial.isActive())
-      pageTutorial.refresh()
       pageTutorial.drive()
     }
   }
