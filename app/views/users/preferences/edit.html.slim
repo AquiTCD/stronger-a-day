@@ -13,11 +13,13 @@ section.bg-gray-900.mb-4
           div
             = f.text_area :description, class: "w-full h-24 bg-gray-700 border border-gray-600 rounded-lg text-white px-2 py-2", placeholder: "自己紹介文を入力してください", value: current_user.description
         .grid(class="grid-cols-[1fr_auto]")
-          / .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
+          .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
             div.text-white
               p.text-bold.text-lg
                 | ログイン状態を記憶する
               p.text-sm
+                | （※ 実験的機能）
+                br
                 | お使いのブラウザにログイン状態を記憶させます
             div
               = f.label :remember_me, "", class: "relative inline-flex items-center cursor-pointer" do
@@ -27,12 +29,12 @@ section.bg-gray-900.mb-4
           .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
             div.text-white
               p.text-bold.text-lg
-                | 使い方を表示する
+                | 使い方を再表示する
               p.text-sm
-                | 各ページ上部に使い方の説明を表示します
+                | 各ページの使い方説明をもう一度、再表示します
             div
-              = f.label :show_usage, "", class: "relative inline-flex items-center cursor-pointer" do
-                = f.check_box :show_usage, class: "sr-only peer"
+              = f.label :reshow_tutorials, "", class: "relative inline-flex items-center cursor-pointer" do
+                = f.check_box :reshow_tutorials, { class: "sr-only peer", checked: @reshow_tutorials }
                 div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
                 span.ms-3.text-sm.font-medium.text-gray-300 表示する
           .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
