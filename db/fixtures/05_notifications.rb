@@ -60,6 +60,13 @@ Notifications = [
         - お知らせ機能を追加
       TXT
     importance: :normal,
+  },
+  {
+    subject: "アップデート: v0.1.5",
+    content:<<~TXT,
+        - 使い方説明を表示を一新
+      TXT
+    importance: :normal,
   }
 ]
 Notifications.each do |notification|
