@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_031543) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_07_092104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -158,6 +158,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_031543) do
     t.index ["user_id"], name: "index_user_preferences_on_user_id"
   end
 
+  create_table "user_tutorials", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "page", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "page"], name: "index_user_tutorials_on_user_id_and_page", unique: true
+    t.index ["user_id"], name: "index_user_tutorials_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "display_name"
@@ -191,4 +200,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_031543) do
   add_foreign_key "user_notifications", "notifications"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "user_preferences", "users"
+  add_foreign_key "user_tutorials", "users"
 end

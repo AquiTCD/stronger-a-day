@@ -4,8 +4,11 @@ User.seed(:name,
     display_name: 'ヒトツヨ'
   }
 )
-User::Preference.seed(:user_id,
-  {
-    user: User.find_by(name: 'SYSTEM')
-  }
-)
+system_user = User.find_by(name: 'SYSTEM')
+if system_user.preference.blank?
+  User::Preference.seed(:user_id,
+    {
+      user: system_user
+    }
+  )
+end

@@ -3,6 +3,7 @@ class BaseController < ApplicationController
   before_action :set_game
   before_action :set_note
   before_action :set_notifications, only: [:show, :index, :new, :edit]
+  before_action :set_tutorial, only: [:show, :index, :new, :edit]
 
   private
 
@@ -23,5 +24,9 @@ class BaseController < ApplicationController
           where("closed_at IS NULL OR closed_at > ?", Time.current).
           order(released_at: :desc).
           where.not(id: current_user.notifications.select(:notification_id))
+    end
+
+    def set_tutorial
+      @show_tutorial = current_user.tutorial?("#{controller_name}-#{action_name}")
     end
 end

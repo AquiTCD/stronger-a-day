@@ -50,9 +50,14 @@ class User < ApplicationRecord
   has_many :challenges, dependent: :destroy
   has_one :preference, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :tutorials, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true
 
   delegate :public, :show_usage, :show_tips, to: :preference
+
+  def tutorial?(page)
+    !tutorials.exists?(page:)
+  end
 end

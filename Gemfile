@@ -51,6 +51,7 @@ gem "config"
 gem "enum_help"
 # gem "image_processing", "~> 1.2" # by rails Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "rails-i18n"
+gem "requestjs-rails"
 gem "interactor-rails"
 gem "seed-fu"
 

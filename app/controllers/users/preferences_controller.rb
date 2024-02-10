@@ -5,6 +5,7 @@ class Users::PreferencesController < ApplicationController
     @preference = current_user.preference
     # FIXME: なぜか false になる
     @remember_me = remember_me_is_active?(current_user)
+    @reshow_tutorials = !current_user.tutorials.exists?
   end
 
   def update
@@ -19,6 +20,7 @@ class Users::PreferencesController < ApplicationController
       if user_description_params.present?
         current_user.update(description: user_description_params)
       end
+      destroy_tutorials
       redirect_to edit_preference_path, notice: "更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -36,7 +38,7 @@ class Users::PreferencesController < ApplicationController
   private
 
     def pref_params
-      params.require(:user_preference).permit(:show_tips, :show_usage, :public)
+      params.require(:user_preference).permit(:show_tips, :public)
     end
 
     def user_description_params
@@ -45,5 +47,15 @@ class Users::PreferencesController < ApplicationController
 
     def remember_me_param
       params.require(:user_preference).permit(:remember_me)[:remember_me]
+    end
+
+    def reshow_tutorials_param
+      params.require(:user_preference).permit(:reshow_tutorials)[:reshow_tutorials]
+    end
+
+    def destroy_tutorials
+      if reshow_tutorials_param == "1"
+        current_user.tutorials.destroy_all
+      end
     end
 end
