@@ -1,43 +1,39 @@
-div.text-lg.font-bold.font-gray-900
-  = @play.character.display_name
-p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
-  span.text-5xl.text-green-400 = @win_count
-  sapn.text-2xl.mr-3 勝
-  span.text-5xl.text-red-400 = @lose_count
-  span.text-2xl 敗
-
-= form_with(model: ResultForm.new, url: game_play_results_path(@game, @play)) do |f|
+div(data-controller="#{'result-tutorial' if @show_tutorial}")
+  div.text-lg.font-bold.font-gray-900
+    = @play.character.display_name
   p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
-    | チャレンジ
-  #general_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-400.mb-5(class="grid-rows-1")
-    - @general_challenges.each do |challenge|
-      .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.px-2.py-3.text-white.font-bold
-        = challenge.topic
+    span.text-5xl.text-green-400 = @win_count
+    sapn.text-2xl.mr-3 勝
+    span.text-5xl.text-red-400 = @lose_count
+    span.text-2xl 敗
 
-  div#opponent_challenges
-  div#result
-  = f.hidden_field :play_id, value: @play.id
-div#opponents.mb-4
-  p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
-    | 対戦相手を選択
-  .grid.grid-cols-3.gap-2.mb-4
-    - @opponents.each do |character|
-      = button_to select_opponent_game_play_results_path(@game, @play), method: :get, params: { opponent_id: character.id }, class: "relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800 w-full", data: { turbo_stream: true } do
-        span.relative.px-2.py-2.transition-all.ease-in.duration-75.bg-gray-900.rounded-md.group-hover:bg-opacity-0.w-full.font-bold
-          =  character.display_name
+  = form_with(model: ResultForm.new, url: game_play_results_path(@game, @play)) do |f|
+    p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
+      | チャレンジ
+    #general_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-400.mb-5(class="grid-rows-1")
+      - @general_challenges.each do |challenge|
+        .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.px-2.py-3.text-white.font-bold
+          = challenge.topic
 
-= render "shared/hr", text: "プレイ終了"
+    div#opponent_challenges
+    div#result
+    = f.hidden_field :play_id, value: @play.id
+  div#opponents.mb-4
+    p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
+      | 対戦相手を選択
+    .grid.grid-cols-3.gap-2.mb-4
+      - @opponents.each do |character|
+        = button_to select_opponent_game_play_results_path(@game, @play), method: :get, params: { opponent_id: character.id }, class: "relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800 w-full", data: { turbo_stream: true } do
+          span.relative.px-2.py-2.transition-all.ease-in.duration-75.bg-gray-900.rounded-md.group-hover:bg-opacity-0.w-full.font-bold
+            =  character.display_name
 
-= render "shared/usage" do
-  | 一連のプレイが終わった場合は終了します
-  br
-  | 基本的にはすぐに振り返りに進むのがオススメです
+  = render "shared/hr", text: "プレイ終了"
 
-div.mb-2
-= button_to "終了して 振り返りに進む", finish_game_play_path(@game, @play), method: :put, params: { move_to: "review" }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
-= button_to "終了して メニューに戻る", finish_game_play_path(@game, @play), method: :put, params: { move_to: "game" }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+  div.mb-2
+  = button_to "終了して 振り返りに進む", finish_game_play_path(@game, @play), method: :put, params: { move_to: "review" }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2", id: "finish_play"
+  = button_to "終了して メニューに戻る", finish_game_play_path(@game, @play), method: :put, params: { move_to: "game" }, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
 
-= render "shared/hr", text: "MENU"
-div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white.mt-2
-  = link_to "操作キャラ選択に戻る", new_game_play_path(@game), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"
-  = link_to "チャレンジを再選択", new_game_play_challenge_path(@game, @play), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"
+  = render "shared/hr", text: "MENU"
+  div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white.mt-2
+    = link_to "操作キャラ選択に戻る", new_game_play_path(@game), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"
+    = link_to "チャレンジを再選択", new_game_play_challenge_path(@game, @play), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"

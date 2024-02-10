@@ -25,7 +25,7 @@ html
     main.container.mx-auto.mt-5.px-5(data-controller="#{'slideover' if @game.present?}")
       - if @notifications
         = render "layouts/notifications"
-      .mb-3#some-element
+      .mb-3#game-title
         = render "layouts/game_title"
       = yield
       - if @game.present?

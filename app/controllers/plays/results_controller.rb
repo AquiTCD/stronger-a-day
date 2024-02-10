@@ -21,6 +21,7 @@ class Plays::ResultsController < BaseController
     @general_challenges = @play.challenges.where(opponent: nil)
     @opponent = @game.characters.find(params[:opponent_id])
     @opponent_challenges = @play.challenges.where(opponent: @opponent).order(:id)
+    @show_tutorial = current_user.tutorial?("#{controller_name}-new")
   end
 
   private

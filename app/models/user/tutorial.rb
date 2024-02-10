@@ -22,6 +22,11 @@ class User::Tutorial < ApplicationRecord
 
   PAGES = %i[
     games-show
+    challenges-index
+    challenges-new
+    results-new
+    reviews-index
+    socials-show
   ].freeze
   enum :page, PAGES.zip(PAGES.map(&:to_s)).to_h
 

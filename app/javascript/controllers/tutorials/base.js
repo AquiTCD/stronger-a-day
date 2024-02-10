@@ -2,7 +2,6 @@ import { driver } from "driver.js"
 import { post } from '@rails/request.js'
 
 export default function (page, steps) {
-  console.log(`base: ${page}`)
   const d = driver({
     showProgress: true,
     nextBtnText: "次へ →",
@@ -20,4 +19,3 @@ export default function (page, steps) {
   })
   return d
 }
-// export default baseTutorial

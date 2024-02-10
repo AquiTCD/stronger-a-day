@@ -19,19 +19,7 @@ div.mb-4(id="play_#{play.id}")
       span.text-5xl.text-red-400 = results.select { |r| r.result == "lose" }.size
       span.text-2xl 敗
 
-  = render "shared/usage" do
-    | チャレンジについて振り返ります
-    br
-    span.text-green-400 できたものは緑
-    |、
-    span.text-red-400 できなかったものは赤
-    | で表示されます
-    br
-    | 完全に身についたと判断したものは
-    svg(class="w-[16px] h-[16px] inline-block text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-      path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9a3 3 0 0 1 3-3m-2 15h4m0-3c0-4.1 4-4.9 4-9A6 6 0 1 0 6 9c0 4 4 5 4 9h4Z")
-    | を押すと達成済みになります
-  div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
+  #challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
     - challenges.select { |c| c.challenge.opponent_id == nil }.each do |play_challenge|
       .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
         .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
@@ -42,12 +30,7 @@ div.mb-4(id="play_#{play.id}")
           = play_challenge.challenge.topic
         .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
           = render "challenge_achieved", challenge: play_challenge.challenge
-          / - if play_challenge.challenge.achieved_at
-          /   svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
-          /     path(fill-rule="evenodd" d="M4 4a2 2 0 1 0 0 4h16a2 2 0 1 0 0-4H4Zm0 6h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8Zm10.7 5.7a1 1 0 0 0-1.4-1.4l-.3.3V12a1 1 0 1 0-2 0v2.6l-.3-.3a1 1 0 0 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l2-2Z" clip-rule="evenodd")
-          / - else
-          /   svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-          /     path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v5m0 0 2-2m-2 2-2-2M3 6v1c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V6c0-.6-.4-1-1-1H4a1 1 0 0 0-1 1Zm2 2v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V8H5Z")
+
   - grouped_result = results.group_by(&:opponent_id)
   - grouped_result.each do |grouped|
     - opponent_id = grouped.first
@@ -78,5 +61,5 @@ div.mb-4(id="play_#{play.id}")
             .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
               = render "challenge_achieved", challenge: play_challenge.challenge
   = form_with url: complete_game_review_path(@game, play.id), method: :post do |f|
-    = f.text_field :comment, placeholder: "コメント（任意）", class: "border text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder:text-gray-400 text-white mb-4"
-    = f.submit "振り返りレビュー完了", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full"
+    = f.text_field :comment, placeholder: "コメント（任意）", class: "border text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder:text-gray-400 text-white mb-4 review_comment"
+    = f.submit "振り返りレビュー完了", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full review_submit"
