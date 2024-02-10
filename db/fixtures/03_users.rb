@@ -5,7 +5,7 @@ User.seed(:name,
   }
 )
 system_user = User.find_by(name: 'SYSTEM')
-unless system_user.preference == nil
+if system_user.preference.blank?
   User::Preference.seed(:user_id,
     {
       user: system_user
