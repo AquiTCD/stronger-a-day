@@ -19,7 +19,6 @@ export default class extends Controller {
     if (page && this.deliver == undefined) {
       import(pageTutorials[this.pageValue])
       .then((pageTutorial) => {
-        console.log('con')
         this.driver = pageTutorial.default()
         this.driver.drive()
       })
@@ -28,7 +27,6 @@ export default class extends Controller {
 
   disconnect() {
     if (this.driver) {
-      console.log('dis')
       this.driver.destroy()
     }
   }
