@@ -32,5 +32,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
   belongs_to :game
   belongs_to :character, optional: true
-  has_many :recipe_situations, class_name: "Recipe::Situation"
+  has_many :recipe_situations, class_name: "Recipe::Situation", dependent: :destroy
+  has_many :situations, through: :recipe_situations, source: :situation
+  has_many :trainings, dependent: :destroy
 end

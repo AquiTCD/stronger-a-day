@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_recipe_situations_on_recipe_id     (recipe_id)
-#  index_recipe_situations_on_situation_id  (situation_id)
+#  index_recipe_situations_on_recipe_id                   (recipe_id)
+#  index_recipe_situations_on_recipe_id_and_situation_id  (recipe_id,situation_id) UNIQUE
+#  index_recipe_situations_on_situation_id                (situation_id)
 #
 # Foreign Keys
 #
@@ -19,5 +20,6 @@
 #  fk_rails_...  (situation_id => situations.id)
 #
 class Recipe::Situation < ApplicationRecord
-  # belongs_to :game
+  belongs_to :recipe, class_name: "::Recipe"
+  belongs_to :situation, class_name: "::Situation"
 end

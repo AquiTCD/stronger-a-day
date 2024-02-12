@@ -3,9 +3,9 @@
     .px-2.py-2(id="training_achieved_#{training.id}")
       = render "trainings/training_achieved", training: training
     .px-2.py-2.p-4.font-medium
-      span = training.character ? "#{training.character.display_name} " : ""
+      span = training.character&.display_name
       p.font-bold.text-white
-        span = training.recipe&.topic
+        span.mr-2 = training.recipe&.movements
         = training.topic
     .py-2.justify-self-end
       - unless training.public?

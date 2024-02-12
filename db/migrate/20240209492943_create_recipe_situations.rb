@@ -6,6 +6,6 @@ class CreateRecipeSituations < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    # add_index :recipe_situations, [:recipe_id, :situation_id], unique: true
+    add_index :recipe_situations, [:recipe_id, :situation_id], unique: true
   end
 end

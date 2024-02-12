@@ -1,5 +1,5 @@
 class TrainingsController < BaseController
-  before_action :set_training, only: [:show, :edit, :update, :destroy, :start]
+  before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve]
 
   def index
     user_trainings = current_user.trainings.where(user: current_user, game: @game)
@@ -20,7 +20,7 @@ class TrainingsController < BaseController
       game: @game,
       topic: training_params[:topic],
       character_id: training_params[:character_id],
-      recipe_id: training_params[:opponent_id],
+      recipe_id: training_params[:recipe_id],
       public: training_params[:public],
     )
     if @training.save
@@ -47,7 +47,6 @@ class TrainingsController < BaseController
   end
 
   def achieve
-    @training = current_user.trainings.find(params[:id])
     @training.achieved_at = if @training.achieved_at
                               nil
                             else

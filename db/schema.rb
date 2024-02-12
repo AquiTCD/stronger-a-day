@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
     t.bigint "situation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["recipe_id", "situation_id"], name: "index_recipe_situations_on_recipe_id_and_situation_id", unique: true
     t.index ["recipe_id"], name: "index_recipe_situations_on_recipe_id"
     t.index ["situation_id"], name: "index_recipe_situations_on_situation_id"
   end
