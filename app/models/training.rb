@@ -38,6 +38,7 @@ class Training < ApplicationRecord
   belongs_to :user
   belongs_to :game
   belongs_to :character, optional: true
+  belongs_to :recipe, optional: true
   has_many :results, class_name: "Training::Result", dependent: :destroy
 
   scope :in_public, -> { where(public: true) }

@@ -1,0 +1,30 @@
+h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white トレーニングノート
+
+div#new_training
+  = render "form", training: @training
+
+#trainings.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
+  = render partial: @trainings
+
+= render "shared/hr", text: "行ったトレーニングメニュー履歴"
+
+= render "shared/hr", text: "達成したトレーニングメニュー"
+#achieved_trainings.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
+  - @achieved_trainings.each do |training|
+    .border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600
+      .px-4.pt-2.justify-self-end
+        p
+          = training.achieved_at.strftime("%Y/%m/%d %H:%M")
+      .px-4.pb-2.font-medium
+        p.text-gray-400
+          span = training.character&.display_name
+        p.font-bold.text-white
+          span = training.recipe&.topic
+          = training.topic
+
+= render "shared/hr", text: "MENU"
+/ div.mb-2
+/   = button_to "新しいプレイを始める", new_game_play_path(@game), method: :get, class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+
+div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white
+  = link_to "レシピ管理", game_path(@game), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"

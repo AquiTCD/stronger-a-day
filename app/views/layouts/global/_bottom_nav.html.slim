@@ -1,10 +1,18 @@
-.fixed.bottom-0.left-0.z-20.w-full.h-10.md:h-14.border-t.bg-gray-700.border-gray-600
-  .grid.h-full.sm:max-w-sm.lg:max-w-lg.grid-cols-2.mx-auto.font-medium
+.fixed.bottom-0.left-0.z-20.w-full.h-10.md:h-14.border-t.bg-gray-700.border-gray-600.px-14
+  .grid.h-full.sm:max-w-sm.lg:max-w-lg.grid-cols-4.font-medium.mx-auto
     - home_color = current_page?(game_path(@game)) ? "text-blue-500" : "text-gray-400"
-    = link_to(game_path(@game), id: "bottom-home-button", class: "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ml-12") do
+    = link_to(game_path(@game), id: "bottom-home-button", class: "inline-flex flex-col items-center justify-center hover:bg-gray-800 group") do
       svg(class="w-6 h-6 #{home_color}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
         path(fill-rule="evenodd" d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6 2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2 6-6Z" clip-rule="evenodd")
+    - training_color = current_page?(game_trainings_path(@game)) ? "text-blue-500" : "text-gray-400"
+    = link_to(game_trainings_path(@game), id: "bottom-home-button", class: "inline-flex flex-col items-center justify-center hover:bg-gray-800 group") do
+      svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+        path(d="M20 14h-2.7L11 20.3l-.9.7H20a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1ZM9 3H4a1 1 0 0 0-1 1v13.5a3.5 3.5 0 1 0 7 0V4a1 1 0 0 0-1-1ZM6.5 18.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM19.1 7.9l-3.5-3.5a1 1 0 0 0-1.4 0L12 6.5v10l7.1-7.2a1 1 0 0 0 0-1.4Z")
+    - training_color = current_page?(game_trainings_path(@game)) ? "text-blue-500" : "text-gray-400"
+    = link_to(game_trainings_path(@game), id: "bottom-home-button", class: "inline-flex flex-col items-center justify-center hover:bg-gray-800 group") do
+      svg(class="w-6 h-6 #{training_color}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+        path(fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2c.6 0 1-.4 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z" clip-rule="evenodd")
     - social_color = current_page?(game_social_path(@game)) ? "text-blue-500" : "text-gray-400"
-    = link_to(game_social_path(@game), id: "bottom-social-button", class: "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group mr-12") do
+    = link_to(game_social_path(@game), id: "bottom-social-button", class: "inline-flex flex-col items-center justify-center hover:bg-gray-800 group") do
       svg(class="w-6 h-6 #{social_color}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
         path(fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.8-3.1a5.5 5.5 0 0 0-2.8-6.3c.6-.4 1.3-.6 2-.6a3.5 3.5 0 0 1 .8 6.9Zm2.2 7.1h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1l-.5.8c1.9 1 3.1 3 3.1 5.2ZM4 7.5a3.5 3.5 0 0 1 5.5-2.9A5.5 5.5 0 0 0 6.7 11 3.5 3.5 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4c0 1.1.9 2 2 2h.5a6 6 0 0 1 3-5.2l-.4-.8Z" clip-rule="evenodd")

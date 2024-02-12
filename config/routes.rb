@@ -68,6 +68,11 @@ Rails.application.routes.draw do
     resource :social do
       post :copy_challenge, on: :collection
     end
+
+    resources :recipes
+    resources :trainings do
+      put :achieve, on: :member
+    end
   end
 
   resource :page, only: [] do
