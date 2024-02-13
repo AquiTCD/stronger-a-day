@@ -1,0 +1,24 @@
+= turbo_frame_tag recipe, class:"grid grid-cols-subgrid col-span-3" do
+  .grid.grid-cols-subgrid.col-span-3.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(id="recipe_#{recipe.id}" data={ "turbo_frame": "recipe_#{recipe.id}" })
+    .px-2.py-2.p-4.font-medium
+      .flex.flex.flex-row.flex-wrap.items-center.font-bold
+        span.mr-2.underline = recipe.character&.display_name
+        - recipe.situations.each do |situation|
+          .rounded-lg.border-2.border-gray-400.py-1.px-2.text-gray-200.text-xs.mr-1.mb-1
+            = situation.display_name
+      p.font-bold.text-base.lg:text-lg.text-white.py-2
+        span = recipe.movements
+      p.text-white.font-base
+        span = recipe.comment
+    .py-2.justify-self-end
+      - unless recipe.public?
+        svg(class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+          path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14c-.5-.6-.9-1.3-1-2 0-1 4-6 9-6m7.6 3.8A5 5 0 0 1 21 12c0 1-3 6-9 6h-1m-6 1L19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z")
+    .px-2.py-2
+      .flex
+        = button_to edit_game_recipe_path(@game, recipe), method: :get, params: { opponent_id: recipe.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", data: { turbo_stream: true } do
+          svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z")
+        = button_to game_recipe_path(@game, recipe), method: :delete, class: "font-medium border-red-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "本当に削除しますか？\n関連するトレーニングがある場合、トレーニングも同時に削除されます" } } do
+          svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z")

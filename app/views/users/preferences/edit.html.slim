@@ -13,7 +13,7 @@ section.bg-gray-900.mb-4
           div
             = f.text_area :description, class: "w-full h-24 bg-gray-700 border border-gray-600 rounded-lg text-white px-2 py-2", placeholder: "自己紹介文を入力してください", value: current_user.description
         .grid(class="grid-cols-[1fr_auto]")
-          .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
+          / .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
             div.text-white
               p.text-bold.text-lg
                 | ログイン状態を記憶する

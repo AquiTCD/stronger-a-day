@@ -51,6 +51,8 @@ class User < ApplicationRecord
   has_one :preference, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :tutorials, dependent: :destroy
+  has_many :trainings, dependent: :destroy
+  has_many :recipes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true

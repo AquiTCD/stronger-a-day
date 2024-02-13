@@ -27,7 +27,19 @@ export default function () { return baseTutorial("games-show", [
   { element: '#bottom-home-button',
     popover: {
       title: 'ホーム',
-      description: 'こちらはゲームの<strong>メインメニュー</strong>を表示します',
+      description: 'こちらはゲームの<strong>メインメニュー</strong>を表示します<br />ここからチャレンジ管理、プレイ中チャレンジ、振り返りが行えます。',
+    }
+  },
+  { element: '#bottom-training-button',
+    popover: {
+      title: 'トレーニングノート',
+      description: 'トレーニングメニューを表示します<br />トレーニングメニューを管理、やったらコメントとともに記録ができます',
+    }
+  },
+  { element: '#bottom-recipe-button',
+    popover: {
+      title: 'コンボ・セットプレイレシピ',
+      description: 'コンボやセットプレイのレシピを管理します。<br />ここに追加したレシピはトレーニングメニューと関連づけることができます',
     }
   },
   { element: '#bottom-social-button',

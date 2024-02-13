@@ -1,0 +1,17 @@
+.border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600
+  .px-4.pt-2.justify-self-end
+    p
+      = result.created_at.strftime("%Y/%m/%d %H:%M")
+  .pl-2.pr-4.pb-2.font-medium
+    p.pl-2.text-gray-400
+      span = result.training.character&.display_name
+      .flex.flex.flex-row.flex-wrap.items-center
+        - result.training.recipe&.situations.map(&:display_name).each do |situation|
+          span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation
+    p.font-bold.text-white.my-2
+      svg(class="w-6 h-6 text-white inline-block mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+        path(fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd")
+      span = result.training.recipe&.movements
+      =  result.training.topic
+    p.pl-2.text-white
+      = result.comment

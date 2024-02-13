@@ -1,0 +1,33 @@
+h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white トレーニングノート
+
+div#new_training
+  = render "form", training: @training
+
+#trainings.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[1fr_auto_auto]")
+  = render partial: @trainings
+
+= render "shared/hr", text: "履歴"
+#trainings_results.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
+  = render partial: "result", collection: @results
+
+= render "shared/hr", text: "達成"
+#achieved_trainings.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1
+  - @achieved_trainings.each do |training|
+    .border-b.bg-gray-800.border-gray-700.0.hover:bg-gray-600
+      .px-4.pt-2.justify-self-end
+        p
+          = training.achieved_at.strftime("%Y/%m/%d %H:%M")
+      .px-4.pb-2.font-medium
+        p.text-gray-400
+          span = training.character&.display_name
+          .flex.flex.flex-row.flex-wrap.items-center
+            - training.recipe&.situations.map(&:display_name).each do |situation|
+              span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation
+        p.font-bold.text-white
+          span = training.recipe&.movements
+          = training.topic
+
+= render "shared/hr", text: "MENU"
+
+div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white
+  = link_to "レシピ管理", game_recipes_path(@game), class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"

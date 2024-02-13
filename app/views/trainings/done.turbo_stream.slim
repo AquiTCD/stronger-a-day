@@ -1,0 +1,4 @@
+= turbo_stream.prepend "trainings_results" do
+  = render partial: "result", locals: { result: @result }
+= turbo_stream.replace "training_#{@training.id}", partial: "training", locals: { training: @training }
+= turbo_stream_flash

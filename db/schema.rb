@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_07_092104) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,66 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_092104) do
     t.index ["user_id"], name: "index_plays_on_user_id"
   end
 
+  create_table "recipe_situations", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "situation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id", "situation_id"], name: "index_recipe_situations_on_recipe_id_and_situation_id", unique: true
+    t.index ["recipe_id"], name: "index_recipe_situations_on_recipe_id"
+    t.index ["situation_id"], name: "index_recipe_situations_on_situation_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "game_id", null: false
+    t.bigint "character_id", null: false
+    t.string "movements", null: false
+    t.string "comment"
+    t.boolean "public", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_recipes_on_character_id"
+    t.index ["game_id"], name: "index_recipes_on_game_id"
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
+
+  create_table "situations", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.string "name", null: false
+    t.string "display_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_situations_on_game_id"
+    t.index ["name"], name: "index_situations_on_name", unique: true
+  end
+
+  create_table "training_results", force: :cascade do |t|
+    t.bigint "training_id", null: false
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_training_results_on_training_id"
+  end
+
+  create_table "trainings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "game_id", null: false
+    t.bigint "recipe_id"
+    t.bigint "character_id"
+    t.bigint "opponent_id"
+    t.string "topic", null: false
+    t.boolean "public", default: true, null: false
+    t.datetime "achieved_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_trainings_on_character_id"
+    t.index ["game_id"], name: "index_trainings_on_game_id"
+    t.index ["opponent_id"], name: "index_trainings_on_opponent_id"
+    t.index ["recipe_id"], name: "index_trainings_on_recipe_id"
+    t.index ["user_id"], name: "index_trainings_on_user_id"
+  end
+
   create_table "user_authentications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "provider", null: false
@@ -196,6 +256,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_092104) do
   add_foreign_key "play_results", "plays"
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
+  add_foreign_key "recipe_situations", "recipes"
+  add_foreign_key "recipe_situations", "situations"
+  add_foreign_key "recipes", "characters"
+  add_foreign_key "recipes", "games"
+  add_foreign_key "recipes", "users"
+  add_foreign_key "situations", "games"
+  add_foreign_key "training_results", "trainings"
+  add_foreign_key "trainings", "characters"
+  add_foreign_key "trainings", "characters", column: "opponent_id"
+  add_foreign_key "trainings", "games"
+  add_foreign_key "trainings", "recipes"
+  add_foreign_key "trainings", "users"
   add_foreign_key "user_authentications", "users"
   add_foreign_key "user_notifications", "notifications"
   add_foreign_key "user_notifications", "users"
