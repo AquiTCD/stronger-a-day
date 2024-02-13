@@ -9,7 +9,7 @@ Notifications = [
     released_at: nil,
   },
   {
-    subject: "アップデート: v0.1.1",
+    subject: "アップデート: v0.2.0",
     content:<<~TXT,
         - マイページ機能を追加
         - 他ユーザーのチャレンジ表示機能を追加
@@ -18,7 +18,7 @@ Notifications = [
     released_at: "2024-02-04 18:45:00".in_time_zone,
   },
   {
-    subject: "アップデート: v0.1.2",
+    subject: "アップデート: v0.2.1",
     content:<<~TXT,
         - チャレンジ登録モーダルを追加
       TXT
@@ -26,7 +26,7 @@ Notifications = [
     released_at: "2024-02-04 22:30:00".in_time_zone,
   },
   {
-    subject: "アップデート: v0.1.3",
+    subject: "アップデート: v0.2.2",
     content:<<~TXT,
         - 振り返り時のレビューコメント機能を追加
       TXT
@@ -55,16 +55,24 @@ Notifications = [
     released_at: "2024-02-06 10:00:00".in_time_zone,
   },
   {
-    subject: "アップデート: v0.1.4",
+    subject: "アップデート: v0.3.0",
     content:<<~TXT,
         - お知らせ機能を追加
       TXT
     importance: :normal,
   },
   {
-    subject: "アップデート: v0.1.5",
+    subject: "アップデート: v0.3.1",
     content:<<~TXT,
         - 使い方説明を表示を一新
+      TXT
+    importance: :normal,
+  },
+  {
+    subject: "アップデート: v0.4.0",
+    content:<<~TXT,
+        - トレーニングノート機能を追加
+        - コンボ・セットプレイ管理機能を追加
       TXT
     importance: :normal,
   }
