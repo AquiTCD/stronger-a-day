@@ -7,7 +7,6 @@
 #  game_id      :bigint           not null
 #  recipe_id    :bigint
 #  character_id :bigint
-#  opponent_id  :bigint
 #  topic        :string           not null
 #  public       :boolean          default(TRUE), not null
 #  achieved_at  :datetime
@@ -18,7 +17,6 @@
 #
 #  index_trainings_on_character_id  (character_id)
 #  index_trainings_on_game_id       (game_id)
-#  index_trainings_on_opponent_id   (opponent_id)
 #  index_trainings_on_recipe_id     (recipe_id)
 #  index_trainings_on_user_id       (user_id)
 #
@@ -26,7 +24,6 @@
 #
 #  fk_rails_...  (character_id => characters.id)
 #  fk_rails_...  (game_id => games.id)
-#  fk_rails_...  (opponent_id => characters.id)
 #  fk_rails_...  (recipe_id => recipes.id)
 #  fk_rails_...  (user_id => users.id)
 #

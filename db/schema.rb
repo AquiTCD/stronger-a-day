@@ -172,7 +172,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
     t.bigint "game_id", null: false
     t.bigint "recipe_id"
     t.bigint "character_id"
-    t.bigint "opponent_id"
     t.string "topic", null: false
     t.boolean "public", default: true, null: false
     t.datetime "achieved_at"
@@ -180,7 +179,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_trainings_on_character_id"
     t.index ["game_id"], name: "index_trainings_on_game_id"
-    t.index ["opponent_id"], name: "index_trainings_on_opponent_id"
     t.index ["recipe_id"], name: "index_trainings_on_recipe_id"
     t.index ["user_id"], name: "index_trainings_on_user_id"
   end
@@ -264,7 +262,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
   add_foreign_key "situations", "games"
   add_foreign_key "training_results", "trainings"
   add_foreign_key "trainings", "characters"
-  add_foreign_key "trainings", "characters", column: "opponent_id"
   add_foreign_key "trainings", "games"
   add_foreign_key "trainings", "recipes"
   add_foreign_key "trainings", "users"
