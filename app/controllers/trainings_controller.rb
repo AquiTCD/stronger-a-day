@@ -1,5 +1,5 @@
 class TrainingsController < BaseController
-  before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve]
+  before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve, :do, :done]
 
   def index
     user_trainings = current_user.trainings.where(user: current_user, game: @game)
@@ -8,6 +8,7 @@ class TrainingsController < BaseController
     @recipes = current_user.recipes.where(game: @game)
     @characters = Character.where(game: @game)
 
+    @results = Training::Result.where(training: user_trainings).order(created_at: :desc).limit(25)
     @achieved_trainings = user_trainings.achieved.order(achieved_at: :desc)
   end
 
@@ -35,6 +36,18 @@ class TrainingsController < BaseController
   def edit
     @characters = Character.where(game: @game)
     @recipes = current_user.recipes.where(game: @game)
+  end
+
+  def do
+  end
+
+  def done
+    if @training.results.create(done_params)
+      flash.now.notice = "トレーニングを記録しました"
+      @result = @training.results.last
+    else
+      render :do, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -92,5 +105,9 @@ class TrainingsController < BaseController
 
     def complete_params
       params.permit(:id)
+    end
+
+    def done_params
+      params.require(:training).permit(:comment)
     end
 end

@@ -71,6 +71,8 @@ Rails.application.routes.draw do
 
     resources :recipes
     resources :trainings do
+      get :do, on: :member
+      patch :done, on: :member
       put :achieve, on: :member
     end
   end
