@@ -9,5 +9,7 @@ class CreateUserPreferences < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :user_preferences, :user_id, unique: true, if_not_exists: true
   end
 end
