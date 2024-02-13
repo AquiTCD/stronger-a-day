@@ -6,6 +6,8 @@ const pageTutorials = {
   "challenges-new": "controllers/tutorials/challenges-new",
   "reviews-index": "controllers/tutorials/reviews-",
   "socials-show": "controllers/tutorials/socials-show",
+  "trainings-index": "controllers/tutorials/trainings-",
+  "recipes-index": "controllers/tutorials/recipes-",
 }
 
 export default class extends Controller {

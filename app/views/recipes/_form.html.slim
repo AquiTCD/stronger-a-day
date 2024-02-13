@@ -4,7 +4,7 @@
       .div#select_character
         = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
         = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "キャラクターを選択", required: true }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-      div.col-span-2#input_recipe
+      div.col-span-2#select_situations
         .mb-2.text-sm.font-medium.text-white 状況（複数可）
         .flex.flex-row.flex-wrap.text-xs.font-bold
           - @situations.each do |situation|
@@ -12,10 +12,10 @@
               = f.check_box "situation_ids", { multiple: true, id: "recipe_situation_#{situation.id}", class: "peer hidden" }, situation.id, false
               = f.label(:situation, value: situation.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-400 py-1 px-2 text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 peer-checked:text-gray-900 peer-checked:border-gray-200") do
                 | #{situation.display_name}
-      div.col-span-2#input_recipe
+      div.col-span-2#input_movements
         = f.label :movements, "動作", class: "block mb-2 text-sm font-medium text-white"
         = f.text_field :movements, autofocus: true, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-      div.col-span-2#input_recipe
+      div.col-span-2#input_comment
         = f.label :comment, "コメント", class: "block mb-2 text-sm font-medium text-white"
         = f.text_field :comment, autofocus: true, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2.self-center.justify-self-end

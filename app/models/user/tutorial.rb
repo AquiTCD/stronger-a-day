@@ -27,6 +27,8 @@ class User::Tutorial < ApplicationRecord
     results-new
     reviews-index
     socials-show
+    trainings-index
+    recipes-index
   ].freeze
   enum :page, PAGES.zip(PAGES.map(&:to_s)).to_h
 
