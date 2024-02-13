@@ -41,8 +41,8 @@ class RecipesController < BaseController
       @recipe.update!(recipe_params)
 
       # 画面から来たものに以外（=選択されなかったもの）があれば削除
-      deleting = @recipe.recipe_situations.where.not(situation_id: recipe_params[:situations_ids].map(&:to_i))
-      deleting.each(&:destroy!)
+      deleting = @recipe.recipe_situations.where.not(situation_id: recipe_params[:situations_ids]&.map(&:to_i))
+      deleting.each(&:destroy!) if deleting.present?
 
       # 増えたものを追加
       existing_situation_ids = @recipe.recipe_situations.pluck(:situation_id)

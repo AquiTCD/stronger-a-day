@@ -27,7 +27,7 @@ class TrainingsController < BaseController
     if @training.save
       @characters = Character.where(game: @game)
       @recipes = current_user.recipes.where(game: @game)
-      flash.now.notice = "チャレンジを追加しました"
+      flash.now.notice = "トレーニングを追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -65,11 +65,12 @@ class TrainingsController < BaseController
                             else
                               Time.current
                             end
+    full_name = "#{@training.recipe&.movements}#{@training.topic}"
     if @training.save
       if @training.achieved_at
-        flash.now[:success] = "「#{@training.topic}」\nを達成にしました"
+        flash.now[:success] = "「#{full_name}」\nを達成にしました"
       else
-        flash.now.alert = "「#{@training.topic}」\nの達成を取り消しました"
+        flash.now.alert = "「#{full_name}」\nの達成を取り消しました"
       end
     else
       render :edit, status: :unprocessable_entity
@@ -78,7 +79,7 @@ class TrainingsController < BaseController
 
   def destroy
     if @training.destroy
-      flash.now.alert = "チャレンジを削除しました"
+      flash.now.alert = "トレーニングを削除しました"
     else
       render :new, status: :unprocessable_entity
     end
