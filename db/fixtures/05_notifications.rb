@@ -75,6 +75,14 @@ Notifications = [
         - コンボ・セットプレイ管理機能を追加
       TXT
     importance: :normal,
+  },
+  {
+    subject: "アップデート: v0.4.1",
+    content:<<~TXT,
+        - みんなのチャレンジにキャラクター選択を追加
+        - みんなのトレーニング、レシピを追加
+      TXT
+    importance: :normal,
   }
 ]
 Notifications.each do |notification|

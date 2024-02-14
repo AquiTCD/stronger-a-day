@@ -35,4 +35,7 @@ class Recipe < ApplicationRecord
   has_many :recipe_situations, class_name: "Recipe::Situation", dependent: :destroy
   has_many :situations, through: :recipe_situations, source: :situation
   has_many :trainings, dependent: :destroy
+
+  scope :in_public, -> { where(public: true) }
+  scope :in_private, -> { where(public: false) }
 end

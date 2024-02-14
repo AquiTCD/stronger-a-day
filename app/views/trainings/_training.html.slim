@@ -3,7 +3,7 @@
     .pl-4.pr-2.pt-2
       span = training.character&.display_name
       .flex.flex.flex-row.flex-wrap.items-center
-        - training.recipe&.situations.map(&:display_name).each do |situation|
+        - training.recipe&.situations&.map(&:display_name)&.each do |situation|
           span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation
     .py-2.px-2.justify-self-end.row-span-2
       - unless training.public?

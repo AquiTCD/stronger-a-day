@@ -36,5 +36,9 @@ module StrongerADay
                        helper_specs: false,
                        routing_specs: false
     end
+
+    config.action_dispatch.rescue_responses.merge!(
+      "ActionController::InvalidAuthenticityToken": :internal_server_error,
+    )
   end
 end

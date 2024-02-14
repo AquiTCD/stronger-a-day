@@ -65,7 +65,10 @@ Rails.application.routes.draw do
     end
     resource :note
 
-    resource :social do
+    resource :social, only: [] do
+      get :challenges, on: :collection
+      get :trainings, on: :collection
+      get :recipes, on: :collection
       post :copy_challenge, on: :collection
     end
 

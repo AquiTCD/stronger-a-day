@@ -12,10 +12,10 @@ class Users::PreferencesController < ApplicationController
     @preference = current_user.preference
     if @preference.update(pref_params)
       if remember_me_param == "1"
-        current_user.remember_me!
+        remember_me(current_user)
       end
       if remember_me_param == "0"
-        current_user.forget_me!
+        forget_me(current_user)
       end
       if user_description_params.present?
         current_user.update(description: user_description_params)

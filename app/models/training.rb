@@ -38,8 +38,8 @@ class Training < ApplicationRecord
   belongs_to :recipe, optional: true
   has_many :results, class_name: "Training::Result", dependent: :destroy
 
-  scope :in_public, -> { where(public: true) }
-  scope :in_private, -> { where(public: false) }
+  scope :in_public, -> { where(public: true).joins(:recipe).where(recipe: nil).or(where(public: true).joins(:recipe).where(recipe: { public: true })) }
+
   scope :achieved, -> { where.not(achieved_at: nil) }
   scope :not_achieved, -> { where(achieved_at: nil) }
 
