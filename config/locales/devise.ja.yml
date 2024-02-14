@@ -91,3 +91,6 @@ ja:
     omniauth_callbacks:
       authentication:
         success: "%{kind}アカウントでログインしました"
+    failure:
+      user:
+        unauthenticated: "ログインに失敗しました"
