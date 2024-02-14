@@ -3,7 +3,6 @@ class Users::PreferencesController < ApplicationController
 
   def edit
     @preference = current_user.preference
-    # FIXME: なぜか false になる
     @remember_me = remember_me_is_active?(current_user)
     @reshow_tutorials = !current_user.tutorials.exists?
   end
