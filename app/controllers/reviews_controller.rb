@@ -5,7 +5,7 @@ class ReviewsController < BaseController
                    where(character: characters).
                    where.associated(:results).distinct
     @plays = user_plays.finished.order(id: :desc).
-               includes(:results)
+               includes(:play_challenges, results: [:challenge_results, :opponent])
 
     @reviewed_plays = user_plays.reviewed
     total_results = Play::Result.where(play: @reviewed_plays).pluck(:result)
