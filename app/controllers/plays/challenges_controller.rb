@@ -2,10 +2,11 @@ class Plays::ChallengesController < BaseController
   def new
     @play = current_user.plays.find(params[:play_id])
     # 未達成かつキャラクター指定が合うもの or 指定がないもの を相手でソート
-    # 相手ごとにグルーピングするのもアリか？
-    @challenges = current_user.challenges.where(game: @game, character_id: nil).not_achieved.
-                    or(current_user.challenges.where(game: @game, character_id: @play.character_id).not_achieved).
-                    order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
+    @challenges =
+      current_user.challenges.not_achieved.where(game: @game, character_id: nil).
+        or(current_user.challenges.not_achieved.where(game: @game, character_id: @play.character_id)).
+        includes(:opponent, :character).
+        order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC"))
 
     # selectedにしてあるものか、既にPlayにひもづいてるもの（戻ってきた場合）
     @playing_challenge_ids = @play.challenges.pluck(:challenge_id)
