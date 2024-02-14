@@ -36,49 +36,65 @@ section.bg-gray-900.mx-auto.max-w-screen-xl.px-8
             path(d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z")
             path(d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z")
           span.ml-2 Steam でサインイン
-section.bg-gray-900
-  .py-8.px-4.mx-auto.max-w-screen-xl.lg:py-16
-    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
-      h2.text-white.mb-2
-        span.text-3xl.font-extrabold.mr-2
-          | 1. Plan:
-        span.text-2xl.font-bold
-          |  チャレンジを設定する
-      p.text-lg.font-normal.text-gray-400.mb-6
-        | まずはチャレンジを設定します。
-        br
-        | 次にやろうとしてること、いつもできてない行動、意識していることなどを書き出してみましょう。
-        br
-        | また特定の相手限定のチャレンジを設定することもできます。
-    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
-      h2.text-white.mb-2
-        span.text-3xl.font-extrabold.mr-2
-          | 2. Do:
-        span.text-2xl.font-bold
-          | プレイして実戦する
-      p.text-lg.font-normal.text-gray-400.mb-6
-        | 設定したチャレンジの中から、今回はこのチャレンジを意識して取り組むというものを選択します。
-        br
-        | 多くのチャレンジを全てやろうとするのではなく、いくつかに絞ることで結局何もできなかったを防ぎます。
-    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
-      h2.text-white.mb-2
-        span.text-3xl.font-extrabold.mr-2
-          | 3. Check:
-        span.text-2xl.font-bold
-          | 試合ごとに確認する
-      p.text-lg.font-normal.text-gray-400.mb-6
-        | 選択したチャレンジができたのか、できなかったのかを試合ごとに計測します。
-        br
-        | 体感で「今日はできた/できなかった」とするのではなく実際の計測値を見ることで、自分の成長を実感できます。
-    .bg-gray-800.border.border-gray-700.rounded-lg.p-8.mb-8
-      h2.text-white.mb-2
-        span.text-3xl.font-extrabold.mr-2
-          | 4. Action:
-        span.text-2xl.font-bold
-          | 振り返りで次のチャレンジを見つける
-      p.text-lg.font-normal.text-gray-400.mb-6
-        | その日のプレイが終わったら、振り返りを行います。
-        br
-        | 今回のプレイでできたこと、できなかったことを数値をみながら振り返り、次のチャレンジを見つけます。
-        br
-        | もちろんその日のチャレンジを達成とせず、次に持ちこすこともできます。
+= render "shared/hr", text: "ヒトツヨのサイクル"
+section.bg-gray-900.px-4.mx-auto.max-w-screen-xl
+  .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4
+    h2.text-white.mb-2
+      span.text-3xl.font-extrabold.mr-2
+        | 1. Plan:
+      span.text-xl.font-bold
+        |  チャレンジを設定する
+    p.text-base.font-normal.text-gray-400.mb-6
+      | まずはチャレンジを設定します。
+      br
+      | 次にやろうとしてること、いつもできてない行動、意識していることなどを書き出してみましょう。
+      br
+      | また特定の相手限定のチャレンジを設定することもできます。
+  .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4
+    h2.text-white.mb-2
+      span.text-3xl.font-extrabold.mr-2
+        | 2. Do:
+      span.text-xl.font-bold
+        | プレイして実践する
+    p.text-base.font-normal.text-gray-400.mb-6
+      | 設定したチャレンジの中から、今回はこのチャレンジを意識して取り組むというものを選択します。
+      br
+      | 多くのチャレンジを全てやろうとするのではなく、いくつかに絞ることで結局何もできなかったを防ぎます。
+  .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4
+    h2.text-white.mb-2
+      span.text-3xl.font-extrabold.mr-2
+        | 3. Check:
+      span.text-xl.font-bold
+        | 試合ごとに確認する
+    p.text-base.font-normal.text-gray-400.mb-6
+      | 選択したチャレンジができたのか、できなかったのかを試合ごとに計測します。
+      br
+      | 体感で「今日はできた/できなかった」とするのではなく実際の計測値を見ることで、自分の成長を実感できます。
+  .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4
+    h2.text-white.mb-2
+      span.text-3xl.font-extrabold.mr-2
+        | 4. Action:
+      span.text-xl.font-bold
+        | 振り返りで次のチャレンジを見つける
+    p.text-base.font-normal.text-gray-400.mb-6
+      | その日のプレイが終わったら、振り返りを行います。
+      br
+      | 今回のプレイでできたこと、できなかったことを数値をみながら振り返り、次のチャレンジを見つけます。
+      br
+      | もちろんその日のチャレンジを達成とせず、次に持ちこすこともできます。
+
+= render "shared/hr", text: "その他の主な機能"
+section.bg-gray-900.px-4.mx-auto.w-full
+  .flex.flex.flex-row.flex-wrap.items-center.justify-center
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4.mr-4
+      = image_tag 'intro_challenges.png', class: "w-64"
+      h4.font-bold.text-lg.text-center.mt-2 チャレンジ管理
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4.mr-4
+      = image_tag 'intro_recipes.png', class: "w-64"
+      h4.font-bold.text-lg.text-center.mt-2 コンボ・セットプレイ管理
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4.mr-4
+      = image_tag 'intro_trainings.png', class: "w-64"
+      h4.font-bold.text-lg.text-center.mt-2 トレーニングノート
+    .bg-gray-800.border.border-gray-700.rounded-lg.p-4.mb-4.mr-4
+      = image_tag 'intro_social.png', class: "w-64"
+      h4.font-bold.text-lg.text-center.mt-2 みんなチャレンジ管理
