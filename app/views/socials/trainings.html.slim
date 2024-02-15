@@ -2,10 +2,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
 
 = form_with url: trainings_game_social_path(@game), method: :get do |f|
   .grid.rounded-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
-    .flex.col-span-3.text-sm.justify-items-center
-      = link_to "チャレンジ", challenges_game_social_path(@game), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-l-lg bg-gray-700 border-gray-600 text-white text-center"
-      = link_to "トレーニング", trainings_game_social_path(@game), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border bg-gray-700 border-gray-600 text-white text-center";
-      = link_to "レシピ", trainings_game_social_path(@game), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-r-lg bg-gray-700 border-gray-600 text-white text-center"
+    = render "socials/social_menu"
     div
       = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
       = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: params[:character_id] }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"

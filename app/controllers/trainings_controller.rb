@@ -6,7 +6,7 @@ class TrainingsController < BaseController
     @trainings = user_trainings.not_achieved.order(:id)
     @training = Training.new(user: current_user, game: @game)
     @recipes = current_user.recipes.where(game: @game)
-    @characters = Character.where(game: @game)
+    @characters = @game.characters
 
     @results = Training::Result.where(training: user_trainings).order(created_at: :desc).limit(25)
     @achieved_trainings = user_trainings.achieved.order(achieved_at: :desc)
@@ -25,7 +25,7 @@ class TrainingsController < BaseController
       public: training_params[:public],
     )
     if @training.save
-      @characters = Character.where(game: @game)
+      @characters = @game.characters
       @recipes = current_user.recipes.where(game: @game)
       flash.now.notice = "トレーニングを追加しました"
     else
@@ -34,7 +34,7 @@ class TrainingsController < BaseController
   end
 
   def edit
-    @characters = Character.where(game: @game)
+    @characters = @game.characters
     @recipes = current_user.recipes.where(game: @game)
   end
 

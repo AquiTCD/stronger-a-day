@@ -1,6 +1,6 @@
 - results = play.results
 - challenges = play.play_challenges
-- challenge_results = Play::ChallengeResult.where(play_result: results)
+- challenge_results = results.map(&:challenge_results).flatten
 
 div.mb-4(id="play_#{play.id}")
   .mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
@@ -31,26 +31,27 @@ div.mb-4(id="play_#{play.id}")
         .px-2.py-2.self-center.justify-self-center(id="challenge_#{play_challenge.challenge.id}")
           = render "challenge_achieved", challenge: play_challenge.challenge
 
-  - grouped_result = results.group_by(&:opponent_id)
+  - grouped_result = results.group_by(&:opponent)
   - grouped_result.each do |grouped|
-    - opponent_id = grouped.first
+    - opponent = grouped.first
+    - results = grouped.last
     .mb-4.leading-none.tracking-tight.text-gray-900.text-white
       div.font-extrabold
         span.mr-2
           | vs
         span.text-xl.text-white
-          = Character.find(opponent_id).display_name
+          = opponent.display_name
       div.font-extrabold
-        span.text-green-400.text-xl = grouped_result[opponent_id].select { |r| r.result == "win" }.size
+        span.text-green-400.text-xl = results.select { |r| r.result == "win" }.size
         sapn.mr-1.text-sm 勝
-        span.text-red-400.text-xl = grouped_result[opponent_id].select { |r| r.result == "lose" }.size
+        span.text-red-400.text-xl = results.select { |r| r.result == "lose" }.size
         span.text-sm 敗
       ul.list-disc.pl-4
-        - grouped_result[opponent_id].each do |result|
+        - results.each do |result|
           - if result.comment.present?
             li.text-gray-400.text-sm = result.comment
       div.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-cols-[2rem_2rem_1fr_2rem]")
-        - challenges.select { |c| c.challenge.opponent_id == opponent_id }.each do |play_challenge|
+        - challenges.select { |c| c.challenge.opponent_id == opponent.id }.each do |play_challenge|
           .grid.grid-cols-subgrid.col-span-4.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.font-bold
             .px-2.py-2.self-center.text-green-400.text-xl.justify-self-center
               = challenge_results.select { |cr| cr.challenge_id == play_challenge.challenge_id && cr.result == "success" }.size

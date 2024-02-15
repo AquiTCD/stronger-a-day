@@ -4,8 +4,8 @@ class RecipesController < BaseController
   def index
     @recipes = current_user.recipes.where(user: current_user, game: @game)
     @recipe = Recipe.new(user: current_user, game: @game)
-    @characters = Character.where(game: @game)
-    @situations = Situation.where(game: @game)
+    @characters = @game.characters
+    @situations = @game.situations
   end
 
   def show
@@ -26,14 +26,14 @@ class RecipesController < BaseController
         @recipe.recipe_situations.create!(situation_id: s_id.to_i)
       end
     end
-    @characters = Character.where(game: @game)
-    @situations = Situation.where(game: @game)
+    @characters = @game.characters
+    @situations = @game.situations
     flash.now.notice = "レシピを追加しました"
   end
 
   def edit
-    @characters = Character.where(game: @game)
-    @situations = Situation.where(game: @game)
+    @characters = @game.characters
+    @situations = @game.situations
   end
 
   def update
