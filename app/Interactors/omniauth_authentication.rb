@@ -33,12 +33,16 @@ class OmniauthAuthentication
         end
     end
 
-    def convert_attrs_by(auth)
+    def convert_attrs_by(auth) # rubocop:disable Metrics/AbcSize
       case context.provider
       when "twitter2"
         auth.username = context.info.nickname
         auth.display_name = context.info.name
         auth.url = context.info.urls.Twitter
+        auth.image_url = context.info.image
+      when "discord"
+        auth.username = context.info.name
+        auth.display_name = context.extra.raw_info.global_name
         auth.image_url = context.info.image
       else
         context.fail!(message: "authenticate_user.failure")

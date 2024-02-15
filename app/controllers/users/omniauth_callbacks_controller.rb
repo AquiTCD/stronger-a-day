@@ -5,6 +5,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback_from :twitter2
   end
 
+  def discord
+    callback_from :discord
+  end
+
   private
 
     def callback_from(provider)
@@ -29,7 +33,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       home_path
     end
 
-  # You should configure your model like this:
+  # You should configure your model like this:さい
   # devise :omniauthable, omniauth_providers: [:twitter]
 
   # You should also create an action method in this controller like this:

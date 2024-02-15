@@ -24,7 +24,7 @@
 #
 class User::Authentication < ApplicationRecord
   belongs_to :user
-  devise :omniauthable, omniauth_providers: %i[twitter2]
+  devise :omniauthable, omniauth_providers: %i[twitter2 discord]
 
   PROVIDERS = %i[twitter2 steam discord].freeze
   enum :provider, PROVIDERS.zip(PROVIDERS.map(&:to_s)).to_h

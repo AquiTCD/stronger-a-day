@@ -33,6 +33,7 @@ gem "devise"
 # gem "omniauth-facebook"
 # gem "omniauth-google-oauth2"
 # gem "omniauth-steam"
+gem "omniauth-discord"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-twitter2"
 
