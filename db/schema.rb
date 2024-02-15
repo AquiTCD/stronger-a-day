@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_110228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -194,7 +194,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_092956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider", "uid"], name: "index_user_authentications_on_provider_and_uid", unique: true
-    t.index ["user_id"], name: "index_user_authentications_on_user_id", unique: true
+    t.index ["provider", "user_id"], name: "index_user_authentications_on_provider_and_user_id", unique: true
   end
 
   create_table "user_notifications", force: :cascade do |t|

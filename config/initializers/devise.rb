@@ -273,6 +273,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :twitter2, ENV["X_API_KEY"], ENV["X_API_SECRET"], scope: "tweet.read users.read"
+  config.omniauth :discord, ENV["DISCORD_API_KEY"], ENV["DISCORD_API_SECRET"], scope: "identify"
+  config.omniauth :steam, ENV["STEAM_API_KEY"]
   OmniAuth.config.logger = Rails.logger if Rails.env.development?
 
   # ==> Warden configuration

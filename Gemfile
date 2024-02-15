@@ -32,8 +32,9 @@ gem "turbo-rails" # by rails Hotwire's SPA-like page accelerator [https://turbo.
 gem "devise"
 # gem "omniauth-facebook"
 # gem "omniauth-google-oauth2"
-# gem "omniauth-steam"
+gem "omniauth-discord"
 gem "omniauth-rails_csrf_protection"
+gem "omniauth-steam"
 gem "omniauth-twitter2"
 
 # === Views

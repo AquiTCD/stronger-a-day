@@ -94,3 +94,6 @@ ja:
     failure:
       user:
         unauthenticated: "ログインに失敗しました"
+        already_authenticated: "既にログインしています"
+  authenticate_user:
+    failure: "ログインに失敗しました"
