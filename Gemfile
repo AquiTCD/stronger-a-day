@@ -54,6 +54,8 @@ gem "rails-i18n"
 gem "requestjs-rails"
 gem "interactor-rails"
 gem "seed-fu"
+gem "sentry-rails"
+gem "sentry-ruby"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
