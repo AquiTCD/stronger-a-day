@@ -2,7 +2,9 @@ class TrainingsController < BaseController
   before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve, :do, :done]
 
   def index
-    user_trainings = current_user.trainings.where(user: current_user, game: @game)
+    user_trainings =
+      current_user.trainings.where(user: current_user, game: @game).
+        includes(:character, recipe: [:situations, { recipe_situations: :situation }])
     @trainings = user_trainings.not_achieved.order(:id)
     @training = Training.new(user: current_user, game: @game)
     @recipes = current_user.recipes.where(game: @game)

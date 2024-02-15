@@ -2,7 +2,7 @@ class RecipesController < BaseController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def index
-    @recipes = current_user.recipes.where(user: current_user, game: @game)
+    @recipes = current_user.recipes.where(user: current_user, game: @game).includes(:character, :situations, recipe_situations: :situation)
     @recipe = Recipe.new(user: current_user, game: @game)
     @characters = @game.characters
     @situations = @game.situations

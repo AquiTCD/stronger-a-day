@@ -1,11 +1,11 @@
 class ReviewsController < BaseController
   def index
     characters = @game.characters
-    user_plays = current_user.plays.
+    user_plays = current_user.plays.includes(:character, { play_challenges: :challenge }).
                    where(character: characters).
                    where.associated(:results).distinct
     @plays = user_plays.finished.order(id: :desc).
-               includes(:play_challenges, results: [:challenge_results, :opponent])
+               includes(results: [:challenge_results, :opponent])
 
     @reviewed_plays = user_plays.reviewed
     total_results = Play::Result.where(play: @reviewed_plays).pluck(:result)

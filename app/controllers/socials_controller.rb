@@ -6,7 +6,7 @@ class SocialsController < BaseController
     challenges = challenges.where(opponent_id: params[:opponent_id]) if params[:opponent_id].present?
     @challenges =
       challenges.where.missing(:referred_from).order("RANDOM()").
-        includes(:user, referred_tos: :user).limit(25)
+        includes(:user, :character, :opponent, referred_tos: :user).limit(25)
     @characters = @game.characters
   end
 
@@ -17,7 +17,7 @@ class SocialsController < BaseController
     # @trainings =
     #   trainings.where.missing(:referred_from).order("RANDOM()").
     #     includes(:referred_tos).limit(25)
-    @trainings = trainings.includes(:user, recipe: { recipe_situations: :situation }).order("RANDOM()").limit(25)
+    @trainings = trainings.includes(:user, :character, recipe: [:situations, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
     @characters = @game.characters
   end
 
@@ -28,7 +28,7 @@ class SocialsController < BaseController
     # @recipes =
     #   recipes.where.missing(:referred_from).order("RANDOM()").
     #     includes(:referred_tos).limit(25)
-    @recipes = recipes.includes(:user, recipe_situations: :situation).order("RANDOM()").limit(25)
+    @recipes = recipes.includes(:user, :character, :situations, recipe_situations: :situation).order("RANDOM()").limit(25)
     @characters = @game.characters
   end
 
