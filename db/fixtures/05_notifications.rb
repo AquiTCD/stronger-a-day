@@ -83,6 +83,14 @@ Notifications = [
         - みんなのトレーニング、レシピを追加
       TXT
     importance: :normal,
+  },
+  {
+    subject: "アップデート: v0.5.0",
+    content:<<~TXT,
+        - Discord ログイン機能を追加
+        - Steam ログイン機能を追加
+      TXT
+    importance: :normal,
   }
 ]
 Notifications.each do |notification|
