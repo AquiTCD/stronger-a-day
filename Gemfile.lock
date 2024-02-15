@@ -514,6 +514,7 @@ DEPENDENCIES
   rails-i18n
   redis (>= 4.0.1)
   requestjs-rails
+  rexml
   rspec-rails
   rspec_junit_formatter
   rubocop
