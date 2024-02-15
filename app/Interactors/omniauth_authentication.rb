@@ -44,6 +44,11 @@ class OmniauthAuthentication
         auth.username = context.info.name
         auth.display_name = context.extra.raw_info.global_name
         auth.image_url = context.info.image
+      when "steam"
+        auth.username = context.info.nickname
+        auth.display_name = context.info.name
+        auth.url = context.info.urls.Profile
+        auth.image_url = context.info.image
       else
         context.fail!(message: "authenticate_user.failure")
       end

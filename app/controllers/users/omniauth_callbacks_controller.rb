@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_action :verify_authenticity_token, only: %i[steam]
+
   def twitter2
     callback_from :twitter2
   end
 
   def discord
     callback_from :discord
+  end
+
+  def steam
+    callback_from :steam
   end
 
   private

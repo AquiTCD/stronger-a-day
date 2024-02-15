@@ -24,9 +24,9 @@
 #
 class User::Authentication < ApplicationRecord
   belongs_to :user
-  devise :omniauthable, omniauth_providers: %i[twitter2 discord]
+  devise :omniauthable, omniauth_providers: %i[twitter2 discord steam]
 
-  PROVIDERS = %i[twitter2 steam discord].freeze
+  PROVIDERS = %i[twitter2 discord steam].freeze
   enum :provider, PROVIDERS.zip(PROVIDERS.map(&:to_s)).to_h
 
   # NOTE: devise認証にemail attributeが求められるので強制的にnilで扱う

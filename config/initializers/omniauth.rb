@@ -54,4 +54,75 @@ if Rails.env.development?
       }
     }
   )
+  OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new(
+    {
+      provider: "discord",
+      uid: "22222222222222",
+      info:  {
+      name: "discord_tarou",
+        email: nil,
+        image:  "https://example.com/normal.jpg"
+      },
+      credentials:  {
+        token: "xxxxxxxxxxxxxxxxxxxxxx",
+        refresh_token: "yyyyyyyyyyyyyyyyyyyyyy",
+        expires_at: (Time.current + 1.day).to_i,
+        expires: true
+      },
+      extra:  {
+        raw_info:  {
+          id: "222222222222222222",
+          username: "discord_tarou",
+          avatar: "xyzxyzxyzxyz",
+          discriminator: "0",
+          public_flags: 0,
+          premium_type: 0,
+          flags: 0,
+          banner: nil,
+          accent_color: 16720418,
+          global_name: "ディスコ太郎",
+          avatar_decoration_data: nil,
+          banner_color: "#ff2222",
+          mfa_enabled: true,
+          locale: "ja"
+        }
+      }
+    }
+  )
+  OmniAuth.config.mock_auth[:steam] = OmniAuth::AuthHash.new(
+    {
+      provider: "steam",
+      uid: "3333333333333333",
+      info:  {
+        nickname: "steam_jirou",
+        name: "スチーム次郎",
+        location: "",
+        image:  "https://example.com/normal.jpg",
+        urls:  {
+          Profile: "https://example.com",
+          FriendList:  ""
+          }
+        },
+      credentials: {},
+      extra:  {
+        raw_info:  {
+          steamid: "3333333333333333",
+          communityvisibilitystate: 3,
+          profilestate: 1,
+          personaname: "steam_jirou",
+          profileurl: "https://example.com/",
+          avatar: "https://example.com/normal.jpg",
+          avatarmedium: "https://example.com/medium.jpg",
+          avatarfull: "https://example.com/full.jpg",
+          avatarhash: "xyzxyzxyzxyzxyz",
+          lastlogoff: 1707910119,
+          personastate: 0,
+          realname: "スチーム次郎",
+          primaryclanid: "123123123123123",
+          timecreated: 1679529113,
+          personastateflags: 0
+        }
+      }
+    }
+  )
 end
