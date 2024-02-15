@@ -15,8 +15,8 @@
 #
 # Indexes
 #
-#  index_user_authentications_on_provider_and_uid  (provider,uid) UNIQUE
-#  index_user_authentications_on_user_id           (user_id) UNIQUE
+#  index_user_authentications_on_provider_and_uid      (provider,uid) UNIQUE
+#  index_user_authentications_on_provider_and_user_id  (provider,user_id) UNIQUE
 #
 # Foreign Keys
 #
