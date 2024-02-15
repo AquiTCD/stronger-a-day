@@ -2,7 +2,7 @@ class ChallengesController < BaseController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :start]
 
   def index
-    user_challenges = current_user.challenges.where(game: @game)
+    user_challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
     @challenges = user_challenges.not_achieved.order(:id)
     @challenge = Challenge.new(user: current_user, game: @game)
     @characters = @game.characters
