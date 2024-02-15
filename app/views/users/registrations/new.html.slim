@@ -14,11 +14,26 @@
           | また（極力しませんが）予告なくデータを削除する可能性があります
           br
           | 以上、ご了承の上ご利用ください
+  .w-full.block.bg-gray-800.border.border-yellow-700.rounded-lg.p-3.shadow.mb-5
+    .flex.items-center
+      div.mr-2
+        svg(class="w-[21px] h-[21px] text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+          path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+      div.text-sm
+        p.text-red-200
+          | もし既にヒトツヨにアカウントをお持ちの方がこの画面が表示されている場合は、
+          | ログインに使用している連携（X, Discord, Steam）先が間違ってる可能性があります。
+          br
+          | その場合は
+          = link_to "トップページ", root_path, class: "underline"
+          | に戻り、再度別の方法でログインをお試しください。
+          br
+          | （新規の方はこのまま続けてください）
 
 section.bg-gray-900
   .w-full.p-6.space-y-8.md:p-8.rounded-lg.shadow-xl.bg-gray-800
     h2.text-2xl.font-bold.text-gray-300.text-white
-      | ヒトツヨに登録
+      | ヒトツヨに新規登録
     | ヒトツヨ内で使用するアカウント名、表示名を登録します。
     br
     | すでに使われているものは登録できませんが、登録後でもいつでも変更することができます。
