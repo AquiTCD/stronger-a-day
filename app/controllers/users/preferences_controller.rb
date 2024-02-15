@@ -4,7 +4,7 @@ class Users::PreferencesController < ApplicationController
   def edit
     @preference = current_user.preference
     @remember_me = remember_me_is_active?(current_user)
-    @reshow_tutorials = !current_user.tutorials.exists?
+    @reshow_tutorials = !current_user.tutorials.exists? && session[:tutorial].blank?
   end
 
   def update
@@ -55,6 +55,7 @@ class Users::PreferencesController < ApplicationController
     def destroy_tutorials
       if reshow_tutorials_param == "1"
         current_user.tutorials.destroy_all
+        session[:tutorial] = nil if session[:tutorial]
       end
     end
 end
