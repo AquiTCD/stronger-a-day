@@ -10,7 +10,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
 div#new_training
   = render "form", training: @training
 
-#trainings.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[1fr_auto_auto]")
+#trainings.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1")
   = render partial: @trainings
 
 = render "shared/hr", text: "履歴"
