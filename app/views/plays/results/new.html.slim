@@ -15,7 +15,7 @@ div(data-controller="#{'result-tutorial' if @show_tutorial}")
         .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.px-2.py-3.text-white.font-bold
           = challenge.topic
 
-    div#opponent_challenges
+    div#opponent_challenges.mb-4
     div#result
     = f.hidden_field :play_id, value: @play.id
   div#opponents.mb-4
