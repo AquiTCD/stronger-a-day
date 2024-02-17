@@ -1,10 +1,7 @@
-/ = favicon_link_tag('favicon.ico') # in meta_tags
+= favicon_link_tag('/favicon.ico')
 meta(content='NOYDIR' name='ROBOTS')
 meta(content='NOODP' name='ROBOTS')
 link(media='handheld' rel='alternate')
-
-/ link(rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" onload="this.rel='stylesheet'")
-
 
 meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
 meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no")
@@ -18,10 +15,12 @@ meta(name="format-detection" content="telephone=no, address=no, email=no")
 
 meta(http-equiv="X-UA-Compatible" content="IE=Edge")
 
-/ webclip icon
 meta(name="apple-mobile-web-app-capable" content='yes')
 meta(name="apple-mobile-web-app-status-bar-style" content='default')
-link(rel="apple-touch-icon" href="#{image_url(Settings.site.meta.webclip_icon)}")
+
+/ webclip icon
+link(rel="apple-touch-icon" type="image/png" href="#{image_url(Settings.site.meta.webclip_icon)}")
+link(rel="icon" type="image/png" href="#{image_url(Settings.site.meta.icon)}")
 
 - if noindex?
   - set_meta_tags noindex: true, nofollow: true
