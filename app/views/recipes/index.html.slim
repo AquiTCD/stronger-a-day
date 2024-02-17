@@ -1,5 +1,10 @@
 h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white コンボ・セットプレイ レシピ
 
+= render "shared/tips" do
+  | こちらはコンボやセットプレイのレシピです
+  br
+  | 純粋にコンボの内容だけを書くようにし、練習する場合はトレーニングノートをお使いください
+
 div#new_recipe
   = render "form", recipe: @recipe
 
