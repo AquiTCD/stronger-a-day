@@ -1,6 +1,6 @@
-= turbo_stream.update @recipe, class:"grid grid-cols-subgrid col-span-3" do
+= turbo_stream.update @recipe do
   = form_with model: @recipe, url: game_recipe_path(@game), class: "grid grid-cols-subgrid col-span-3" do |f|
-    .grid.grid-cols-subgrid.col-span-5.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center
+    .grid.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center
       .grid.grid-subgrid
         .pl-2.pt-2.pb-1
           = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "キャラクター選択", required: true }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
