@@ -30,15 +30,14 @@ link(rel="icon" type="image/png" href="#{image_url(Settings.site.meta.icon)}")
 
 = display_meta_tags(default_meta_tags)
 
-/ TODO: set analytics
-/ - if Rails.env.production?
-/   script async="" src="https://www.googletagmanager.com/gtag/js?id=#{Settings.ga.tracking_id}"
-/   javascript:
-/     window.dataLayer = window.dataLayer || [];
-/     function gtag(){dataLayer.push(arguments);}
-/     gtag('js', new Date());
+- if Rails.env.production?
+  script async="" src="https://www.googletagmanager.com/gtag/js?id=#{Settings.ga.tracking_id}"
+  javascript:
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-/     gtag('config', '#{Settings.ga.tracking_id}');
-/     if (#{current_user.present?}) {
-/       gtag('set', {'user_id': #{raw current_user&.id&.to_json}});
-/     }
+    gtag('config', '#{Settings.ga.tracking_id}');
+    if (#{current_user.present?}) {
+      gtag('set', {'user_id': #{raw current_user&.id&.to_json}});
+    }
