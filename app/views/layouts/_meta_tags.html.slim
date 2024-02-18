@@ -37,7 +37,7 @@ link(rel="icon" type="image/png" href="#{image_url(Settings.site.meta.icon)}")
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', Settings.site.ga.tracking_id);
+    gtag('config', '#{Settings.site.ga.tracking_id}');
     if (#{current_user.present?}) {
       gtag('set', {'user_id': #{raw current_user&.id&.to_json}});
     }
