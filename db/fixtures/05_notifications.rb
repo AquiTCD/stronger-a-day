@@ -6,7 +6,7 @@ Notifications = [
         お気づきの点や感想などありましたらぜひ [フィードバック](https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit) にご協力ください
       TXT
     importance: :higher,
-    released_at: nil,
+    released_at: "2024-02-03 10:00:00".in_time_zone,
   },
   {
     subject: "アップデート: v0.2.0",
@@ -32,15 +32,6 @@ Notifications = [
       TXT
     importance: :normal,
     released_at: "2024-02-05 10:00:00".in_time_zone,
-  },
-  {
-    subject: "クローズドベータのお知らせ",
-    content:<<~TXT,
-        「ヒトツヨ」は現在ベータ版です
-        お気づきの点や感想などありましたらぜひ [フィードバック](https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit) にご協力ください
-      TXT
-    importance: :higher,
-    released_at: nil,
   },
   {
     subject: "プレイ履歴リセットについて",
@@ -91,7 +82,24 @@ Notifications = [
         - Steam ログイン機能を追加
       TXT
     importance: :normal,
-  }
+  },
+  {
+    subject: "プライバシーポリシー、利用規約の改訂 2024年2月18日",
+    content:<<~TXT,
+        プライバシーポリシー、利用規約の改訂を行いました。
+        ご確認の上、ご同意いただけましたら引き続きご利用ください。
+      TXT
+    importance: :highest,
+  },
+  {
+    subject: "オープンベータ公開のお知らせ",
+    content:<<~TXT,
+        このたび「ヒトツヨ」はオープンベータ版として公開いたしました。
+        お気づきの点や感想などありましたら、ぜひ [フィードバック](https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit) にご協力ください
+      TXT
+    importance: :higher,
+    released_at: nil,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
