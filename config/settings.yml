@@ -18,4 +18,5 @@ site:
       # image: achievement_unlock_sample.jpg
     fb:
       app_id: xxxxxxxxx
+    icon: /icon-192x192.png
     webclip_icon: /apple-touch-icon-180x180.png
