@@ -100,6 +100,18 @@ Notifications = [
     importance: :higher,
     released_at: nil,
   },
+  {
+    subject: "不具合について 2024年2月18日",
+    content:<<~TXT,
+        - DiscordとSteamサインインができない（現在一時的に利用不可にしました）
+        - 一度使ったチャレンジを削除できない
+
+        ご不便をおかけして申し訳ございません、修正に向けて対応中です。
+        また、サポートやフィードバック用の [Discordサーバー](https://discord.gg/mdrcHnsGz7) があります。是非ご参加いただいてご意見いただけましたら幸いです。
+      TXT
+    importance: :higher,
+    released_at: nil,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
