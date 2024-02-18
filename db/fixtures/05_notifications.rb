@@ -95,7 +95,9 @@ Notifications = [
     subject: "オープンベータ公開のお知らせ",
     content:<<~TXT,
         このたび「ヒトツヨ」はオープンベータ版として公開いたしました。
-        お気づきの点や感想などありましたら、ぜひ [フィードバック](https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit) にご協力ください
+        お気づきの点や感想などありましたら、ぜひフィードバックにご協力ください。
+
+        フィードバックは、[専用フォーム](https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit) 、または [サポート用 Discord](https://discord.gg/mdrcHnsGz7) にてお寄せいただけます。
       TXT
     importance: :higher,
     released_at: nil,
@@ -110,7 +112,14 @@ Notifications = [
         また、サポートやフィードバック用の [Discordサーバー](https://discord.gg/mdrcHnsGz7) があります。是非ご参加いただいてご意見いただけましたら幸いです。
       TXT
     importance: :higher,
-    released_at: nil,
+    released_at: "2024-02-18 18:00:00".in_time_zone,
+  },
+  {
+    subject: "アップデート: v0.5.1",
+    content:<<~TXT,
+        - Discord、Steamサインインができない問題が解消できたので再度有効化
+      TXT
+    importance: :normal,
   },
 ]
 Notifications.each do |notification|
