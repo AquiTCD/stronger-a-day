@@ -20,3 +20,5 @@ site:
       app_id: xxxxxxxxx
     icon: /icon-192x192.png
     webclip_icon: /apple-touch-icon-180x180.png
+  ga:
+    tracking_id: G-DVDMBHX6WB
