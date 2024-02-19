@@ -15,18 +15,22 @@ module ErrorHandleable
   private
 
     def render400(exception = nil, messages = nil)
+      Sentry.capture_exception(exception)
       render "errors/404", status: :not_found, layout: "error"
     end
 
     def render404(exception = nil, messages = nil)
+      Sentry.capture_exception(exception)
       render "errors/404", status: :not_found, layout: "error"
     end
 
     def render500(exception = nil, messages = nil)
+      Sentry.capture_exception(exception)
       render "errors/404", status: :not_found, layout: "error"
     end
 
     def render503(exception = nil, messages = nil)
+      Sentry.capture_exception(exception)
       render "errors/503", status: :not_found, layout: "error"
     end
 end
