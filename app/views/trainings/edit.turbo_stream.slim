@@ -7,7 +7,7 @@
         .pl-2.py-1.col-span-2
           = f.collection_select :recipe_id, @recipes, :id, :movements, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
         .pl-2.pb-2.col-span-2
-          = f.text_field :topic, autofocus: true, required: true, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+          = f.text_field :topic, required: true, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       .col-span-2.px-2.py-2.justify-self-end
         p.text-sm.pb-1
           | 公開

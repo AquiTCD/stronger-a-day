@@ -14,7 +14,7 @@
                 | #{situation.display_name}
       div.col-span-2#input_movements
         = f.label :movements, "動作", class: "block mb-2 text-sm font-medium text-white"
-        = f.text_field :movements, autofocus: true, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.text_field :movements, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2#input_comment
         = f.label :comment, "コメント", class: "block mb-2 text-sm font-medium text-white"
         = f.text_field :comment, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
