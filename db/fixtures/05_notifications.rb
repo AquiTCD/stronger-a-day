@@ -121,6 +121,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.5.2",
+    content:<<~TXT,
+        - レシピコメントが必須になっていたのを任意に修正
+        - レシピ状況をいくつか追加
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
