@@ -27,6 +27,26 @@ SF6_SITUATIONS = [
     name: 'poison',
     display_name: '毒状態',
   },
+  {
+    name: 'counter',
+    display_name: 'カウンター',
+  },
+  {
+    name: 'punish_counter',
+    display_name: 'パニッシュカウンター',
+  },
+  {
+    name: 'force_down',
+    display_name: 'フォースダウン',
+  },
+  {
+    name: 'anti_air',
+    display_name: '対空',
+  },
+  {
+    name: 'anti_air',
+    display_name: 'バーンアウト',
+  },
 ]
 
 game = Game.find_by(title: 'STREET FIGHTER 6')
