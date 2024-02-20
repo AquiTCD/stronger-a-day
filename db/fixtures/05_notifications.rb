@@ -129,6 +129,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.5.3",
+    content:<<~TXT,
+        - 軽微な表示の改善
+        - チャレンジ、トレーニング、レシピの公開設定の初期値を設定可能に
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
