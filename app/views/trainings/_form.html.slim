@@ -9,10 +9,10 @@
         = f.collection_select :recipe_id, @recipes, :id, :movements, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2#input_training
         = f.label :topic, "トレーニングメニュー", class: "block mb-2 text-sm font-medium text-white"
-        = f.text_field :topic, autofocus: true, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.text_field :topic, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2.self-center.justify-self-end
         = f.label :public, "非公開/公開", id: "public", class: "relative inline-flex items-center cursor-pointer" do
-          = f.check_box :public, class: "sr-only peer"
+          = f.check_box :public, { checked: current_user.default_public, class: "sr-only peer" }
           div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
           span.ms-3.text-sm.font-medium.text-gray-300 非公開/公開
         = button_tag type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 ml-4" do

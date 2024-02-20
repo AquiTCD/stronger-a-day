@@ -9,7 +9,7 @@
         p
           | を練習した
       .px-2.pb-2.col-span-3
-        = f.text_field :comment, autofocus: true, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "結果コメント（任意）"
+        = f.text_field :comment, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "結果コメント（任意）"
       .px-2.pb-2.col-span-3.justify-self-end
         = link_to "キャンセル", game_training_path(@game, @training), class: "inline-block border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 mr-2"
         = button_tag "記録", type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-2 py-1 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 border border-gray-400 hover:border-gray-600"

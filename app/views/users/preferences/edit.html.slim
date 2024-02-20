@@ -18,8 +18,6 @@ section.bg-gray-900.mb-4
               p.text-bold.text-lg
                 | ログイン状態を記憶する
               p.text-sm
-                | （※ 実験的機能）
-                br
                 | お使いのブラウザにログイン状態を記憶させます
             div
               = f.label :remember_me, "", class: "relative inline-flex items-center cursor-pointer" do
@@ -32,6 +30,8 @@ section.bg-gray-900.mb-4
                 | 使い方を再表示する
               p.text-sm
                 | 各ページの使い方説明をもう一度、再表示します
+              p.text-xs
+                | ※ 使い方は各ページごと最後まで見ることで自動的に次回からは表示されなくなります
             div
               = f.label :reshow_tutorials, "", class: "relative inline-flex items-center cursor-pointer" do
                 = f.check_box :reshow_tutorials, { class: "sr-only peer", checked: @reshow_tutorials }
@@ -48,6 +48,17 @@ section.bg-gray-900.mb-4
                 = f.check_box :show_tips, class: "sr-only peer"
                 div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
                 span.ms-3.text-sm.font-medium.text-gray-300 表示する
+          .grid.grid-cols-subgrid.col-span-2.border-b.mb-4.py-2.items-center
+            div.text-white
+              p.text-bold.text-lg
+                | デフォルト公開設定
+              p.text-sm
+                | チャレンジ、トレーニング、レシピの公開設定の初期値を公開にします
+            div
+              = f.label :default_public, "", class: "relative inline-flex items-center cursor-pointer" do
+                = f.check_box :default_public, class: "sr-only peer"
+                div(class="w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all border-gray-600 peer-checked:bg-blue-600")
+                span.ms-3.text-sm.font-medium.text-gray-300 非公開/公開
       = f.submit "変更を適用", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
 
 section.bg-gray-900.my-8
