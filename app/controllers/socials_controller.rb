@@ -6,7 +6,7 @@ class SocialsController < BaseController
     challenges = challenges.where(opponent_id: params[:opponent_id]) if params[:opponent_id].present?
     @challenges =
       challenges.where.missing(:referred_from).order("RANDOM()").
-        includes(:user, :character, :opponent, referred_tos: :user).limit(25)
+        includes(:user, :character, :opponent, referred_tos: { challenge: :user }).limit(25)
     @characters = @game.characters
   end
 
