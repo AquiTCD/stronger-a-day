@@ -49,6 +49,7 @@ gem "bootsnap", require: false # by rails Reduces boot times through caching; re
 # gem "chrono_logger"
 gem "commonmarker"
 gem "config"
+gem "counter_culture"
 gem "enum_help"
 # gem "image_processing", "~> 1.2" # by rails Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "rails-i18n"

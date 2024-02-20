@@ -2,17 +2,18 @@
 #
 # Table name: challenges
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint           not null
-#  game_id      :bigint           not null
-#  character_id :bigint
-#  opponent_id  :bigint
-#  topic        :string           not null
-#  public       :boolean          default(TRUE), not null
-#  selected     :boolean          default(FALSE), not null
-#  achieved_at  :datetime
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  game_id        :bigint           not null
+#  character_id   :bigint
+#  opponent_id    :bigint
+#  topic          :string           not null
+#  public         :boolean          default(TRUE), not null
+#  selected       :boolean          default(FALSE), not null
+#  achieved_at    :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  referred_count :integer          default(0), not null
 #
 # Indexes
 #

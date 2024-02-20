@@ -8,3 +8,4 @@ bundle install
 
 ./bin/rails db:migrate
 ./bin/rails db:seed_fu
+./bin/rails recount:challenge_referred

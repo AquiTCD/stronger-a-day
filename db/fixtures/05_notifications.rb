@@ -137,6 +137,15 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.5.4",
+    content:<<~TXT,
+        - 連携アカウントの画像がない場合エラーになる問題の修正
+        - みんなのチャレンジで稀に404エラーが発生する問題の修正
+        - その他軽微な修正
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
