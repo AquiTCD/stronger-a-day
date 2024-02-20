@@ -2,13 +2,14 @@
 #
 # Table name: user_preferences
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint           not null
-#  public     :boolean          default(TRUE), not null
-#  show_usage :boolean          default(TRUE), not null
-#  show_tips  :boolean          default(TRUE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  public         :boolean          default(TRUE), not null
+#  show_usage     :boolean          default(TRUE), not null
+#  show_tips      :boolean          default(TRUE), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  default_public :boolean          default(TRUE), not null
 #
 # Indexes
 #
