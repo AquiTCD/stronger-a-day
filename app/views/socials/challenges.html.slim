@@ -27,7 +27,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
             span.mr-1.5 by
             = link_to "@#{challenge.user.display_name}", user_path(challenge.user), class: "underline"
             | ,
-            span.ml-2 = "人気度: #{challenge.referred_tos.size}"
+            span.ml-2 = "人気度: #{challenge.referred_count}"
         .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")
           = button_to copy_challenge_game_social_path(@game), method: :post, params: {challenge_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-1 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "このチャレンジを自分にも追加しますか？" } } do
             svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
