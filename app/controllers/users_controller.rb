@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     played_character_ids = @user.plays.where.associated(:results).distinct.pluck(:character_id)
     @games = Game.joins(:characters).where(characters: { id: played_character_ids })
-    @challenges = @user.challenges.where(game: @games, public: true).includes(:character, :opponent, :referred_tos)
+    @challenges = @user.challenges.where(game: @games, public: true).includes(:character, :opponent)
   end
 
   def edit
