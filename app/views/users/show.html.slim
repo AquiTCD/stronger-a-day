@@ -3,7 +3,7 @@ section.bg-gray-900.mb-4
   .w-full.p-6.space-y-8.p-8.rounded-lg.shadow-xl.bg-gray-800
     .grid.grid-cols-2
       div.row-span-2.md:row-span-3
-        = image_tag @user.authentications.first.image_url, class: "rounded-full h-24 w-24"
+        = image_tag (@user.authentications.first&.image_url&.presence || 'user_placeholder.png'), class: "rounded-full h-24 w-24"
       h2.text-2xl.font-bold.text-gray-300.text-white
         = @user.display_name
       p.text-gray-400.text-base
