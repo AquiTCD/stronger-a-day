@@ -22,7 +22,7 @@
 
 class Challenge::Reference < ApplicationRecord
   belongs_to :from, class_name: "Challenge", optional: true
-  belongs_to :to, class_name: "Challenge", counter_cache: true
+  belongs_to :to, class_name: "Challenge"
 
   validates :from_id, uniqueness: { scope: :to_id }
 end
