@@ -9,7 +9,7 @@ class BaseController < ApplicationController
 
     def set_game
       word = params[:abbreviation] || params[:game_abbreviation]
-      @game = Game.where("UPPER(abbreviation) = ?", word.upcase).first
+      @game = Game.where("UPPER(abbreviation) = ?", word.upcase).includes(:characters).first
     end
 
     def set_note
