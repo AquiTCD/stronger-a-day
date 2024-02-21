@@ -31,8 +31,20 @@ p.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white
         = play.character.display_name
       span.text-lg.text-gray-400
         = "(#{play.started_at.strftime('%Y/%m/%d %H:%M')})"
-    - if play.comment.present?
-      p.px-4 = play.comment
+    .pl-4
+      - if play.comment.present?
+        p = play.comment
+      - play.results.select { |pr| pr.comment.present? }.group_by(&:opponent).each do |grouped|
+        - opponent = grouped.first
+        - results = grouped.last
+        .ml-2.text-gray-400.font-bold
+          span.mr-2
+            | vs
+          span
+            = opponent.display_name
+        ul.list-disc.pl-4.ml-4.text-sm
+          - results.each do |result|
+            li = result.comment
 
 = render "shared/hr", text: "MENU"
 

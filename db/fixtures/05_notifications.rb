@@ -146,6 +146,15 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.5.5",
+    content:<<~TXT,
+        - 一度利用したチャレンジが削除できない問題の修正
+        - レシピのコメントが編集できなかった問題の修正
+        - 振り返りのレビュー済み表示の改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
