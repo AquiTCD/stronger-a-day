@@ -13,6 +13,8 @@
                   | #{situation.display_name}
         .pl-2.pb-2.col-span-2
           = f.text_field :movements, required: true, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        .pl-2.pb-2.col-span-2
+          = f.text_field :comment, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "コメント（任意）"
       .col-span-2.px-2.py-2.justify-self-end
         p.text-sm.pb-1
           | 公開
