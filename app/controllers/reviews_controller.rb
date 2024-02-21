@@ -7,7 +7,7 @@ class ReviewsController < BaseController
     @plays = user_plays.finished.order(id: :desc).
                includes(results: [:challenge_results, :opponent])
 
-    @reviewed_plays = user_plays.reviewed
+    @reviewed_plays = user_plays.reviewed.includes(results: [:challenge_results, :opponent]).order(id: :desc)
     total_results = Play::Result.where(play: @reviewed_plays).pluck(:result)
 
     @total_win_count = total_results.count("win")
