@@ -11,6 +11,7 @@
 #  updated_at       :datetime         not null
 #  default_public   :boolean          default(TRUE), not null
 #  styled_movements :boolean          default(TRUE), not null
+#  show_input_pad   :boolean          default(TRUE), not null
 #
 # Indexes
 #
