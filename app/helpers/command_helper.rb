@@ -1,14 +1,36 @@
 module CommandHelper
+  def styled_topic(inputs = "")
+    return "" if inputs&.strip.blank?
+    return inputs unless current_user.styled_movements
+
+    input_array = inputs.split(/(\[[^\[\])]*\])/).compact_blank
+    parsed = input_array.map do |input|
+      if input.start_with?("[") && input.end_with?("]")
+        parse(input[1..-2])
+      else
+        input
+      end
+    end
+    sanitize_for(parsed.join)
+  end
+
   def styled_movements(inputs = "")
+    return "" if inputs&.strip.blank?
+    return inputs unless current_user.styled_movements
+
     parsed = parse(inputs)
-    sanitize(
-      parsed,
-      tags: %w[span svg path style g],
-      attributes: %w[class aria-hidden xmlns fill viewbox version stroke stroke-linecap xml:space style type stroke-linejoin x y stroke-width d],
-    )
+    sanitize_for(parsed)
   end
 
   private
+
+    def sanitize_for(parsed_input)
+      sanitize(
+        parsed_input,
+        tags: %w[span svg path style g],
+        attributes: %w[class aria-hidden xmlns fill viewbox version stroke stroke-linecap xml:space style type stroke-linejoin x y stroke-width d],
+      )
+    end
 
     def parse(inputs)
       array = inputs.split(/\s*[>→＞]\s*/)
