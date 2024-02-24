@@ -4,8 +4,9 @@
       .pl-4.pr-2.py-2.col-span-3
         p = @training.character&.display_name
         p.font-bold.text-white.col-span-3
-          span.mr-2 = @training.recipe&.movements
-          = @training.topic
+          span.mr-2
+            = styled_movements(@training.recipe&.movements)
+          = styled_topic(@training.topic)
         p
           | を練習した
       .px-2.pb-2.col-span-3

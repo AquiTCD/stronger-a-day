@@ -1,6 +1,6 @@
 = turbo_frame_tag "new_challenge" do
   = form_with model: Challenge.new, url: game_challenges_path(@game) do |f|
-    .grid.grid-rows-2.rounded-t-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
+    .grid.rounded-t-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
       .div#select_character
         = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
         = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
@@ -9,7 +9,8 @@
         = f.collection_select :opponent_id, @characters, :id, :display_name, { include_blank: "相手指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2#input_challenge
         = f.label :topic, "チャレンジ課題", class: "block mb-2 text-sm font-medium text-white"
-        = f.text_field :topic, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = render "shared/input_pad" do
+          = f.text_area :topic, required: true, class: "h-11 resize-none border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
       div.col-span-2.self-center.justify-self-end
         = f.label :public, "非公開/公開", id: "public", class: "relative inline-flex items-center cursor-pointer" do
           = f.check_box :public, { checked: current_user.default_public, class: "sr-only peer" }

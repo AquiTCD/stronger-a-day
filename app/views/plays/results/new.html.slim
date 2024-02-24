@@ -13,7 +13,8 @@ div(data-controller="#{'result-tutorial' if @show_tutorial}")
     #general_challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.rtl:text-right.text-gray-400.mb-5(class="grid-rows-1")
       - @general_challenges.each do |challenge|
         .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.px-2.py-3.text-white.font-bold
-          = challenge.topic
+          div
+            = styled_topic(challenge.topic)
 
     div#opponent_challenges.mb-4
     div#result

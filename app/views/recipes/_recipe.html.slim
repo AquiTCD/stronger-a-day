@@ -6,7 +6,8 @@
         - recipe.situations.each do |situation|
           .rounded-lg.border-2.border-gray-400.py-1.px-2.text-gray-200.text-xs.mr-1.mb-1
             = situation.display_name
-      p.text-white.text-base.md:text-lg.font-bold.mb-1 = recipe.movements
+      p.text-white.text-base.md:text-lg.font-bold.mb-1
+        = styled_movements(recipe.movements)
       p.text-white.text-base.my-1 = recipe.comment
     .flex.justify-self-end
       - unless recipe.public?

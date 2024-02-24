@@ -11,8 +11,10 @@
           svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
         div
-          p.text-white.text-base.md:text-lg.font-bold.mb-1 = training.recipe&.movements
-          p.text-white.text-base.my-1 = training.topic
+          p.text-white.text-base.md:text-lg.font-bold.mb-1
+            = styled_movements(training.recipe&.movements)
+          p.text-white.text-base.my-1
+            = styled_topic(training.topic)
     .flex
       .mr-auto(id="training_achieved_#{training.id}")
         = render "trainings/training_achieved", training: training

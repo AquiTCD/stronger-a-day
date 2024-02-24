@@ -1,0 +1,27 @@
+div(data-controller="input-pad")
+  - if current_user.show_input_pad
+    div.border.border-gray-400.rounded-lg.mb-1.font-bold
+      .grid.grid-cols-6.border-b.border-gray-400.h-8
+        - buttons = [["7", "7"], ["8", "8"], ["9", "9"], ["J", "J"], ["DR", "DR"], ["DI", "DI"]]
+        - buttons.each.with_index do |button, i|
+          - classes = i == 3 ? "border-r border-l border-gray-400" : (i == 5 ? "" : "border-r border-gray-400")
+          = button_tag(button[0], { type: 'button', data: { action:"click->input-pad#add", "input-pad-value-param": button[1] }, class: "hover:bg-gray-600 #{classes}" })
+      .grid.grid-cols-6.border-b.border-gray-400.h-8
+        - buttons = [["4", "4"], ["立", "立"], ["6", "6"], ["弱", "弱"], ["中", "中"], ["強", "強"]]
+        - buttons.each.with_index do |button, i|
+          - classes = i == 3 ? "border-r border-l border-gray-400" : (i == 5 ? "" : "border-r border-gray-400")
+          = button_tag(button[0], { type: 'button', data: { action:"click->input-pad#add", "input-pad-value-param": button[1] }, class: "hover:bg-gray-600 #{classes}" })
+      .grid.grid-cols-6.border-b.border-gray-400.h-8
+        - buttons = [["1", "1"], ["2", "2"], ["3", "3"], ["OD", "OD"], ["P", "P"], ["K", "K"]]
+        - buttons.each.with_index do |button, i|
+          - classes = i == 3 ? "border-r border-l border-gray-400" : (i == 5 ? "" : "border-r border-gray-400")
+          = button_tag(button[0], { type: 'button', data: { action:"click->input-pad#add", "input-pad-value-param": button[1] }, class: "hover:bg-gray-600 #{classes}" })
+      .grid.grid-cols-6.h-8
+        - buttons = [["A", "A"], ["屈", "屈"], ["SP", "SP"], ["SA", "SA"], [">", " > "]]
+        - buttons.each.with_index do |button, i|
+          - classes = i < 3 ? "border-r border-t border-gray-400" : (i == 5 ? "" : "border-r border-gray-400")
+          = button_tag(button[0], { type: 'button', data: { action:"click->input-pad#add", "input-pad-value-param": button[1] }, class: "hover:bg-gray-600 #{classes}" })
+        = button_tag({ type: 'button', data: { action:"click->input-pad#delete" }, class: "hover:bg-gray-600 border-t border-gray-400 w-full" }) do
+          svg(class="h-6 text-red-500 w-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+            path(fill-rule="evenodd" d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z" clip-rule="evenodd")
+  = yield

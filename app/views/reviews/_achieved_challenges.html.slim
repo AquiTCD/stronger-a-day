@@ -5,4 +5,4 @@
         span = challenge.character ? "#{challenge.character.display_name} " : ""
         span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
       p.text-white.font-bold
-        = challenge.topic
+        = styled_topic(challenge.topic)

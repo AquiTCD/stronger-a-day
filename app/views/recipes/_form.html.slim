@@ -1,6 +1,6 @@
 = turbo_frame_tag "new_recipe" do
   = form_with model: Recipe.new, url: game_recipes_path(@game) do |f|
-    .grid.grid-rows-2.rounded-t-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
+    .grid.rounded-t-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
       .div#select_character
         = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
         = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "キャラクターを選択", required: true }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
@@ -14,7 +14,8 @@
                 | #{situation.display_name}
       div.col-span-2#input_movements
         = f.label :movements, "動作", class: "block mb-2 text-sm font-medium text-white"
-        = f.text_field :movements, required: true, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = render "shared/input_pad" do
+          = f.text_area :movements, required: true, class: "h-11 resize-none border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
       div.col-span-2#input_comment
         = f.label :comment, "コメント", class: "block mb-2 text-sm font-medium text-white"
         = f.text_field :comment, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"

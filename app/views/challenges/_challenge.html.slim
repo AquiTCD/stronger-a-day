@@ -11,7 +11,7 @@
     .px-2.py-2.p-4.font-medium
       span = challenge.character ? "#{challenge.character.display_name} " : ""
       span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-      p.font-bold.text-white = challenge.topic
+      p.font-bold.text-white = styled_topic(challenge.topic)
     .py-2.justify-self-end
       - unless challenge.public?
         svg(class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
