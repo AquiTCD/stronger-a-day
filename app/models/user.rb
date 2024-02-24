@@ -57,7 +57,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true
 
-  delegate :public, :show_usage, :show_tips, :default_public, to: :preference
+  delegate :public, :show_usage, :show_tips, :default_public, :styled_movements, to: :preference
 
   def tutorial?(page)
     !tutorials.exists?(page:)
