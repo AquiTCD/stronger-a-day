@@ -20,7 +20,7 @@ div.text-lg.font-bold.font-gray-900
               p
                 span = challenge.character ? "#{challenge.character.display_name} " : ""
                 span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-              p.text-white = challenge.topic
+              p.text-white = styled_topic(challenge.topic)
   = f.submit "選択したチャレンジでプレイを開始", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full", id: "submit_button"
 
 = render "shared/hr", text: "MENU"

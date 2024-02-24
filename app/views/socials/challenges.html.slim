@@ -22,7 +22,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
           p
             span = challenge.character ? "#{challenge.character.display_name} " : ""
             span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-          p.text-white.text-base.md:text-lg.font-bold.my-1 = challenge.topic
+          p.text-white.text-base.md:text-lg.font-bold.my-1 = styled_topic(challenge.topic)
           p.ml-2.text-xs
             span.mr-1.5 by
             = link_to "@#{challenge.user.display_name}", user_path(challenge.user), class: "underline"

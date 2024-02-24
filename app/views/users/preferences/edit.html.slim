@@ -65,6 +65,8 @@ section.bg-gray-900.mb-4
                 | コマンド操作の装飾表示を有効にする
               p.text-sm
                 | レシピやチャレンジのコマンド操作を装飾表示します
+                br
+                | チャレンジの場合、`[` と `]` で囲まれた部分が装飾表示されます
             div
               = f.label :styled_movements, "", class: "relative inline-flex items-center cursor-pointer" do
                 = f.check_box :styled_movements, class: "sr-only peer"
