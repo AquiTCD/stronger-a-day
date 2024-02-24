@@ -56,8 +56,8 @@ module CommandHelper
       input = input.gsub("M", "中")
       input = input.gsub("H", "強")
       input = input.gsub("ジャンプ", "J")
-      input = input.gsub("ラッシュ", "DR")
-      input.gsub("キャンセル", "[c]")
+      input.gsub("ラッシュ", "DR")
+      # input.gsub("キャンセル", "[c]")
     end
 
     def decorate(input)
