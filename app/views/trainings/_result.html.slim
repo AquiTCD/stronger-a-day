@@ -11,7 +11,8 @@
     p.font-bold.text-white.my-2
       svg(class="w-6 h-6 text-white inline-block mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
         path(fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd")
-      span = result.training.recipe&.movements
-      =  result.training.topic
+      span
+        = styled_movements(result.training.recipe&.movements)
+      =  styled_topic(result.training.topic)
     p.pl-2.text-white
       = result.comment

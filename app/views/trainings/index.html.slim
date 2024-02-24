@@ -31,8 +31,9 @@ div#new_training
             - training.recipe&.situations&.map(&:display_name)&.each do |situation|
               span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation
         p.font-bold.text-white
-          span = training.recipe&.movements
-          = training.topic
+          span.mr-1
+            = styled_movements(training.recipe&.movements)
+          = styled_topic(training.topic)
 
 = render "shared/hr", text: "MENU"
 
