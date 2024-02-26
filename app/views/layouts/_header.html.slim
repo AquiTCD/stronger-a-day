@@ -23,7 +23,7 @@ nav.border-b.border-gray-400.bg-gray-900
               = link_to "ゲーム選択", home_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
               - if @game
                 = link_to "メインメニュー", game_path(@game), method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
-            / = link_to "よくある質問", sign_out_path, method: :delete, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
+            = link_to "よくある質問", faq_page_path, method: :get, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
             = link_to "フィードバック", "https://docs.google.com/forms/d/1ab8dY1QGskNXxnQG1Z-Kwsga313ndkinUot3D9uijRg/edit", method: :get, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
             = link_to "公式 Discord", "https://discord.gg/mdrcHnsGz7", method: :get, data: { turbo: false }, class: "no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-no-wrap border-t font-bold"
 

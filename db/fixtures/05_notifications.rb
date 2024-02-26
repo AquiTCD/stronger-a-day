@@ -154,6 +154,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.6.1",
+    content:<<~TXT,
+        - ストリートファイター6にエドを追加
+        - よくある質問ページを追加
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
