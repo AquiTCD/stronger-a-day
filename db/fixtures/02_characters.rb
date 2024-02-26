@@ -99,6 +99,11 @@ SF6_CHARACTERS = [
     display_name: 'A.K.I.',
     kana: 'アキ',
   },
+  {
+    name: 'Ed',
+    display_name: 'エド',
+    kana: 'エド',
+  },
 ]
 sf6 = Game.find_by(title: 'STREET FIGHTER 6')
 SF6_CHARACTERS.each do |character|
