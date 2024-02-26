@@ -83,5 +83,6 @@ Rails.application.routes.draw do
   resource :page, only: [] do
     get :terms_of_service, on: :collection
     get :privacy_policy, on: :collection
+    get :faq, on: :collection
   end
 end
