@@ -55,10 +55,10 @@ module CommandHelper
       input = input.gsub("di", "DI")
       input = input.gsub("dr", "DR")
       input = input.gsub("sa", "SA")
-      input = input.gsub(/L(?!v)/, "弱")
+      input = input.gsub(/l(?!v)/, "弱")
       input = input.gsub("小", "弱")
       input = input.gsub("M", "中")
-      input = input.gsub("H", "強")
+      input = input.gsub(/h(?!it)/i, "強")
       input = input.gsub("大", "強")
       input = input.gsub("ジャンプ", "J")
       input.gsub("ラッシュ", "DR")
@@ -66,15 +66,15 @@ module CommandHelper
     end
 
     def decorate(input)
-      words = input.split(/((?<!SA)(?<!Lv)(?<![xX])\d)|((?<![Ss])[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/).compact_blank
+      words = input.split(/((?<!sa)(?<!lv)(?<!x)\d(?!hit)(?!f))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
       p words
       words = words.map do |word|
         case word
-        when /\A\d\z/
+        when "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
           change_arrow(word.to_i)
-        when /\A[PK]\z/
+        when "P", "K"
           "<span class='rounded-full border border-gray-200 w-5 h-5 text-sm font-bold inline-block text-center mx-0.5'>#{word}</span>"
-        when /\A(OD|弱|中|強)\z/
+        when "OD", "弱", "中", "強"
           "<span class='font-bold'>#{word}</span>"
         else
           word
