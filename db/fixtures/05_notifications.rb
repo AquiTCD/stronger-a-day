@@ -162,6 +162,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.6.2",
+    content:<<~TXT,
+        - 簡易入力パッドの改善（キャレット位置に文字挿入）
+        - コマンド装飾の判定改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)

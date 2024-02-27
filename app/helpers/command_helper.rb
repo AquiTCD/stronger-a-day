@@ -33,7 +33,7 @@ module CommandHelper
     end
 
     def parse(inputs)
-      array = inputs.split(/\s*[>→＞]\s*/)
+      array = inputs.split(/\s*-?[>→＞]\s*/)
       array = array.map do |input|
         input = normalize(input)
         input = decorate(input)
@@ -49,26 +49,32 @@ module CommandHelper
 
     def normalize(input)
       input = input.tr("０-９ａ-ｚＡ-Ｚ", "0-9a-zA-Z")
-      input = input.gsub(/[pP]/, "P")
-      input = input.gsub(/[kK]/, "K")
+      input = input.gsub("p", "P")
+      input = input.gsub("k", "K")
       input = input.gsub("od", "OD")
-      input = input.gsub("L", "弱")
+      input = input.gsub("di", "DI")
+      input = input.gsub("dr", "DR")
+      input = input.gsub("sa", "SA")
+      input = input.gsub(/L(?!v)/, "弱")
+      input = input.gsub("小", "弱")
       input = input.gsub("M", "中")
       input = input.gsub("H", "強")
+      input = input.gsub("大", "強")
       input = input.gsub("ジャンプ", "J")
       input.gsub("ラッシュ", "DR")
       # input.gsub("キャンセル", "[c]")
     end
 
     def decorate(input)
-      words = input.split(/((?<!SA)\d)|([PK])|(OD|弱|中|強)/).compact_blank
+      words = input.split(/((?<!SA)(?<!Lv)(?<![xX])\d)|((?<![Ss])[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/).compact_blank
+      p words
       words = words.map do |word|
         case word
-        when /(?<!SA)\d/
+        when /\A\d\z/
           change_arrow(word.to_i)
-        when /[PK]/
+        when /\A[PK]\z/
           "<span class='rounded-full border border-gray-200 w-5 h-5 text-sm font-bold inline-block text-center mx-0.5'>#{word}</span>"
-        when /(OD|弱|中|強)/
+        when /\A(OD|弱|中|強)\z/
           "<span class='font-bold'>#{word}</span>"
         else
           word
