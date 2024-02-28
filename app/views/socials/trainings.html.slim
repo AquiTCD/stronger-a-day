@@ -16,7 +16,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
     - @trainings.each do |training|
       .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
         .pl-4.pr-2.py-2
-          p.mb-1 = training.character&.display_name
+          p.mb-1 = training.character&.display_name || training&.recipe&.character&.display_name
           .flex.flex.flex-row.flex-wrap.items-center
             - training&.recipe&.situations&.map(&:display_name)&.each do |situation|
               span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation

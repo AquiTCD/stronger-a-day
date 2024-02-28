@@ -17,7 +17,7 @@ class SocialsController < BaseController
     # @trainings =
     #   trainings.where.missing(:referred_from).order("RANDOM()").
     #     includes(:referred_tos).limit(25)
-    @trainings = trainings.includes(:user, :character, recipe: [:situations, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
+    @trainings = trainings.includes(:user, :character, recipe: [:situations, :character, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
     @characters = @game.characters
   end
 
@@ -36,5 +36,11 @@ class SocialsController < BaseController
     challenge = Challenge.find(params[:challenge_id])
     challenge.copy_to(current_user)
     redirect_to challenges_game_social_path(@game), flash: { success: "チャレンジをコピーしました" }
+  end
+
+  def copy_recipe
+    recipe = Recipe.find(params[:recipe_id])
+    recipe.copy_to(current_user)
+    redirect_to recipes_game_social_path(@game), flash: { success: "レシピをコピーしました" }
   end
 end

@@ -170,6 +170,15 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.7.0",
+    content:<<~TXT,
+        - みんなのレシピにコピー機能を追加
+        - コマンド装飾の判定改善
+        - 表示の改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)

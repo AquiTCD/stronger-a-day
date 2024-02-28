@@ -2,15 +2,16 @@
 #
 # Table name: recipes
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint           not null
-#  game_id      :bigint           not null
-#  character_id :bigint           not null
-#  movements    :string           not null
-#  comment      :string
-#  public       :boolean          default(TRUE), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  game_id        :bigint           not null
+#  character_id   :bigint           not null
+#  movements      :string           not null
+#  comment        :string
+#  public         :boolean          default(TRUE), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  referred_count :integer          default(0), not null
 #
 # Indexes
 #
@@ -36,6 +37,16 @@ class Recipe < ApplicationRecord
   has_many :situations, through: :recipe_situations, source: :situation
   has_many :trainings, dependent: :destroy
 
+  has_many :referred_tos, class_name: "Recipe::Reference", foreign_key: :from_id, dependent: :nullify
+  has_one :referred_from, class_name: "Recipe::Reference", foreign_key: :to_id, dependent: :destroy
+
   scope :in_public, -> { where(public: true) }
   scope :in_private, -> { where(public: false) }
+
+  def copy_to(user)
+    ActiveRecord::Base.transaction do
+      new_recipe = user.recipes.create!(game:, character:, movements:, comment:)
+      Recipe::Reference.create!(to: new_recipe, from: self)
+    end
+  end
 end

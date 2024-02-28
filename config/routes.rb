@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       get :trainings, on: :collection
       get :recipes, on: :collection
       post :copy_challenge, on: :collection
+      post :copy_recipe, on: :collection
     end
 
     resources :recipes

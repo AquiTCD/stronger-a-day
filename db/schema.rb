@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_24_002145) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_234454) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -126,6 +126,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_002145) do
     t.index ["user_id"], name: "index_plays_on_user_id"
   end
 
+  create_table "recipe_references", force: :cascade do |t|
+    t.bigint "from_id"
+    t.bigint "to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id", "to_id"], name: "index_recipe_references_on_from_id_and_to_id", unique: true
+    t.index ["from_id"], name: "index_recipe_references_on_from_id"
+    t.index ["to_id"], name: "index_recipe_references_on_to_id"
+  end
+
   create_table "recipe_situations", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "situation_id", null: false
@@ -145,6 +155,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_002145) do
     t.boolean "public", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "referred_count", default: 0, null: false
     t.index ["character_id"], name: "index_recipes_on_character_id"
     t.index ["game_id"], name: "index_recipes_on_game_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
@@ -258,6 +269,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_002145) do
   add_foreign_key "play_results", "plays"
   add_foreign_key "plays", "characters"
   add_foreign_key "plays", "users"
+  add_foreign_key "recipe_references", "recipes", column: "from_id"
+  add_foreign_key "recipe_references", "recipes", column: "to_id"
   add_foreign_key "recipe_situations", "recipes"
   add_foreign_key "recipe_situations", "situations"
   add_foreign_key "recipes", "characters"
