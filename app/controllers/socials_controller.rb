@@ -37,4 +37,10 @@ class SocialsController < BaseController
     challenge.copy_to(current_user)
     redirect_to challenges_game_social_path(@game), flash: { success: "チャレンジをコピーしました" }
   end
+
+  def copy_recipe
+    recipe = Recipe.find(params[:recipe_id])
+    recipe.copy_to(current_user)
+    redirect_to recipes_game_social_path(@game), flash: { success: "レシピをコピーしました" }
+  end
 end
