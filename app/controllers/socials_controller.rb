@@ -25,10 +25,9 @@ class SocialsController < BaseController
     recipes =
       Recipe.where.not(user: [User.system, current_user]).where(game: @game).in_public
     recipes = recipes.where(character_id: params[:character_id]) if params[:character_id].present?
-    # @recipes =
-    #   recipes.where.missing(:referred_from).order("RANDOM()").
-    #     includes(:referred_tos).limit(25)
-    @recipes = recipes.includes(:user, :character, :situations, recipe_situations: :situation).order("RANDOM()").limit(25)
+    @recipes =
+      recipes.where.missing(:referred_from).order("RANDOM()").
+        includes(:user, :character, :situations, recipe_situations: :situation).limit(25)
     @characters = @game.characters
   end
 
