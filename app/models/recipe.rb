@@ -2,15 +2,16 @@
 #
 # Table name: recipes
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint           not null
-#  game_id      :bigint           not null
-#  character_id :bigint           not null
-#  movements    :string           not null
-#  comment      :string
-#  public       :boolean          default(TRUE), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  game_id        :bigint           not null
+#  character_id   :bigint           not null
+#  movements      :string           not null
+#  comment        :string
+#  public         :boolean          default(TRUE), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  referred_count :integer          default(0), not null
 #
 # Indexes
 #
