@@ -2,7 +2,7 @@
   = form_with model: @training, url: done_game_training_path(@game, @training), class: "col-span-3" do |f|
     .grid.grid-cols-subgrid.col-span-3.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(class="grid-rows-[1fr_auto_auto]")
       .pl-4.pr-2.py-2.col-span-3
-        p = @training.character&.display_name
+        p = @training.character&.display_name || @training&.recipe&.character&.display_name
         p.font-bold.text-white.col-span-3
           span.mr-2
             = styled_movements(@training.recipe&.movements)

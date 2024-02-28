@@ -17,7 +17,7 @@ class SocialsController < BaseController
     # @trainings =
     #   trainings.where.missing(:referred_from).order("RANDOM()").
     #     includes(:referred_tos).limit(25)
-    @trainings = trainings.includes(:user, :character, recipe: [:situations, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
+    @trainings = trainings.includes(:user, :character, recipe: [:situations, :character, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
     @characters = @game.characters
   end
 
