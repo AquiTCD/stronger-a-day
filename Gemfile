@@ -80,6 +80,7 @@ group :development do
   gem "binding_of_caller"
   gem "letter_opener_web"
   gem "rubocop", require: false
+  gem "ruby-lsp-rails"
 end
 
 group :test do
