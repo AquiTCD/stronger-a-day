@@ -67,7 +67,6 @@ module CommandHelper
 
     def decorate(input)
       words = input.split(/((?<!sa)(?<!lv)(?<!x)\d(?!hit)(?!f))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
-      p words
       words = words.map do |word|
         case word
         when "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
