@@ -6,7 +6,7 @@
         = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       .div.col-span-2#select_recipe
         = f.label :recipe_id, "関連レシピ", class: "block mb-2 text-sm font-medium text-white"
-        = f.collection_select :recipe_id, @recipes, :id, :movements, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.collection_select :recipe_id, @recipes, :id, ->(r) { "#{r.character.display_name}: #{r.movements}" }, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2#input_training
         = f.label :topic, "トレーニングメニュー", class: "block mb-2 text-sm font-medium text-white"
         = render "shared/input_pad" do
