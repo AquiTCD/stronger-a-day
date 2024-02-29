@@ -30,8 +30,8 @@ class ChallengesController < BaseController
     if challenge.save
       @characters = @game.characters
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
-      challenges = challenges.where(character_id: [nil, filter_params[:character_id]]) if filter_params[:character_id].present?
-      challenges = challenges.where(opponent_id: [nil, filter_params[:opponent_id]]) if filter_params[:opponent_id].present?
+      challenges = challenges.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
+      challenges = challenges.where(opponent_id: [nil, filters_params[:opponent_id]]) if filters_params[:opponent_id].present?
       @challenges = challenges.not_achieved.order(:id)
       flash.now[:success] = "チャレンジを追加しました"
     else
@@ -100,7 +100,7 @@ class ChallengesController < BaseController
       params.require(:challenge).permit(:topic, :character_id, :opponent_id, :public)
     end
 
-    def filter_params
+    def filters_params
       params.require(:filters).permit(:character_id, :opponent_id)
     end
 

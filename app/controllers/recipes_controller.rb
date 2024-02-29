@@ -2,7 +2,10 @@ class RecipesController < BaseController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def index
-    @recipes = current_user.recipes.where(user: current_user, game: @game).includes(:character, :situations, recipe_situations: :situation)
+    recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
+    recipes = recipes.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
+    @recipes = recipes.order(:id)
+
     @recipe = Recipe.new(user: current_user, game: @game)
     @characters = @game.characters
     @situations = @game.situations
@@ -11,8 +14,8 @@ class RecipesController < BaseController
   def show
   end
 
-  def create
-    @recipe = current_user.recipes.new(
+  def create # rubocop:disable Metrics/AbcSize
+    recipe = current_user.recipes.new(
       user: current_user,
       game: @game,
       character_id: recipe_params[:character_id],
@@ -21,14 +24,17 @@ class RecipesController < BaseController
       public: recipe_params[:public],
     )
     ActiveRecord::Base.transaction do
-      @recipe.save!
+      recipe.save!
       recipe_params[:situation_ids]&.each do |s_id|
-        @recipe.recipe_situations.create!(situation_id: s_id.to_i)
+        recipe.recipe_situations.create!(situation_id: s_id.to_i)
       end
     end
     @characters = @game.characters
     @situations = @game.situations
-    flash.now.notice = "レシピを追加しました"
+    recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
+    recipes = recipes.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
+    @recipes = recipes.order(:id)
+    flash.now[:success] = "レシピを追加しました"
   end
 
   def edit
@@ -69,6 +75,10 @@ class RecipesController < BaseController
 
     def recipe_params
       params.require(:recipe).permit(:character_id, :movements, :comment, :public, situation_ids: [])
+    end
+
+    def filters_params
+      params.require(:filters).permit(:character_id, :opponent_id)
     end
 
     def set_recipe
