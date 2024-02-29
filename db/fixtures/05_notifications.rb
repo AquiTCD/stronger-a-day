@@ -179,6 +179,26 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.7.1",
+    content:<<~TXT,
+        - チャレンジ、トレーニングの装飾表示の指示文字を変更
+        - チャレンジ、レシピにフィルタを追加
+        - 表示の改善
+      TXT
+    importance: :normal,
+  },
+  {
+    subject: "装飾指示文字の変更について",
+    content:<<~TXT,
+        チャレンジ、トレーニングの装飾表示の指示文字を変更しました。
+        従来: \[ \] で囲む
+        変更: \{ \} で囲む
+        今後、チャレンジやトレーニングの装飾表示を行う際は \{ \} で囲んで入力してください。
+        これまで利用されていた方にはご不便をおかけしますが、何卒ご理解いただけますようお願い申し上げます。
+      TXT
+    importance: :higher,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)

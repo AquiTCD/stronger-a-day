@@ -78,7 +78,7 @@ class RecipesController < BaseController
     end
 
     def filters_params
-      params.require(:filters).permit(:character_id, :opponent_id)
+      params.require(:filters).permit(:character_id)
     end
 
     def set_recipe
