@@ -55,7 +55,7 @@ module CommandHelper
       input = input.gsub("di", "DI")
       input = input.gsub("dr", "DR")
       input = input.gsub("sa", "SA")
-      input = input.gsub(/l(?!v)/, "弱")
+      input = input.gsub(/l(?!v)/i, "弱")
       input = input.gsub("小", "弱")
       input = input.gsub("M", "中")
       input = input.gsub(/h(?!it)/i, "強")
