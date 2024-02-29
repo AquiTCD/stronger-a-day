@@ -3,9 +3,9 @@ module CommandHelper
     return "" if inputs&.strip.blank?
     return inputs unless current_user.styled_movements
 
-    input_array = inputs.split(/(\[[^\[\])]*\])/).compact_blank
+    input_array = inputs.split(/(\{[^\{\})]*\})/).compact_blank
     parsed = input_array.map do |input|
-      if input.start_with?("[") && input.end_with?("]")
+      if input.start_with?("{") && input.end_with?("}")
         parse(input[1..-2])
       else
         input
@@ -55,18 +55,18 @@ module CommandHelper
       input = input.gsub("di", "DI")
       input = input.gsub("dr", "DR")
       input = input.gsub("sa", "SA")
-      input = input.gsub(/l(?!v)/, "弱")
+      input = input.gsub(/l(?!v)/i, "弱")
       input = input.gsub("小", "弱")
       input = input.gsub("M", "中")
       input = input.gsub(/h(?!it)/i, "強")
-      input = input.gsub("大", "強")
+      input = input.gsub(/大(?!砲)/i, "強")
       input = input.gsub("ジャンプ", "J")
       input.gsub("ラッシュ", "DR")
       # input.gsub("キャンセル", "[c]")
     end
 
     def decorate(input)
-      words = input.split(/((?<!sa)(?<!lv)(?<!x)\d(?!hit)(?!f))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
+      words = input.split(/((?<!sa)(?<!lv)(?<!x)(?<!\\)\d(?!hit)(?!f))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
       words = words.map do |word|
         case word
         when "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"

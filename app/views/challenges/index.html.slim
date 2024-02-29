@@ -11,7 +11,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
     br
     | 行動を明確にしつつ、悪い癖をより良い行動で上書きするつもりでチャレンジを作りましょう
 
-- if @challenges.blank? || @challenges.size <= 3
+- if @show_tutorial
   .mx-auto.max-w-screen-xl.w-full
     .w-full.block.bg-gray-800.border.border-gray-700.rounded-lg.p-3.shadow.mb-5
       .flex.items-center
@@ -24,8 +24,23 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
             | サンプルチャレンジをコピーしますか？
           = button_to ">> コピーする", copy_sample_game_challenges_path(@game), method: :post, class: "text-blue-400 underline"
 
-div#new_challenge
+div#new_challenge.mb-4
   = render "form", challenge: @challenge
+
+/ filter
+.rounded-t-lg.border-b.bg-gray-800.border-gray-700.p-4
+  = form_with url: game_challenges_path(@game), method: :get do |f|
+    .grid.gap-4.items-center(class="grid-cols-2")
+      div
+        = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
+        = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: params[:character_id] }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+      div
+        = f.label :opponent_id, "対戦相手指定", class: "block mb-2 text-sm font-medium text-white"
+        = f.collection_select :opponent_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: params[:opponent_id] }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+      div.col-span-2.self-center.justify-self-end
+        = button_tag type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 ml-4" do
+          svg(class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4")
 
 #challenges.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
   = render partial: @challenges

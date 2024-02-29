@@ -5,7 +5,7 @@
         .pl-2.pt-2.pb-1
           = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
         .pl-2.py-1.col-span-2
-          = f.collection_select :recipe_id, @recipes, :id, :movements, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+          = f.collection_select :recipe_id, @recipes, :id, ->(r) { "#{r.character.display_name}: #{r.movements}" }, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
         .pl-2.pb-2.col-span-2
           = render "shared/input_pad" do
             = f.text_area :topic, required: true, class: "h-11 resize-none border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }

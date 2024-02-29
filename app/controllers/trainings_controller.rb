@@ -7,7 +7,7 @@ class TrainingsController < BaseController
         includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
     @trainings = user_trainings.not_achieved.order(:id)
     @training = Training.new(user: current_user, game: @game)
-    @recipes = current_user.recipes.where(game: @game)
+    @recipes = current_user.recipes.where(game: @game).includes(:character)
     @characters = @game.characters
 
     @results = Training::Result.where(training: user_trainings).order(created_at: :desc).limit(25)
@@ -17,18 +17,25 @@ class TrainingsController < BaseController
   def show
   end
 
-  def create
+  def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    character_id =
+      if training_params[:recipe_id].present?
+        current_user.recipes.find(training_params[:recipe_id])&.character_id
+      else
+        training_params[:character_id].presence
+      end
+
     @training = Training.new(
       user: current_user,
       game: @game,
       topic: training_params[:topic],
-      character_id: training_params[:character_id],
+      character_id:,
       recipe_id: training_params[:recipe_id],
       public: training_params[:public],
     )
     if @training.save
       @characters = @game.characters
-      @recipes = current_user.recipes.where(game: @game)
+      @recipes = current_user.recipes.where(game: @game).includes(:character)
       flash.now.notice = "トレーニングを追加しました"
     else
       render :new, status: :unprocessable_entity
@@ -37,7 +44,7 @@ class TrainingsController < BaseController
 
   def edit
     @characters = @game.characters
-    @recipes = current_user.recipes.where(game: @game)
+    @recipes = current_user.recipes.where(game: @game).includes(:character)
   end
 
   def do
