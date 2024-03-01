@@ -97,8 +97,9 @@ CHALLENGES = [
 ]
 system = User.find_by(name: 'SYSTEM')
 game = Game.find_by(title: 'STREET FIGHTER 6')
-CHALLENGES.each do |challenge|
-  Challenge.seed(:topic,
-    challenge.merge(user: system, game: game)
-  )
-end
+# FIXME 一時的に追加停止
+# CHALLENGES.each do |challenge|
+#   Challenge.seed(:topic,
+#     challenge.merge(user: system, game: game)
+#   )
+# end
