@@ -199,6 +199,15 @@ Notifications = [
       TXT
     importance: :higher,
   },
+  {
+    subject: "誤って追加されてしまうチュートリアルチャレンジを削除しました",
+    content:<<~TXT,
+      始めてチャレンジ管理を利用された際にチュートリアルチャレンジを追加できますが、実行すると予期せず追加されてしまう不具合が発生しておりました。
+      誤って追加されてしまった重複分を削除するとともに、不具合の修正を行いました。
+      ご不便をおかけして大変申し訳ございません。
+    TXT
+    importance: :higher,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
