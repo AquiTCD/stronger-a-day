@@ -208,6 +208,14 @@ Notifications = [
     TXT
     importance: :higher,
   },
+    {
+    subject: "アップデート: v0.7.2",
+    content:<<~TXT,
+        - ユーザー設定に登録時の挙動についての設定を追加
+        - 全体的なセレクトボックスに関する挙動の改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
