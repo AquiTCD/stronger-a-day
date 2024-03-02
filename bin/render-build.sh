@@ -8,5 +8,4 @@ bundle install
 
 ./bin/rails db:migrate
 ./bin/rails db:seed_fu
-./bin/rails hotfix:delete_duplicate_challenges
 ./bin/rails recount:challenge_referred

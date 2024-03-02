@@ -20,7 +20,7 @@ class Users::PreferencesController < ApplicationController
         current_user.update(description: user_description_params)
       end
       destroy_tutorials
-      redirect_to edit_preference_path, notice: "更新しました"
+      redirect_to edit_preference_path, flash: { success: "更新しました" }
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class Users::PreferencesController < ApplicationController
   private
 
     def pref_params
-      params.require(:user_preference).permit(:show_tips, :public, :default_public, :styled_movements, :show_input_pad)
+      params.require(:user_preference).permit(:show_tips, :public, :default_public, :styled_movements, :show_input_pad, :keep_selection)
     end
 
     def user_description_params

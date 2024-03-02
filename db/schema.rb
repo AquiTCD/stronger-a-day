@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_27_234454) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_02_035818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -228,6 +228,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_234454) do
     t.boolean "default_public", default: true, null: false
     t.boolean "styled_movements", default: true, null: false
     t.boolean "show_input_pad", default: true, null: false
+    t.boolean "keep_selection", default: true, null: false
     t.index ["user_id"], name: "index_user_preferences_on_user_id"
   end
 

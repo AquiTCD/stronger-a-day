@@ -27,9 +27,18 @@ class BaseController < ApplicationController
     end
 
     def set_tutorial
-      return @show_tutorial = false if session.dig(:tutorial, controller_name, action_name) == "disable"
-      return @show_tutorial = true if current_user.tutorial?("#{controller_name}-#{action_name}")
+      # sessionにあれば表示しない
+      if session.dig(:tutorial, controller_name, action_name) == "disable"
+        @show_tutorial = false
+        return
+      end
+      # DBになければ表示する
+      if current_user.tutorial?("#{controller_name}-#{action_name}")
+        @show_tutorial = true
+        return
+      end
 
+      # sessionにはなくDBにだけある場合、sessionに保存
       hash = { controller_name => { action_name => "disable" } }
       if session[:tutorial]
         session[:tutorial].merge!(hash)

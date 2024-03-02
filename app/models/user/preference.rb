@@ -12,6 +12,7 @@
 #  default_public   :boolean          default(TRUE), not null
 #  styled_movements :boolean          default(TRUE), not null
 #  show_input_pad   :boolean          default(TRUE), not null
+#  keep_selection   :boolean          default(TRUE), not null
 #
 # Indexes
 #

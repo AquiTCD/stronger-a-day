@@ -14,7 +14,7 @@ class RecipesController < BaseController
   def show
   end
 
-  def create # rubocop:disable Metrics/AbcSize
+  def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     recipe = current_user.recipes.new(
       user: current_user,
       game: @game,
@@ -34,6 +34,9 @@ class RecipesController < BaseController
     recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
     recipes = recipes.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
     @recipes = recipes.order(:id)
+    if current_user.keep_selection
+      @selected_character_id = recipe_params[:character_id]
+    end
     flash.now[:success] = "レシピを追加しました"
   end
 

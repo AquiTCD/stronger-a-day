@@ -1,12 +1,12 @@
 = turbo_stream.update @training do
-  = form_with model: @training, url: game_training_path(@game) do |f|
-    .grid.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center
-      div
-        .pl-2.pt-2.pb-1
-          = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
-        .pl-2.py-1.col-span-2
-          = f.collection_select :recipe_id, @recipes, :id, ->(r) { "#{r.character.display_name}: #{r.movements}" }, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-        .pl-2.pb-2.col-span-2
+  = form_with model: @training, url: game_training_path(@game), data: { controller: "training-form" } do |f|
+    .grid.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(class="grid-cols-[1fr_auto]")
+      div.px-2
+        .pt-2.pb-1.col-span-2
+          = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, data: { "training-form-target": "characters", action: "change->training-form#syncToRecipe" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
+        .py-1.col-span-2
+          = f.select :recipe_id, options_for_select(@recipes.map { |r| ["#{r.character.display_name}: #{r.movements}", r.id, { "data-character-id": r.character_id } ] }), { include_blank: "関連レシピなし" }, { data: { "training-form-target": "recipes", action: "change->training-form#syncToCharacter" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-50" }
+        .pb-2.col-span-2
           = render "shared/input_pad" do
             = f.text_area :topic, required: true, class: "h-11 resize-none border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
       .col-span-2.px-2.py-2.justify-self-end

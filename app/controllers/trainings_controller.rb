@@ -1,17 +1,18 @@
-class TrainingsController < BaseController
+class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve, :do, :done]
 
   def index
-    user_trainings =
+    trainings =
       current_user.trainings.where(user: current_user, game: @game).
         includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
-    @trainings = user_trainings.not_achieved.order(:id)
+    trainings = trainings.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
+    @trainings = trainings.not_achieved.order(:id)
     @training = Training.new(user: current_user, game: @game)
     @recipes = current_user.recipes.where(game: @game).includes(:character)
     @characters = @game.characters
 
-    @results = Training::Result.where(training: user_trainings).order(created_at: :desc).limit(25)
-    @achieved_trainings = user_trainings.achieved.order(achieved_at: :desc)
+    @results = Training::Result.where(training: trainings).order(created_at: :desc).limit(25)
+    @achieved_trainings = trainings.achieved.order(achieved_at: :desc)
   end
 
   def show
@@ -25,7 +26,7 @@ class TrainingsController < BaseController
         training_params[:character_id].presence
       end
 
-    @training = Training.new(
+    training = Training.new(
       user: current_user,
       game: @game,
       topic: training_params[:topic],
@@ -33,10 +34,18 @@ class TrainingsController < BaseController
       recipe_id: training_params[:recipe_id],
       public: training_params[:public],
     )
-    if @training.save
+    if training.save
       @characters = @game.characters
       @recipes = current_user.recipes.where(game: @game).includes(:character)
-      flash.now.notice = "トレーニングを追加しました"
+      trainings =
+        current_user.trainings.not_achieved.where(user: current_user, game: @game).
+          includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
+      trainings = trainings.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
+      @trainings = trainings.order(:id)
+      if current_user.keep_selection
+        @selected_character_id = character_id
+      end
+      flash.now[:success] = "トレーニングを追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -107,6 +116,10 @@ class TrainingsController < BaseController
 
     def training_params
       params.require(:training).permit(:topic, :recipe_id, :character_id, :public)
+    end
+
+    def filters_params
+      params.require(:filters).permit(:character_id)
     end
 
     def set_training
