@@ -1,6 +1,6 @@
 h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white みんなのチャレンジ
 
-= form_with url: challenges_game_social_path(@game), method: :get, data: { controller: "selection-submit" } do |f|
+= form_with url: challenges_game_social_path(@game), method: :get, data: { controller: "selection-submit", turbo_frame: "challenges-list" } do |f|
   .grid.rounded-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
     = render "socials/social_menu"
     div
@@ -10,24 +10,25 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
       = f.label :opponent_id, "対戦相手指定", class: "block mb-2 text-sm font-medium text-white"
       = f.collection_select :opponent_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: params[:opponent_id] }, data: { action: "change->selection-submit#submitSelect" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
 
-#challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.my-5(class="grid-rows-1 grid-cols-[1fr]")
-  - if @challenges.present?
-    - @challenges.each do |challenge|
-      .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
-        .pl-4.pr-2.py-2
-          p
-            span = challenge.character ? "#{challenge.character.display_name} " : ""
-            span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-          p.text-white.text-base.md:text-lg.font-bold.my-1 = styled_topic(challenge.topic)
-          p.ml-2.text-xs
-            span.mr-1.5 by
-            = link_to "@#{challenge.user.display_name}", user_path(challenge.user), class: "underline"
-            svg(class="ml-3 w-4 h-4 inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
-              path(d="M8 3a3 3 0 0 0-1 5.8v6.4a3 3 0 1 0 2 0V15c0-1.1.9-2 2-2h1a5 5 0 0 0 5-4.1 3 3 0 1 0-2.1-.1A3 3 0 0 1 12 11h-1a4 4 0 0 0-2 .5V8.8A3 3 0 0 0 8 3Z")
-            span = challenge.referred_count
-        .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")
-          = button_to copy_challenge_game_social_path(@game), method: :post, params: {challenge_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-1 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "このチャレンジを自分にも追加しますか？" } } do
-            svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-              path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V9a3 3 0 0 0-3-3h-3m1.5-2-2 2 2 2")
-  - else
-    p.text-center.text-white チャレンジは見つかりませんでした
+= turbo_frame_tag "challenges-list" do
+  #challenges.shadow-md.sm:rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.my-5(class="grid-rows-1 grid-cols-[1fr]")
+    - if @challenges.present?
+      - @challenges.each do |challenge|
+        .grid.grid-cols-subgrid.col-span-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600
+          .pl-4.pr-2.py-2
+            p
+              span = challenge.character ? "#{challenge.character.display_name} " : ""
+              span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
+            p.text-white.text-base.md:text-lg.font-bold.my-1 = styled_topic(challenge.topic)
+            p.ml-2.text-xs
+              span.mr-1.5 by
+              = link_to "@#{challenge.user.display_name}", user_path(challenge.user), class: "underline"
+              svg(class="ml-3 w-4 h-4 inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+                path(d="M8 3a3 3 0 0 0-1 5.8v6.4a3 3 0 1 0 2 0V15c0-1.1.9-2 2-2h1a5 5 0 0 0 5-4.1 3 3 0 1 0-2.1-.1A3 3 0 0 1 12 11h-1a4 4 0 0 0-2 .5V8.8A3 3 0 0 0 8 3Z")
+              span = challenge.referred_count
+          .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")
+            = button_to copy_challenge_game_social_path(@game), method: :post, params: {challenge_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-1 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", form: { data: { turbo_confirm: "このチャレンジを自分にも追加しますか？" } } do
+              svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+                path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V9a3 3 0 0 0-3-3h-3m1.5-2-2 2 2 2")
+    - else
+      p.text-center.text-white チャレンジは見つかりませんでした
