@@ -1,12 +1,12 @@
 = turbo_frame_tag "new_training" do
-  = form_with model: Training.new, url: game_trainings_path(@game) do |f|
-    .grid.grid-rows-2.rounded-t-lg.gap-4.border-b.bg-gray-800.border-gray-700.p-4.items-center(class="grid-cols-2")
+  = form_with model: Training.new, url: game_trainings_path(@game), data: { controller: "training-form" } do |f|
+    .grid.grid-rows-2.rounded-lg.gap-4.bg-gray-800.p-4.items-center(class="grid-cols-2")
       .div#select_character
         = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
-        = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: @selected_character_id }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし", selected: @selected_character_id }, data: { "training-form-target": "characters", action: "change->training-form#syncToRecipe" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       .div.col-span-2#select_recipe
         = f.label :recipe_id, "関連レシピ", class: "block mb-2 text-sm font-medium text-white"
-        = f.collection_select :recipe_id, @recipes, :id, ->(r) { "#{r.character.display_name}: #{r.movements}" }, { include_blank: "関連レシピなし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.select :recipe_id, options_for_select(@recipes.map { |r| ["#{r.character.display_name}: #{r.movements}", r.id, { "data-character-id": r.character_id } ] }), { include_blank: "関連レシピなし" }, { data: { "training-form-target": "recipes", action: "change->training-form#syncToCharacter" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" }
       div.col-span-2#input_training
         = f.label :topic, "トレーニングメニュー", class: "block mb-2 text-sm font-medium text-white"
         = render "shared/input_pad" do
@@ -20,3 +20,4 @@
         = button_tag type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 ml-4" do
           svg(class="w-[21px] h-[21px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z")
+    = hidden_field :filters, :character_id, value: params[:character_id]
