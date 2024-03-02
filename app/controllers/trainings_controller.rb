@@ -36,7 +36,10 @@ class TrainingsController < BaseController
     if @training.save
       @characters = @game.characters
       @recipes = current_user.recipes.where(game: @game).includes(:character)
-      flash.now.notice = "トレーニングを追加しました"
+      if current_user.keep_selection
+        @selected_character_id = character_id
+      end
+      flash.now[:success] = "トレーニングを追加しました"
     else
       render :new, status: :unprocessable_entity
     end

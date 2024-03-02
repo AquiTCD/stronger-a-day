@@ -17,7 +17,7 @@ class ChallengesController < BaseController
   def show
   end
 
-  def create # rubocop:disable Metrics/AbcSize
+  def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     challenge = Challenge.new(
       user: current_user,
       game: @game,
@@ -33,6 +33,10 @@ class ChallengesController < BaseController
       challenges = challenges.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
       challenges = challenges.where(opponent_id: [nil, filters_params[:opponent_id]]) if filters_params[:opponent_id].present?
       @challenges = challenges.not_achieved.order(:id)
+      if current_user.keep_selection
+        @selected_character_id = challenge_params[:character_id]
+        @selected_opponent_id = challenge_params[:opponent_id]
+      end
       flash.now[:success] = "チャレンジを追加しました"
     else
       render :new, status: :unprocessable_entity
