@@ -8,8 +8,8 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
     trainings = trainings.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
     @trainings = trainings.not_achieved.order(:id)
     @training = Training.new(user: current_user, game: @game)
-    @recipes = current_user.recipes.where(game: @game).includes(:character)
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
+    @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
 
     @results = Training::Result.where(training: trainings).order(created_at: :desc).limit(25)
     @achieved_trainings = trainings.achieved.order(achieved_at: :desc)
@@ -52,8 +52,8 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   end
 
   def edit
-    @characters = @game.characters
-    @recipes = current_user.recipes.where(game: @game).includes(:character)
+    @characters = current_user.selectable_characters(@game)
+    @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
   end
 
   def do

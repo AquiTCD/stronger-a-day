@@ -20,4 +20,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class User::FavoriteCharacter < ApplicationRecord
+  belongs_to :user
+  belongs_to :character
 end

@@ -67,4 +67,12 @@ class User < ApplicationRecord
   def tutorial?(page)
     !tutorials.exists?(page:)
   end
+
+  def selectable_characters(game)
+    game_characters = game.characters
+    return game_characters unless show_only_favorites
+
+    game_characters.where(id: favorite_characters.select(:character_id)).presence ||
+      game_characters
+  end
 end

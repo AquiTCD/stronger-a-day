@@ -1,7 +1,7 @@
 class ChallengesController < BaseController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :start]
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     @show_tutorial = current_user.challenges.where(game: @game).size <= 3
 
     challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
@@ -9,7 +9,8 @@ class ChallengesController < BaseController
     challenges = challenges.where(opponent_id: [nil, params[:opponent_id]]) if params[:opponent_id].present?
     @challenges = challenges.not_achieved.order(:id)
     @challenge = Challenge.new(user: current_user, game: @game)
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
+    @opponents = @game.characters
 
     @achieved_challenges = challenges.achieved.order(achieved_at: :desc)
   end
@@ -60,7 +61,8 @@ class ChallengesController < BaseController
   end
 
   def edit
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
+    @opponents = @game.characters
   end
 
   def update
