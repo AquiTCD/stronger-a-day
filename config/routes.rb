@@ -34,6 +34,10 @@ Rails.application.routes.draw do
       put :confirm, on: :member
     end
     resources :tutorials, only: [:create]
+    resources :favorite_characters, only: [] do
+      get :edit, on: :collection
+      patch :update, on: :collection
+    end
   end
 
   get "me/edit", as: :edit_me, to: "users#edit"
