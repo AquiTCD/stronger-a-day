@@ -7,7 +7,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
 
     .grid.grid-cols-3.gap-2.mb-4
       - characters.each do |character|
-        div
+        div.text-sm
           = f.check_box("character_ids[]", { id: "character_#{character.id}", class: "peer hidden", checked: @fav_ids.include?(character.id) }, character.id, false)
           = f.label(:character, value: character.id, class: "select-none cursor-pointer font-bold  border-2 focus:ring-4 focus:outline-none focus:ring-pink-300 rounded-lg py-1 px-2 text-center border-pink-500 text-white hover:text-gray-900 hover:bg-pink-600 focus:ring-pink-900 peer-checked:bg-pink-300 peer-checked:text-gray-900 peer-checked:border-gray-200 block") do
             = character.display_name
