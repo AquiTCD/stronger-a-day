@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_02_035818) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_02_235235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -209,6 +209,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_02_035818) do
     t.index ["provider", "user_id"], name: "index_user_authentications_on_provider_and_user_id", unique: true
   end
 
+  create_table "user_favorite_characters", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_user_favorite_characters_on_character_id"
+    t.index ["user_id", "character_id"], name: "index_user_favorite_characters_on_user_id_and_character_id", unique: true
+    t.index ["user_id"], name: "index_user_favorite_characters_on_user_id"
+  end
+
   create_table "user_notifications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "notification_id", null: false
@@ -229,6 +239,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_02_035818) do
     t.boolean "styled_movements", default: true, null: false
     t.boolean "show_input_pad", default: true, null: false
     t.boolean "keep_selection", default: true, null: false
+    t.boolean "show_only_favorites", default: true, null: false
     t.index ["user_id"], name: "index_user_preferences_on_user_id"
   end
 
@@ -284,6 +295,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_02_035818) do
   add_foreign_key "trainings", "recipes"
   add_foreign_key "trainings", "users"
   add_foreign_key "user_authentications", "users"
+  add_foreign_key "user_favorite_characters", "characters"
+  add_foreign_key "user_favorite_characters", "users"
   add_foreign_key "user_notifications", "notifications"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "user_preferences", "users"
