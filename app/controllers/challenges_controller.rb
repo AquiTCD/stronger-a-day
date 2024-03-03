@@ -29,7 +29,8 @@ class ChallengesController < BaseController
     )
     p params
     if challenge.save
-      @characters = @game.characters
+      @characters = current_user.selectable_characters(@game)
+      @opponents = @game.characters
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
       challenges = challenges.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
       challenges = challenges.where(opponent_id: [nil, filters_params[:opponent_id]]) if filters_params[:opponent_id].present?
