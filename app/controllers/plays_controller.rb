@@ -4,7 +4,7 @@ class PlaysController < BaseController
     @playing = current_user.plays.where(character: @game.characters).where.associated(:results).distinct.in_progress.first
 
     @play = current_user.plays.new
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
   end
 
   def create

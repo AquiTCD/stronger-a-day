@@ -7,7 +7,7 @@ class RecipesController < BaseController
     @recipes = recipes.order(:id)
 
     @recipe = Recipe.new(user: current_user, game: @game)
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
     @situations = @game.situations
   end
 
@@ -41,7 +41,7 @@ class RecipesController < BaseController
   end
 
   def edit
-    @characters = @game.characters
+    @characters = current_user.selectable_characters(@game)
     @situations = @game.situations
   end
 

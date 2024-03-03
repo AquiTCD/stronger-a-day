@@ -53,13 +53,26 @@ class User < ApplicationRecord
   has_many :tutorials, dependent: :destroy
   has_many :trainings, dependent: :destroy
   has_many :recipes, dependent: :destroy
+  has_many :favorite_characters, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_\-]+\z/ }
   validates :display_name, presence: true, uniqueness: true
 
-  delegate :public, :show_usage, :show_tips, :default_public, :styled_movements, :show_input_pad, :keep_selection, to: :preference
+  delegate(*%i[
+    public show_usage show_tips default_public styled_movements
+    show_input_pad keep_selection show_only_favorites
+  ],
+           to: :preference)
 
   def tutorial?(page)
     !tutorials.exists?(page:)
+  end
+
+  def selectable_characters(game)
+    game_characters = game.characters
+    return game_characters unless show_only_favorites
+
+    game_characters.where(id: favorite_characters.select(:character_id)).presence ||
+      game_characters
   end
 end

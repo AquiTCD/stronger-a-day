@@ -2,17 +2,18 @@
 #
 # Table name: user_preferences
 #
-#  id               :bigint           not null, primary key
-#  user_id          :bigint           not null
-#  public           :boolean          default(TRUE), not null
-#  show_usage       :boolean          default(TRUE), not null
-#  show_tips        :boolean          default(TRUE), not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  default_public   :boolean          default(TRUE), not null
-#  styled_movements :boolean          default(TRUE), not null
-#  show_input_pad   :boolean          default(TRUE), not null
-#  keep_selection   :boolean          default(TRUE), not null
+#  id                  :bigint           not null, primary key
+#  user_id             :bigint           not null
+#  public              :boolean          default(TRUE), not null
+#  show_usage          :boolean          default(TRUE), not null
+#  show_tips           :boolean          default(TRUE), not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  default_public      :boolean          default(TRUE), not null
+#  styled_movements    :boolean          default(TRUE), not null
+#  show_input_pad      :boolean          default(TRUE), not null
+#  keep_selection      :boolean          default(TRUE), not null
+#  show_only_favorites :boolean          default(TRUE), not null
 #
 # Indexes
 #

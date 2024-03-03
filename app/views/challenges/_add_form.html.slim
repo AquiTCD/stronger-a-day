@@ -9,14 +9,15 @@
         span(class="sr-only") Close modal
     / <!-- Modal body -->
 
-    - characters = @game.characters
+    - opponents = @game.characters
+    - characters = current_user.show_only_favorites ? current_user.selectable_characters(@game) : opponents
     .grid.gap-4.border-b.border-gray-600.bg-gray-800.p-4.items-center(class="grid-cols-2")
       .div
         = f.label :character_id, "キャラクター", class: "block mb-2 text-sm font-medium text-white"
         = f.collection_select :character_id, characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       .div
         = f.label :opponent_id, "対戦相手指定", class: "block mb-2 text-sm font-medium text-white"
-        = f.collection_select :opponent_id, characters, :id, :display_name, { include_blank: "相手指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        = f.collection_select :opponent_id, opponents, :id, :display_name, { include_blank: "相手指定なし" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
       div.col-span-2
         = f.label :topic, "チャレンジ課題", class: "block mb-2 text-sm font-medium text-white"
         = render "shared/input_pad" do

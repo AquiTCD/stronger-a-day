@@ -1,0 +1,20 @@
+h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-white お気に入りキャラクターの登録
+= form_with url: favorite_characters_path, method: :patch do |f|
+  - @characters.group_by(&:game).each do |grouped_characters|
+    - game = grouped_characters.first
+    - characters = grouped_characters.last
+    = render "shared/hr", text: game.title
+
+    .grid.grid-cols-3.gap-2.mb-4
+      - characters.each do |character|
+        div.text-sm
+          = f.check_box("character_ids[]", { id: "character_#{character.id}", class: "peer hidden", checked: @fav_ids.include?(character.id) }, character.id, false)
+          = f.label(:character, value: character.id, class: "select-none cursor-pointer font-bold  border-2 focus:ring-4 focus:outline-none focus:ring-pink-300 rounded-lg py-1 px-2 text-center border-pink-500 text-white hover:text-gray-900 hover:bg-pink-600 focus:ring-pink-900 peer-checked:bg-pink-300 peer-checked:text-gray-900 peer-checked:border-gray-200 block") do
+            = character.display_name
+
+  div.mt-4
+    = f.submit "更新", class: "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm px-2 py-2 text-center w-full mb-2"
+
+div.w-full.text-sm.font-medium.border.rounded-lg.bg-gray-700.border-gray-600.text-white
+  = link_to "ユーザー設定に戻る", edit_preference_path, class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"
+  = link_to "ゲームメニューに戻る", home_path, class: "block w-full px-4 py-2 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white"
