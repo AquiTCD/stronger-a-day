@@ -17,21 +17,33 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-    def callback_from(provider) # rubocop:disable Metrics/AbcSize
+    def callback_from(provider) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/MethodLength
       result = OmniauthAuthentication.call(request.env["omniauth.auth"])
       return redirect_to root_path, alert: t(result.message) if result.failure?
 
-      @user = result.authentication.user
+      @user = result.user
       if @user
+        # 既にUserと紐づいている = ログイン
+        if current_user
+          # NOTE: 他のアカウントと連携済みの場合はエラー
+          return redirect_to edit_me_path, flash: { error: "そのアカウントとは連携できません" } if current_user != @user
+
+          # NOTE: なぜかログイン済みの場合はいったんトップに戻す
+          return redirect_to root_path, flash: { error: "不明なエラー" }
+        end
+
+        # 認証時に更新
+        result.authentication.save! if result.authentication.persisted?
         sign_in_and_redirect @user, event: :authentication # this will throw if @user is not activated
         set_flash_message(:success, :success, kind: provider.to_s.capitalize) if is_navigational_format?
       else
+        # 既にUserと紐づいてない = 初回アカウント登録 or 既存アカウントに紐付け
         # NOTE: ログイン済みの場合は既存のUserに紐付ける
         if current_user
           result.authentication.user = current_user
           result.authentication.save!
 
-          redirect_to edit_me_path, flash: { success: "#{provider.to_s.capitalize} ログインを追加しました" }
+          redirect_to edit_me_path, flash: { success: "#{provider.to_s.capitalize} ログイン連携を追加しました" }
         else
           session["devise.authentication"] = result.authentication.attributes
           redirect_to sign_up_path
