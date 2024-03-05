@@ -39,7 +39,7 @@ div#new_challenge.mb-4
         = f.collection_select :opponent_id, @opponents, :id, :display_name, { include_blank: "指定なし", selected: params[:opponent_id] }, data: { action: "change->selection-submit#submitSelect" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
 
 = turbo_frame_tag "challenges-list" do
-  #challenges.shadow-md.rounded-lg.grid.grid-cols-1.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1 grid-cols-[2rem_1fr_3rem_auto]")
+  #challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1")
     = render partial: @challenges
 
 = render "shared/hr", text: "達成したチャレンジ"
