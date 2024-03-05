@@ -14,6 +14,7 @@
 #  show_input_pad      :boolean          default(TRUE), not null
 #  keep_selection      :boolean          default(TRUE), not null
 #  show_only_favorites :boolean          default(TRUE), not null
+#  image_provider      :string
 #
 # Indexes
 #

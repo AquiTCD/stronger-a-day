@@ -1,9 +1,9 @@
 
 section.bg-gray-900.mb-4
   .w-full.p-6.space-y-8.p-8.rounded-lg.shadow-xl.bg-gray-800
-    .grid.grid-cols-2
-      div.row-span-2.md:row-span-3
-        = image_tag (@user.authentications.first&.image_url&.presence || 'user_placeholder.png'), class: "rounded-full h-24 w-24"
+    .grid(class="grid-cols-[auto_1fr]")
+      div.row-span-2.md:row-span-3.mr-8
+        = image_tag current_user.image_url, class: "rounded-full h-16 w-16 min-w-16", onerror: "this.src='#{image_path('user_placeholder.png')}'"
       h2.text-2xl.font-bold.text-gray-300.text-white
         = @user.display_name
       p.text-gray-400.text-base

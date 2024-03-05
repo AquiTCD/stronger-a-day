@@ -37,7 +37,10 @@ class Users::PreferencesController < ApplicationController
   private
 
     def pref_params
-      params.require(:user_preference).permit(:show_tips, :public, :default_public, :styled_movements, :show_input_pad, :keep_selection, :show_only_favorites)
+      params.require(:user_preference).permit(
+        :show_tips, :public, :default_public, :styled_movements, :show_input_pad,
+        :keep_selection, :show_only_favorites, :image_provider
+      )
     end
 
     def user_description_params
