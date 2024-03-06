@@ -9,8 +9,8 @@ class OmniauthAuthentication
   #
   def call
     validate_provider!
-    find_or_initialize_auth
-    context.user = context.authentication.user || nil
+    update_or_initialize_auth
+    context.user = context.authentication.user.presence
 
     context
   end
@@ -23,14 +23,13 @@ class OmniauthAuthentication
       context.fail!(message: "authenticate_user.failure")
     end
 
-    def find_or_initialize_auth
+    def update_or_initialize_auth
       context.authentication =
         User::Authentication.find_or_initialize_by(
           provider: context.provider,
           uid: context.uid,
-        ) do |authentication|
-          convert_attrs_by(authentication)
-        end
+        )
+      convert_attrs_by(context.authentication)
     end
 
     def convert_attrs_by(auth) # rubocop:disable Metrics/AbcSize

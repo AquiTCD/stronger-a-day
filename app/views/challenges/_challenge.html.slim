@@ -1,23 +1,26 @@
-= turbo_frame_tag challenge, class:"grid grid-cols-subgrid col-span-5" do
-  .grid.grid-cols-subgrid.col-span-5.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
-    .px-2.py-2
-      = button_to start_game_challenge_path(@game, challenge), method: :put, class: "font-medium border-gray-400 rounded-lg text-sm py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do
-        - if challenge.selected?
-          svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
-            path(d="M7.8 2c-.5 0-1 .2-1.3.6A2 2 0 0 0 6 3.9V21a1 1 0 0 0 1.6.8l4.4-3.5 4.4 3.5A1 1 0 0 0 18 21V3.9c0-.5-.2-1-.5-1.3-.4-.4-.8-.6-1.3-.6H7.8Z")
-        - else
-          svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.9c0-.2 0-.5.2-.6l.6-.3h8.4c.2 0 .4 0 .6.3l.2.6V21Z")
-    .px-2.py-2.p-4.font-medium
-      span = challenge.character ? "#{challenge.character.display_name} " : ""
-      span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-      p.font-bold.text-white = styled_topic(challenge.topic)
-    .py-2.justify-self-end
-      - unless challenge.public?
-        svg(class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-          path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14c-.5-.6-.9-1.3-1-2 0-1 4-6 9-6m7.6 3.8A5 5 0 0 1 21 12c0 1-3 6-9 6h-1m-6 1L19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z")
-    .px-2.py-2
-      .flex
+= turbo_frame_tag challenge do
+  /  grid-cols-[2rem_1fr_3rem_auto]
+  / .grid.grid-cols-subgrid.col-span-5.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
+  .border-b.bg-gray-800.border-gray-700.hover:bg-gray-600(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
+    .grid(class="grid-cols-[auto_1fr] grid-rows-[1fr_auto]")
+      .row-span-2.self-center
+        = button_to start_game_challenge_path(@game, challenge), method: :put, class: "font-medium border-gray-400 rounded-lg text-sm py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do
+          - if challenge.selected?
+            svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
+              path(d="M7.8 2c-.5 0-1 .2-1.3.6A2 2 0 0 0 6 3.9V21a1 1 0 0 0 1.6.8l4.4-3.5 4.4 3.5A1 1 0 0 0 18 21V3.9c0-.5-.2-1-.5-1.3-.4-.4-.8-.6-1.3-.6H7.8Z")
+          - else
+            svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+              path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.9c0-.2 0-.5.2-.6l.6-.3h8.4c.2 0 .4 0 .6.3l.2.6V21Z")
+      div.ml-2
+        .pt-2.font-medium
+          span = challenge.character ? "#{challenge.character.display_name} " : ""
+          span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
+        p.font-bold.text-white = styled_topic(challenge.topic)
+      .flex.justify-self-end
+        - unless challenge.public?
+          .px-2.py-1
+            svg(class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+              path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14c-.5-.6-.9-1.3-1-2 0-1 4-6 9-6m7.6 3.8A5 5 0 0 1 21 12c0 1-3 6-9 6h-1m-6 1L19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z")
         = button_to edit_game_challenge_path(@game, challenge), method: :get, params: { opponent_id: challenge.id }, class: "font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700", data: { turbo_stream: true } do
           svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z")

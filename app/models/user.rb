@@ -75,4 +75,15 @@ class User < ApplicationRecord
     game_characters.where(id: favorite_characters.select(:character_id)).presence ||
       game_characters
   end
+
+  def image_url
+    image_auth&.image_url || "user_placeholder.png"
+  end
+
+  private
+
+    def image_auth
+      @image_auth ||=
+        authentications.find_by(provider: preference.image_provider) || authentications.first
+    end
 end

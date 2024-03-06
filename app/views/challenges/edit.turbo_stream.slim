@@ -1,20 +1,19 @@
-= turbo_stream.update @challenge, class:"grid grid-cols-subgrid col-span-5" do
-  = form_with model: @challenge, url: game_challenge_path(@game), class: "grid grid-cols-subgrid col-span-5" do |f|
-    .grid.grid-cols-subgrid.col-span-5.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center
-      .col-span-3.grid.grid-subgrid.grid-cols-2
-        .pl-2.pt-2.pb-1
-          = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
-        .pl-1.pt-2.pb-1
-          = f.collection_select :opponent_id, @opponents, :id, :display_name, { include_blank: "相手指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
-        .pl-2.pb-2.col-span-2
-          = render "shared/input_pad" do
-            = f.text_area :topic, required: true, class: "h-11 resize-none border text-base rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
-      .col-span-2.px-2.py-2.justify-self-end
+= turbo_stream.update @challenge do
+  = form_with model: @challenge, url: game_challenge_path(@game) do |f|
+    .grid.grid-cols-2.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.p-2
+      .pb-1
+        = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
+      .pl-1.pb-1
+        = f.collection_select :opponent_id, @opponents, :id, :display_name, { include_blank: "相手指定なし" }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
+      .pb-2.col-span-2
+        = render "shared/input_pad" do
+          = f.text_area :topic, required: true, class: "h-11 resize-none border text-base rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
+      .col-span-2.justify-self-end
         p.text-sm.pb-1
           | 公開
-        = f.label "public_#{@challenge.id}", "公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
+        = f.label "public_#{@challenge.id}", "公開", class: "relative inline-flex items-center cursor-pointer" do
           = f.check_box :public, { id: "challenge_public_#{@challenge.id}", class: "sr-only peer" }
           div class="mr-1 w-9 h-5 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-600"
-        = button_tag type: "submit", class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do
+        = button_tag type: "submit", class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 ml-2" do
           svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
             path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9")
