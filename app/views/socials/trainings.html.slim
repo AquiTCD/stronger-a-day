@@ -28,7 +28,7 @@ h1.mb-4.text-xl.font-extrabold.leading-none.tracking-tight.md:text-2xl.text-whit
               = styled_topic(training.topic)
             p.ml-2.text-xs
               span.mr-1.5 by
-              = link_to "@#{training.user.display_name}", user_path(training.user), class: "underline"
+              = link_to "@#{training.user.display_name}", user_path(training.user), method: :get, data: { turbo: false }, class: "underline"
               / | ,
               / span.ml-2 = "人気度: #{challenge.referred_tos.size}"
           / .px-2.py-2.self-center.justify-self-center(id="challenge_#{challenge.id}")

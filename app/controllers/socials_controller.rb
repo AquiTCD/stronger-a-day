@@ -34,12 +34,14 @@ class SocialsController < BaseController
   def copy_challenge
     challenge = Challenge.find(params[:challenge_id])
     challenge.copy_to(current_user)
-    redirect_to challenges_game_social_path(@game), flash: { success: "チャレンジをコピーしました" }
+    flash.now[:success] = "チャレンジをコピーしました"
+    render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
   end
 
   def copy_recipe
     recipe = Recipe.find(params[:recipe_id])
     recipe.copy_to(current_user)
-    redirect_to recipes_game_social_path(@game), flash: { success: "レシピをコピーしました" }
+    flash.now[:success] = "レシピをコピーしました"
+    render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
   end
 end

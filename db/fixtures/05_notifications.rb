@@ -224,6 +224,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.8.1",
+    content:<<~TXT,
+        - アイコンを選択可能に（複数のアカウント連携がある場合のみ）
+        - 表示の改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
