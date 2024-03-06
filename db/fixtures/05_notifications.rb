@@ -229,6 +229,7 @@ Notifications = [
     content:<<~TXT,
         - アイコンを選択可能に（複数のアカウント連携がある場合のみ）
         - 表示の改善
+        - ユーザーマイページにチャレンジやレシピも追加
       TXT
     importance: :normal,
   },
