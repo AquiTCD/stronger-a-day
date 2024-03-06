@@ -55,7 +55,7 @@ class ChallengesController < BaseController
       public: challenge_params[:public],
     )
     if @challenge.save
-      flash.now.notice = "課題を追加しました"
+      flash.now[:success] = "チャレンジを追加しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -68,8 +68,7 @@ class ChallengesController < BaseController
 
   def update
     if @challenge.update(challenge_params)
-      notice = "更新しました"
-      redirect_to game_challenge_path(@game, @challenge), notice:
+      flash.now[:success] = "更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -97,7 +96,7 @@ class ChallengesController < BaseController
     user.challenges.where(game: @game).each do |challenge|
       challenge.copy_to(current_user)
     end
-    flash.now.notice = "サンプルチャレンジを追加しました"
+    flash.now[:success] = "サンプルチャレンジを追加しました"
     redirect_to game_challenges_path(@game)
   end
 

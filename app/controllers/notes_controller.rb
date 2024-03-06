@@ -1,7 +1,7 @@
 class NotesController < BaseController
   def update
     if @note.update(content: params[:note][:content])
-      flash.now.notice = "クイックメモを保存しました"
+      flash.now[:success] = "クイックメモを保存しました"
     else
       render :edit, status: :unprocessable_entity
     end

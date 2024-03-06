@@ -61,7 +61,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
 
   def done
     if @training.results.create(done_params)
-      flash.now.notice = "トレーニングを記録しました"
+      flash.now[:success] = "トレーニングを記録しました"
       @result = @training.results.last
     else
       render :do, status: :unprocessable_entity
@@ -70,8 +70,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
 
   def update
     if @training.update(training_params)
-      notice = "更新しました"
-      redirect_to game_training_path(@game, @training), notice:
+      flash.now[:success] = "更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -102,15 +101,6 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
       render :new, status: :unprocessable_entity
     end
   end
-
-  # def copy_sample
-  #   user = User.system
-  #   user.trainings.where(game: @game).each do |training|
-  #     training.copy_to(current_user)
-  #   end
-  #   flash.now.notice = "サンプルチャレンジを追加しました"
-  #   redirect_to game_trainings_path(@game)
-  # end
 
   private
 

@@ -62,8 +62,7 @@ class RecipesController < BaseController
         @recipe.recipe_situations.create!(situation_id: id)
       end
     end
-    notice = "更新しました"
-    redirect_to game_recipe_path(@game, @recipe), notice:
+    flash.now[:success] = "更新しました"
   end
 
   def destroy
