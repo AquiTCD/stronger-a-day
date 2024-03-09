@@ -28,7 +28,7 @@ div#new_challenge.mb-4
   = render "form", challenge: @challenge
 
 / filter
-.rounded-t-lg.border-b.bg-gray-800.border-gray-700.p-4
+.rounded-lg.bg-gray-800.p-4
   = form_with url: game_challenges_path(@game), method: :get, data: { controller: "selection-submit", turbo_frame: "challenges-list" } do |f|
     .grid.gap-4.items-center(class="grid-cols-2")
       div
@@ -40,7 +40,7 @@ div#new_challenge.mb-4
 
 = turbo_frame_tag "challenges-list" do
   #challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5(class="grid-rows-1")
-    = render partial: @challenges
+    = render "challenges", challenges: @challenges
 
 = render "shared/hr", text: "達成したチャレンジ"
 #achieved_challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.mb-5.grid-cols-1

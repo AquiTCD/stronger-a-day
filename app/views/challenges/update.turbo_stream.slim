@@ -1,2 +1,2 @@
-= turbo_stream.replace @challenge
+= turbo_stream.update "challenges", partial: "challenges", locals: { challenges: @challenges }
 = turbo_stream_flash

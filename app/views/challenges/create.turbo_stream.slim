@@ -1,3 +1,3 @@
-= turbo_stream.update "challenges", partial: @challenges
+= turbo_stream.update "challenges", partial: "challenges", locals: { challenges: @challenges }
 = turbo_stream.update "new_challenge", partial: "form"
 = turbo_stream_flash

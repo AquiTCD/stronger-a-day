@@ -1,4 +1,4 @@
-class ChallengesController < BaseController
+class ChallengesController < BaseController # rubocop:disable Metrics/ClassLength
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :start]
 
   def index # rubocop:disable Metrics/AbcSize
@@ -7,7 +7,11 @@ class ChallengesController < BaseController
     challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
     challenges = challenges.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
     challenges = challenges.where(opponent_id: [nil, params[:opponent_id]]) if params[:opponent_id].present?
-    @challenges = challenges.not_achieved.order(:id)
+    @challenges =
+      challenges.not_achieved.
+        order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+        order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC")).
+        order(:id)
     @challenge = Challenge.new(user: current_user, game: @game)
     @characters = current_user.selectable_characters(@game)
     @opponents = @game.characters
@@ -27,14 +31,18 @@ class ChallengesController < BaseController
       opponent_id: challenge_params[:opponent_id],
       public: challenge_params[:public],
     )
-    p params
     if challenge.save
+      # debugger
       @characters = current_user.selectable_characters(@game)
       @opponents = @game.characters
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
       challenges = challenges.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
       challenges = challenges.where(opponent_id: [nil, filters_params[:opponent_id]]) if filters_params[:opponent_id].present?
-      @challenges = challenges.not_achieved.order(:id)
+      @challenges =
+        challenges.not_achieved.
+          order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+          order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC")).
+          order(:id)
       if current_user.keep_selection
         @selected_character_id = challenge_params[:character_id]
         @selected_opponent_id = challenge_params[:opponent_id]
@@ -68,6 +76,16 @@ class ChallengesController < BaseController
 
   def update
     if @challenge.update(challenge_params)
+      # binding.irb
+      # クエリパラメータを加味するには？
+      challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
+      challenges = challenges.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
+      challenges = challenges.where(opponent_id: [nil, params[:opponent_id]]) if params[:opponent_id].present?
+      @challenges =
+        challenges.not_achieved.
+          order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+          order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC")).
+          order(:id)
       flash.now[:success] = "更新しました"
     else
       render :edit, status: :unprocessable_entity
