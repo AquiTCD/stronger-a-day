@@ -1,5 +1,5 @@
 = turbo_frame_tag challenge do
-  .border-b.bg-gray-800.border-gray-700.hover:bg-gray-600(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
+  .border-t.bg-gray-800.border-gray-700.hover:bg-gray-600(id="challenge_#{challenge.id}" data = { "turbo_frame": "challenge_#{challenge.id}" })
     .grid(class="grid-cols-[auto_1fr] grid-rows-[1fr_auto]")
       .row-span-2.self-center
         = button_to start_game_challenge_path(@game, challenge), method: :put, class: "font-medium border-gray-400 rounded-lg text-sm py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do

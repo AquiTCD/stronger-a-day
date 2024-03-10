@@ -1,5 +1,5 @@
 = turbo_frame_tag training do
-  .grid.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600(id="training_#{training.id}" data={ "turbo_frame": "training_#{training.id}" })
+  .grid.border-t.bg-gray-800.border-gray-700.hover:bg-gray-600(id="training_#{training.id}" data={ "turbo_frame": "training_#{training.id}" })
     .pl-4.pr-2.pt-2
       span = training.character&.display_name || training&.recipe&.character&.display_name
       .flex.flex.flex-row.flex-wrap.items-center.font-bold
