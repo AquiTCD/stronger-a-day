@@ -4,11 +4,14 @@ class RecipesController < BaseController
   def index
     recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
     recipes = recipes.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
-    @recipes = recipes.order(:id)
+    @recipes =
+      recipes.order(Arel.sql("character_id IS NOT NULL, character_id ASC")).order(:id)
 
     @recipe = Recipe.new(user: current_user, game: @game)
     @characters = current_user.selectable_characters(@game)
     @situations = @game.situations
+
+    @filters = { character_id: params[:character_id] }
   end
 
   def show
@@ -32,8 +35,9 @@ class RecipesController < BaseController
     @characters = @game.characters
     @situations = @game.situations
     recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
-    recipes = recipes.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
-    @recipes = recipes.order(:id)
+    recipes = recipes.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+    @recipes =
+      recipes.order(Arel.sql("character_id IS NOT NULL, character_id ASC")).order(:id)
     if current_user.keep_selection
       @selected_character_id = recipe_params[:character_id]
     end
@@ -43,9 +47,10 @@ class RecipesController < BaseController
   def edit
     @characters = current_user.selectable_characters(@game)
     @situations = @game.situations
+    @filters = { character_id: params[:character_id] }
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     ActiveRecord::Base.transaction do
       @recipe.update!(recipe_params)
 
@@ -62,6 +67,11 @@ class RecipesController < BaseController
         @recipe.recipe_situations.create!(situation_id: id)
       end
     end
+    recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
+    recipes = recipes.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+    @recipes =
+      recipes.order(Arel.sql("character_id IS NOT NULL, character_id ASC")).order(:id)
+
     flash.now[:success] = "更新しました"
   end
 
@@ -79,8 +89,8 @@ class RecipesController < BaseController
       params.require(:recipe).permit(:character_id, :movements, :comment, :public, situation_ids: [])
     end
 
-    def filters_params
-      params.require(:filters).permit(:character_id)
+    def filters
+      @filters ||= params.require(:filters).permit(:character_id)
     end
 
     def set_recipe

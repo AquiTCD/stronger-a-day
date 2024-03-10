@@ -1,18 +1,24 @@
 class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   before_action :set_training, only: [:show, :edit, :update, :destroy, :achieve, :do, :done]
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     trainings =
       current_user.trainings.where(user: current_user, game: @game).
         includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
     trainings = trainings.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
-    @trainings = trainings.not_achieved.order(:id)
+    @trainings =
+      trainings.not_achieved.
+        order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+        order(:id)
+
     @training = Training.new(user: current_user, game: @game)
     @characters = current_user.selectable_characters(@game)
     @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
 
     @results = Training::Result.where(training: trainings).order(created_at: :desc).limit(25)
     @achieved_trainings = trainings.achieved.order(achieved_at: :desc)
+
+    @filters = { character_id: params[:character_id] }
   end
 
   def show
@@ -40,8 +46,11 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
       trainings =
         current_user.trainings.not_achieved.where(user: current_user, game: @game).
           includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
-      trainings = trainings.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
-      @trainings = trainings.order(:id)
+      trainings = trainings.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+      @trainings =
+        trainings.
+          order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+          order(:id)
       if current_user.keep_selection
         @selected_character_id = character_id
       end
@@ -54,6 +63,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   def edit
     @characters = current_user.selectable_characters(@game)
     @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
+    @filters = { character_id: params[:character_id] }
   end
 
   def do
@@ -70,6 +80,14 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
 
   def update
     if @training.update(training_params)
+      trainings =
+        current_user.trainings.not_achieved.where(user: current_user, game: @game).
+          includes(:character, recipe: [:situations, :character, { recipe_situations: :situation }])
+      trainings = trainings.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+      @trainings =
+        trainings.
+          order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
+          order(:id)
       flash.now[:success] = "更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -108,8 +126,8 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
       params.require(:training).permit(:topic, :recipe_id, :character_id, :public)
     end
 
-    def filters_params
-      params.require(:filters).permit(:character_id)
+    def filters
+      @filters ||= params.require(:filters).permit(:character_id)
     end
 
     def set_training

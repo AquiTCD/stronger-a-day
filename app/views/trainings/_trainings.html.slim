@@ -1,0 +1,9 @@
+- trainings.group_by(&:character).each do |grouped_trainings|
+  - character = grouped_trainings.first
+  - trainings_by_character = grouped_trainings.last
+  .mt-3.border.border-gray-700.rounded.mb-2
+    .font-bold.border-b.border-gray-700.py-2.pl-2.text-lg.text-gray-300
+      = character&.display_name || "キャラクター指定なし"
+    #trainings.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.(class="grid-rows-1")
+      - trainings_by_character.each do |training|
+        = render partial: 'training', locals: { training: training }
