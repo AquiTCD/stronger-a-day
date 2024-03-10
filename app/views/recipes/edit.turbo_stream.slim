@@ -1,28 +1,33 @@
 = turbo_stream.update @recipe do
   = form_with model: @recipe, url: game_recipe_path(@game), class: "grid grid-cols-subgrid col-span-3" do |f|
-    .grid.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center
+    .grid.border-t.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center.p-2
       .grid.grid-subgrid
-        .pl-2.pt-2.pb-1
+        .pt-2.pb-1
           = f.collection_select :character_id, @characters, :id, :display_name, { include_blank: "キャラクター選択", required: true }, class: "border text-base rounded-lg block p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full"
-        .pl-2.py-1.col-span-2
+        .py-1.col-span-2
           .flex.flex-row.flex-wrap.text-xs.font-bold
             - @situations.each do |situation|
               div.mr-2.my-2
                 = f.check_box "situation_ids", { multiple: true, id: "recipe_#{@recipe.id}_situation_#{situation.id}", class: "peer hidden" }, situation.id, false
                 = f.label("#{@recipe.id}_situation", value: situation.id, class: "select-none cursor-pointer rounded-lg border-2 border-gray-400 py-1 px-2 text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 peer-checked:text-gray-900 peer-checked:border-gray-200") do
                   | #{situation.display_name}
-        .pl-2.pb-2.col-span-2
+        .pb-2.col-span-2
           = render "shared/input_pad" do
             = f.text_area :movements, required: true, class: "h-11 resize-none border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", data: { "input-pad-target": "input", action: "input->input-pad#input" }
-        .pl-2.pb-2.col-span-2
+        .pb-2.col-span-2
           = f.text_field :comment, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "コメント（任意）"
-      .col-span-2.px-2.py-2.justify-self-end
-        p.text-sm.pb-1
-          | 公開
-        = f.label "public_#{@recipe.id}", "公開", class: "relative inline-flex items-center mb-5 cursor-pointer" do
-          = f.check_box :public, { id: "recipe_public_#{@recipe.id}", class: "sr-only peer" }
-          div class="mr-1 w-9 h-5 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-600"
-        = button_tag type: "submit", class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700" do
-          svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
-            path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9")
+        .col-span-2
+          .flex.items-end
+            = link_to game_recipes_path(@game, { character_id: params[:character_id] }), method: :get, data: { turbo_stream: true }, class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 block mr-auto" do
+              svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+                path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4")
+            div
+              p.text-sm.pb-1
+                | 公開
+              = f.label "public_#{@recipe.id}", "公開", class: "relative inline-flex items-center  cursor-pointer" do
+                = f.check_box :public, { id: "recipe_public_#{@recipe.id}", class: "sr-only peer" }
+                div class="mr-1 w-9 h-5 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-600"
+            = button_tag type: "submit", class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 ml-2" do
+              svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+                path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9")
     = render "shared/filteres_params"
