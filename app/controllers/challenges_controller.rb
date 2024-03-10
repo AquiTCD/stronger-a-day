@@ -17,6 +17,8 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
     @opponents = @game.characters
 
     @achieved_challenges = challenges.achieved.order(achieved_at: :desc)
+
+    @filters = { character_id: params[:character_id], opponent_id: params[:opponent_id] }
   end
 
   def show
@@ -32,12 +34,11 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
       public: challenge_params[:public],
     )
     if challenge.save
-      # debugger
       @characters = current_user.selectable_characters(@game)
       @opponents = @game.characters
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
-      challenges = challenges.where(character_id: [nil, filters_params[:character_id]]) if filters_params[:character_id].present?
-      challenges = challenges.where(opponent_id: [nil, filters_params[:opponent_id]]) if filters_params[:opponent_id].present?
+      challenges = challenges.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+      challenges = challenges.where(opponent_id: [nil, filters[:opponent_id]]) if filters[:opponent_id].present?
       @challenges =
         challenges.not_achieved.
           order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
@@ -72,15 +73,14 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
   def edit
     @characters = current_user.selectable_characters(@game)
     @opponents = @game.characters
+    @filters = { character_id: params[:character_id], opponent_id: params[:opponent_id] }
   end
 
   def update
     if @challenge.update(challenge_params)
-      # binding.irb
-      # クエリパラメータを加味するには？
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
-      challenges = challenges.where(character_id: [nil, params[:character_id]]) if params[:character_id].present?
-      challenges = challenges.where(opponent_id: [nil, params[:opponent_id]]) if params[:opponent_id].present?
+      challenges = challenges.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
+      challenges = challenges.where(opponent_id: [nil, filters[:opponent_id]]) if filters[:opponent_id].present?
       @challenges =
         challenges.not_achieved.
           order(Arel.sql("character_id IS NOT NULL, character_id ASC")).
@@ -124,8 +124,8 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
       params.require(:challenge).permit(:topic, :character_id, :opponent_id, :public)
     end
 
-    def filters_params
-      params.require(:filters).permit(:character_id, :opponent_id)
+    def filters
+      @filters ||= params.require(:filters).permit(:character_id, :opponent_id)
     end
 
     def set_challenge
