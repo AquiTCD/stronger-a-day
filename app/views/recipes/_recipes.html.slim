@@ -1,0 +1,9 @@
+- recipes.group_by(&:character).each do |grouped_recipes|
+  - character = grouped_recipes.first
+  - recipes_by_character = grouped_recipes.last
+  .mt-3.border.border-gray-700.rounded.mb-2
+    .font-bold.py-2.pl-2.text-lg.text-gray-300
+      = character&.display_name || "キャラクター指定なし"
+    #recipes.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.(class="grid-rows-1")
+      - recipes_by_character.each do |recipe|
+        = render partial: 'recipe', locals: { recipe: recipe }

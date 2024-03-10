@@ -1,3 +1,2 @@
 = turbo_stream.update "trainings", partial: "trainings", locals: { trainings: @trainings }
-= turbo_stream.update "new_training", partial: "form"
-= turbo_stream_flash
+= turbo_stream.replace "form_filters", partial: "shared/filteres_params"

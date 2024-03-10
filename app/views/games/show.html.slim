@@ -1,20 +1,20 @@
 section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
-  .py-4.px-2.mx-auto.max-w-screen-xl.w-full
-    = link_to game_challenges_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
+  .mx-auto.max-w-screen-xl.w-full
+    = link_to game_challenges_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-4 shadow hover:bg-gray-700"
       div.mb-1
         span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-green-900.text-green-300
           = "#{@achieved_challenge_count}/#{@all_challenging_count}"
       h2.text-white.mb-2
         span.text-2xl.md:text-4xl.font-extrabold.mr-2
           | チャレンジ管理
-      p.text-base.md:text-lg.font-normal.text-gray-400
+      p.text-sm.md:text-base.font-normal.text-gray-400
         | 新しくチャレンジを設定したり、次のチャレンジを選択します
         br
         | 編集や削除もここで行ないます
   .div.justify-self-center.self-center
-    svg(class="w-[48px] h-[48px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+    svg(class="w-[36px] h-[36px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 19V5m0 14-4-4m4 4 4-4")
-  .py-4.px-2.mx-auto.max-w-screen-xl.w-full
+  .mx-auto.max-w-screen-xl.w-full
     - if @achieved_challenge_count == @all_challenging_count
       div(class="w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700")
         div.mb-1
@@ -23,38 +23,48 @@ section.bg-gray-900.(class="grid grid-rows-[auto_48px_auto_48px_auto]")
         h2.text-white.mb-2
           span.text-2xl.md:text-4xl.font-extrabold.mr-2
             | CHALLENGE!!
-        p.text-base.md:text-lg.font-normal.text-gray-400
+        p.text-sm.md:text-base.font-normal.text-gray-400
           | チャレンジを選択して、今日の挑戦を始めます
           br
           | 挑戦は操作キャラクター別に保存されます
           br
           | 戦績とチャレンジが達成できたかを記録しましょう
     - else
-      = link_to new_game_play_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
+      - play_classes = \
+        @playing ? \
+        "text-red-200 bg-red-700 border-red-400 hover:bg-red-600" : \
+        @to_review_count.positive? ? \
+          "text-gray-400 bg-gray-800 border-gray-700 hover:bg-gray-700" : \
+          "text-green-200 bg-green-900 border-green-400 hover:bg-green-700"
+      = link_to new_game_play_path(@game), class: "w-full block rounded-lg p-4 shadow border #{play_classes}"
         - if @playing
           div.mb-1
-            span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-red-900.text-red-300
+            span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-red-900.text-red-200
               | プレイ中
         h2.text-white.mb-2
           span.text-2xl.md:text-4xl.font-extrabold.mr-2
             | Play!!
-        p.text-base.md:text-lg.font-normal.text-gray-400
+        p.text-sm.md:text-base.font-normal
           | チャレンジを選択して、今日の挑戦を始めます
           br
           | 挑戦は操作キャラクター別に保存されます
           br
           | 戦績とチャレンジが達成できたかを記録しましょう
   .div.justify-self-center.self-center
-    svg(class="w-[48px] h-[48px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+    svg(class="w-[36px] h-[36px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
       path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 19V5m0 14-4-4m4 4 4-4")
-  .py-4.px-2.mx-auto.max-w-screen-xl.w-full
-    = link_to game_reviews_path(@game), class: "w-full block bg-gray-800 border border-gray-700 rounded-lg p-6 shadow hover:bg-gray-700"
+  .mx-auto.max-w-screen-xl.w-full
+    - review_classes = \
+      @to_review_count.positive? ? \
+        "text-yellow-200 bg-yellow-800 border-yellow-400 hover:bg-yellow-700" : \
+        "text-gray-400 bg-gray-800 border-gray-700 hover:bg-gray-700"
+    = link_to game_reviews_path(@game), class: "w-full block rounded-lg p-4 shadow border #{review_classes}"
       - if @to_review_count.positive?
         div.mb-1
-          span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-yellow-900.text-yellow-300
+          span.text-sm.font-medium.me-2.px-2.5.py-0.5.rounded.bg-yellow-500.text-yellow-900
             = "未レビュー: #{@to_review_count}件"
       h2.text-white.mb-2
         span.text-2xl.md:text-4xl.font-extrabold.mr-2
           | 振り返り
-      p.text-base.md:text-lg.font-normal.text-gray-400
+      p.text-sm.md:text-base.font-normal
         | その日のデータを元に振り返りを行います

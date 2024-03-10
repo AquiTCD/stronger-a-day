@@ -1,0 +1,15 @@
+- challenges.group_by(&:character).each do |grouped_challenges|
+  - character = grouped_challenges.first
+  - challenges_by_character = grouped_challenges.last
+  .mt-3.border.border-gray-700.rounded.mb-2
+    .font-bold.py-2.pl-2.text-lg.text-gray-300
+      = character&.display_name || "キャラクター指定なし"
+    - challenges_by_character.group_by(&:opponent).each do |opponent_grouped_challenges|
+      - opponent = opponent_grouped_challenges.first
+      - challenges_by_opponent = opponent_grouped_challenges.last
+      - if opponent
+        .pl-3.text-sm.py-1.border-t.border-gray-700
+          = "vs #{opponent&.display_name}"
+      #challenges.shadow-md.rounded-lg.grid.w-full.text-sm.text-left.text-gray-400.(class="grid-rows-1")
+        - challenges_by_opponent.each do |challenge|
+          = render partial: 'challenge', locals: { challenge: challenge }

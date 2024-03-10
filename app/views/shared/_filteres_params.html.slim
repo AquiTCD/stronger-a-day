@@ -1,0 +1,5 @@
+#form_filters
+  - character_id = @filters ? @filters[:character_id] : nil
+  - opponent_id = @filters ? @filters[:opponent_id] : nil
+  = hidden_field :filters, :character_id, value: character_id
+  = hidden_field :filters, :opponent_id, value: opponent_id
