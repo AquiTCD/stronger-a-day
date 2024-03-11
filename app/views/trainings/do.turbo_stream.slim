@@ -1,7 +1,7 @@
 = turbo_stream.update @training, class:"grid grid-cols-subgrid col-span-3" do
   = form_with model: @training, url: done_game_training_path(@game, @training), class: "col-span-3" do |f|
-    .grid.grid-cols-subgrid.col-span-3.border-b.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center(class="grid-rows-[1fr_auto_auto]")
-      .pl-4.pr-2.py-2.col-span-3
+    .grid.grid-cols-subgrid.col-span-3.border-t.bg-gray-800.border-gray-700.hover:bg-gray-600.items-center.p-2(class="grid-rows-[1fr_auto_auto]")
+      .pl-2.pb-2.col-span-3
         p = @training.character&.display_name || @training&.recipe&.character&.display_name
         p.font-bold.text-white.col-span-3
           span.mr-2
@@ -9,8 +9,14 @@
           = styled_topic(@training.topic)
         p
           | を練習した
-      .px-2.pb-2.col-span-3
+      .pb-2.col-span-3
         = f.text_field :comment, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "結果コメント（任意）"
-      .px-2.pb-2.col-span-3.justify-self-end
-        = link_to "キャンセル", game_training_path(@game, @training), class: "inline-block border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 mr-2"
-        = button_tag "記録", type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-2 py-1 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 border border-gray-400 hover:border-gray-600"
+      .col-span-3
+        .flex.items-end
+          = link_to game_training_path(@game, @training), method: :get, params: { character_id: @filters[:character_id] }, data: { turbo_stream: true }, class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 block mr-auto" do
+            svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+              path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4")
+          = button_tag type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-2 py-1 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 border border-gray-400 hover:border-gray-600" do
+              svg.w-6.h-6.text-white(aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
+                path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9")
+    = render "shared/filteres_params"
