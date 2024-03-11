@@ -22,6 +22,7 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
   end
 
   def show
+    @filters = { character_id: params[:character_id], opponent_id: params[:opponent_id] }
   end
 
   def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
