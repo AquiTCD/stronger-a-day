@@ -95,7 +95,7 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
   def start
     @challenge.toggle(:selected)
     if @challenge.save
-      redirect_to game_challenge_path(@game, @challenge)
+      render turbo_stream: [turbo_stream.update("challenge_started_#{@challenge.id}", partial: "challenge_started", locals: { challenge: @challenge })]
     else
       render :edit, status: :unprocessable_entity
     end
