@@ -5,7 +5,7 @@
       .flex.flex.flex-row.flex-wrap.items-center.font-bold
         - training.recipe&.situations&.map(&:display_name)&.each do |situation|
           span.border.border-1.border-gray-400.rounded.px-1.mr-1.mb-1 = situation
-    = button_to do_game_training_path(@game, training), class: "text-left pl-2 pr-2 font-medium", method: :get, data: { turbo_stream: true } do
+    = button_to do_game_training_path(@game, training), params: { character_id: @filters[:character_id] }, class: "text-left pl-2 pr-2 font-medium", method: :get, data: { turbo_stream: true } do
       .grid(class="grid-cols-[auto_1fr]")
         .self-center.mr-2
           svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")

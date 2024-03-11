@@ -22,6 +22,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   end
 
   def show
+    @filters = { character_id: params[:character_id] }
   end
 
   def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -67,11 +68,13 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   end
 
   def do
+    @filters = { character_id: params[:character_id] }
   end
 
   def done
     if @training.results.create(done_params)
       flash.now[:success] = "トレーニングを記録しました"
+      filters
       @result = @training.results.last
     else
       render :do, status: :unprocessable_entity
@@ -107,6 +110,10 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
       else
         flash.now.alert = "「#{full_name}」\nの達成を取り消しました"
       end
+      render turbo_stream: [
+        turbo_stream.update("training_achieved_#{@training.id}", partial: "training_achieved", locals: { training: @training }),
+        turbo_stream.update("flash", partial: "shared/flash"),
+      ]
     else
       render :edit, status: :unprocessable_entity
     end

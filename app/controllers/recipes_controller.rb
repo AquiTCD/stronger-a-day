@@ -15,6 +15,7 @@ class RecipesController < BaseController
   end
 
   def show
+    @filters = { character_id: params[:character_id] }
   end
 
   def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

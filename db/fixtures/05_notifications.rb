@@ -240,6 +240,13 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.8.3",
+    content:<<~TXT,
+        - 一部意図せずエラーになっていた問題の修正
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
