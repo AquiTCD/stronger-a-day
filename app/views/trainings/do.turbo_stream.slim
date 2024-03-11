@@ -13,7 +13,7 @@
         = f.text_field :comment, class: "border text-base rounded-lg  block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500", placeholder: "結果コメント（任意）"
       .col-span-3
         .flex.items-end
-          = link_to game_training_path(@game, @training), method: :get, params: { character_id: @filters[:character_id] }, class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 block mr-auto" do
+          = link_to game_training_path(@game, @training, { character_id: @filters[:character_id] }), method: :get, class: "border font-medium border-gray-400 rounded-lg text-sm px-2 py-1 bg-gray-800 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 block mr-auto" do
             svg(class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24")
               path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4")
           = button_tag type: "submit", class: "text-white focus:ring-4 font-medium rounded-lg text-sm px-2 py-1 bg-gradient-to-br from-indigo-700 to-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 border border-gray-400 hover:border-gray-600" do
