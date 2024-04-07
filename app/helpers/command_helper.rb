@@ -66,7 +66,7 @@ module CommandHelper
     end
 
     def decorate(input)
-      words = input.split(/((?<!sa)(?<!lv)(?<!x)(?<!\\)\d(?!hit)(?!f))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
+      words = input.split(/((?<!sa)(?<!lv)(?<![\-ー~～x×])\d(?!hit)(?![f\-ー~～]))|((?<!s)[PK])|(OD)|(弱)|((?<!空)中)|(強(?!化))/i).compact_blank
       words = words.map do |word|
         case word
         when "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
@@ -82,9 +82,8 @@ module CommandHelper
       words.join
     end
 
-    def change_arrow(number) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
-      return number if number == 0
-      return "立" if number == 5
+    def change_arrow(number) # rubocop:disable Metrics/MethodLength
+      return number if [0, 5].include?(number)
 
       rotation_class =
         case number

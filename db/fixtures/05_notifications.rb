@@ -247,6 +247,14 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.8.4",
+    content:<<~TXT,
+        - コマンド装飾の判定改善
+        - チャレンジ管理から達成登録を可能に
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)
