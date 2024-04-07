@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       put :start, on: :member
       post :copy_sample, to: "challenges#copy_sample", on: :collection
       post :add, on: :collection
+      put :achieve, on: :member
     end
 
     resources :reviews do

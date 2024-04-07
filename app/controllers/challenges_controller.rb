@@ -1,5 +1,5 @@
 class ChallengesController < BaseController # rubocop:disable Metrics/ClassLength
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :start]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :start, :achieve]
 
   def index # rubocop:disable Metrics/AbcSize
     @show_tutorial = current_user.challenges.where(game: @game).size <= 3
@@ -88,6 +88,23 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
           order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC")).
           order(:id)
       flash.now[:success] = "更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def achieve
+    @challenge.achieved_at = if @challenge.achieved_at
+                               nil
+                             else
+                               Time.current
+                             end
+    if @challenge.save
+      if @challenge.achieved_at
+        flash.now[:success] = "「#{@challenge.topic}」\nを達成にしました"
+      else
+        flash.now.alert = "「#{@challenge.topic}」\nの達成を取り消しました"
+      end
     else
       render :edit, status: :unprocessable_entity
     end
