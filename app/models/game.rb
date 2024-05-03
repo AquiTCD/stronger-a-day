@@ -20,4 +20,8 @@ class Game < ApplicationRecord
   def to_param
     abbreviation
   end
+
+  def is?(str)
+    abbreviation == str
+  end
 end
