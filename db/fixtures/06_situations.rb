@@ -55,3 +55,33 @@ SF6_SITUATIONS.each do |situation|
     situation.merge(game: game)
   )
 end
+
+TEKKEN8_SITUATIONS = [
+  {
+    name: 'wall',
+    display_name: '壁',
+  },
+  {
+    name: 'counter',
+    display_name: 'カウンター',
+  },
+  {
+    name: 'front only',
+    display_name: '正面限定',
+  },
+  {
+    name: 'back only',
+    display_name: '背面限定',
+  },
+  {
+    name: 'big_opponent',
+    display_name: '相手サイズ:大',
+  },
+].freeze
+
+tekken8 = Game.find_by(title: 'TEKKEN 8')
+TEKKEN8_SITUATIONS.each do |character|
+  Character.seed(:name,
+    character.merge(game: tekken8)
+  )
+end
