@@ -74,14 +74,22 @@ TEKKEN8_SITUATIONS = [
     display_name: '背面限定',
   },
   {
-    name: 'big_opponent',
-    display_name: '相手サイズ:大',
+    name: 'specific_opponents',
+    display_name: '相手キャラ限定',
+  },
+  {
+    name: 'in_heat',
+    display_name: 'ヒート中',
+  },
+  {
+    name: 'stage_gimmick',
+    display_name: 'ステージギミック',
   },
 ].freeze
 
 tekken8 = Game.find_by(title: 'TEKKEN 8')
 TEKKEN8_SITUATIONS.each do |character|
-  Character.seed(:name,
+  Situation.seed(:name,
     character.merge(game: tekken8)
   )
 end
