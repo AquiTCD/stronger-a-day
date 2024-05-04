@@ -8,7 +8,7 @@ class RecipesController < BaseController
       recipes.order(Arel.sql("character_id IS NOT NULL, character_id ASC")).order(:id)
 
     @recipe = Recipe.new(user: current_user, game: @game)
-    @characters = current_user.selectable_characters(@game)
+    @characters = current_user.selectable_characters(@game).order(:kana)
     @situations = @game.situations
 
     @filters = { character_id: params[:character_id] }
@@ -33,7 +33,7 @@ class RecipesController < BaseController
         recipe.recipe_situations.create!(situation_id: s_id.to_i)
       end
     end
-    @characters = @game.characters
+    @characters = @game.characters.order(:kana)
     @situations = @game.situations
     recipes = current_user.recipes.where(game: @game).includes(:character, :situations, recipe_situations: :situation)
     recipes = recipes.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
@@ -46,7 +46,7 @@ class RecipesController < BaseController
   end
 
   def edit
-    @characters = current_user.selectable_characters(@game)
+    @characters = current_user.selectable_characters(@game).order(:kana)
     @situations = @game.situations
     @filters = { character_id: params[:character_id] }
   end

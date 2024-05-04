@@ -1,6 +1,6 @@
 class Users::FavoriteCharactersController < ApplicationController
   def edit
-    @characters = Character.all.includes(:game)
+    @characters = Character.all.includes(:game).order(:kana)
     @fav_ids = current_user.favorite_characters.pluck(:character_id)
   end
 

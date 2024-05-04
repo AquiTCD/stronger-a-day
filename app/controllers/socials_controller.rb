@@ -7,7 +7,7 @@ class SocialsController < BaseController
     @challenges =
       challenges.where.missing(:referred_from).order("RANDOM()").
         includes(:user, :character, :opponent).limit(25)
-    @characters = @game.characters
+    @characters = @game.characters.order(:kana)
   end
 
   def trainings
@@ -18,7 +18,7 @@ class SocialsController < BaseController
     #   trainings.where.missing(:referred_from).order("RANDOM()").
     #     includes(:referred_tos).limit(25)
     @trainings = trainings.includes(:user, :character, recipe: [:situations, :character, { recipe_situations: :situation }]).order("RANDOM()").limit(25)
-    @characters = @game.characters
+    @characters = @game.characters.order(:kana)
   end
 
   def recipes
@@ -28,7 +28,7 @@ class SocialsController < BaseController
     @recipes =
       recipes.where.missing(:referred_from).order("RANDOM()").
         includes(:user, :character, :situations, recipe_situations: :situation).limit(25)
-    @characters = @game.characters
+    @characters = @game.characters.order(:kana)
   end
 
   def copy_challenge

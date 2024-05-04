@@ -3,7 +3,7 @@ class Plays::ResultsController < BaseController
 
   def new
     @general_challenges = @play.challenges.where(opponent: nil).order(:id)
-    @opponents = @game.characters
+    @opponents = @game.characters.order(:kana)
     results = @play.results.pluck(:result)
     @win_count = results.count("win")
     @lose_count = results.count("lose")

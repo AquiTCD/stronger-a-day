@@ -1,6 +1,6 @@
 class ReviewsController < BaseController
   def index
-    characters = @game.characters
+    characters = @game.characters.order(:kana)
     user_plays = current_user.plays.includes(:character, { play_challenges: :challenge }).
                    where(character: characters).
                    where.associated(:results).distinct

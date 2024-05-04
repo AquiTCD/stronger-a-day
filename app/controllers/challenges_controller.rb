@@ -13,8 +13,8 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
         order(Arel.sql("opponent_id IS NOT NULL, opponent_id ASC")).
         order(:id)
     @challenge = Challenge.new(user: current_user, game: @game)
-    @characters = current_user.selectable_characters(@game)
-    @opponents = @game.characters
+    @characters = current_user.selectable_characters(@game).order(:kana)
+    @opponents = @game.characters.order(:kana)
 
     @achieved_challenges = challenges.achieved.order(achieved_at: :desc)
 
@@ -35,8 +35,8 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
       public: challenge_params[:public],
     )
     if challenge.save
-      @characters = current_user.selectable_characters(@game)
-      @opponents = @game.characters
+      @characters = current_user.selectable_characters(@game).order(:kana)
+      @opponents = @game.characters.order(:kana)
       challenges = current_user.challenges.where(game: @game).includes(:character, :opponent)
       challenges = challenges.where(character_id: [nil, filters[:character_id]]) if filters[:character_id].present?
       challenges = challenges.where(opponent_id: [nil, filters[:opponent_id]]) if filters[:opponent_id].present?
@@ -72,8 +72,8 @@ class ChallengesController < BaseController # rubocop:disable Metrics/ClassLengt
   end
 
   def edit
-    @characters = current_user.selectable_characters(@game)
-    @opponents = @game.characters
+    @characters = current_user.selectable_characters(@game).order(:kana)
+    @opponents = @game.characters.order(:kana)
     @filters = { character_id: params[:character_id], opponent_id: params[:opponent_id] }
   end
 
