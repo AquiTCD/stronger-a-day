@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_situations_on_game_id  (game_id)
-#  index_situations_on_name     (name) UNIQUE
+#  index_situations_on_game_id           (game_id)
+#  index_situations_on_game_id_and_name  (game_id,name) UNIQUE
 #
 # Foreign Keys
 #
@@ -20,4 +20,6 @@
 #
 class Situation < ApplicationRecord
   belongs_to :game
+
+  validates :name, uniqueness: { scope: :game_id }
 end

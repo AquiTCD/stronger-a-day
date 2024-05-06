@@ -255,6 +255,15 @@ Notifications = [
       TXT
     importance: :normal,
   },
+  {
+    subject: "アップデート: v0.9.0",
+    content:<<~TXT,
+        - 対応タイトルに「鉄拳8」を追加
+        - キャラクターの並び順序を五十音順に統一
+        - コマンド装飾の判定改善
+      TXT
+    importance: :normal,
+  },
 ]
 Notifications.each do |notification|
   Notification.seed(:subject, notification)

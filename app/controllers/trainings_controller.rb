@@ -12,7 +12,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
         order(:id)
 
     @training = Training.new(user: current_user, game: @game)
-    @characters = current_user.selectable_characters(@game)
+    @characters = current_user.selectable_characters(@game).order(:kana)
     @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
 
     @results = Training::Result.where(training: trainings).order(created_at: :desc).limit(25)
@@ -42,7 +42,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
       public: training_params[:public],
     )
     if training.save
-      @characters = @game.characters
+      @characters = @game.characters.order(:kana)
       @recipes = current_user.recipes.where(game: @game).includes(:character)
       trainings =
         current_user.trainings.not_achieved.where(user: current_user, game: @game).
@@ -62,7 +62,7 @@ class TrainingsController < BaseController # rubocop:disable Metrics/ClassLength
   end
 
   def edit
-    @characters = current_user.selectable_characters(@game)
+    @characters = current_user.selectable_characters(@game).order(:kana)
     @recipes = current_user.recipes.where(game: @game, character: @characters).includes(:character)
     @filters = { character_id: params[:character_id] }
   end
