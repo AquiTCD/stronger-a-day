@@ -33,9 +33,9 @@ section.bg-gray-900.mb-4
             = f.label :game_id, "プレイタイトル", class: "block mb-2 text-sm font-medium text-white"
             = f.collection_select :game_id, @playing_games, :id, :title, { selected: params[:game_id] }, data: { action: "change->selection-submit#submitSelect" }, class: "border text-base rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
     .flex.text-sm.justify-items-center.mb-6
-      = link_to "チャレンジ", user_path(@user), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-l-lg bg-gray-700 border-gray-600 text-white text-center"
-      = link_to "トレーニング", user_path(@user, type: "trainings"), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border bg-gray-700 border-gray-600 text-white text-center";
-      = link_to "レシピ", user_path(@user, type: "recipes"), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-r-lg bg-gray-700 border-gray-600 text-white text-center"
+      = link_to "チャレンジ", user_path(@user, game_id: @selected_game&.id), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-l-lg bg-gray-700 border-gray-600 text-white text-center"
+      = link_to "トレーニング", user_path(@user, type: "trainings", game_id: @selected_game&.id), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border bg-gray-700 border-gray-600 text-white text-center";
+      = link_to "レシピ", user_path(@user, type: "recipes", game_id: @selected_game&.id), class: "block w-full px-2 py-1 border-b cursor-pointer focus:outline-none focus:ring-2 border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500 focus:text-white border rounded-r-lg bg-gray-700 border-gray-600 text-white text-center"
 
     section.mb-4
       - if @achieved_challenges.present?
@@ -48,7 +48,7 @@ section.bg-gray-900.mb-4
                 p
                   span = challenge.character ? "#{challenge.character.display_name} " : ""
                   span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-                p.text-white.text-base.my-1 = styled_topic(challenge.topic)
+                p.text-white.text-base.my-1 = styled_topic(challenge.topic, @selected_game)
                 p.ml-2.text-xs
                   svg(class="ml-3 w-4 h-4 inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
                     path(d="M8 3a3 3 0 0 0-1 5.8v6.4a3 3 0 1 0 2 0V15c0-1.1.9-2 2-2h1a5 5 0 0 0 5-4.1 3 3 0 1 0-2.1-.1A3 3 0 0 1 12 11h-1a4 4 0 0 0-2 .5V8.8A3 3 0 0 0 8 3Z")
@@ -68,7 +68,7 @@ section.bg-gray-900.mb-4
                 p
                   span = challenge.character ? "#{challenge.character.display_name} " : ""
                   span = challenge.opponent ? "vs #{challenge.opponent.display_name}" : ""
-                p.text-white.text-base.my-1 = styled_topic(challenge.topic)
+                p.text-white.text-base.my-1 = styled_topic(challenge.topic, @selected_game)
                 p.text-xs
                   svg(class="ml-3 w-4 h-4 inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24")
                     path(d="M8 3a3 3 0 0 0-1 5.8v6.4a3 3 0 1 0 2 0V15c0-1.1.9-2 2-2h1a5 5 0 0 0 5-4.1 3 3 0 1 0-2.1-.1A3 3 0 0 1 12 11h-1a4 4 0 0 0-2 .5V8.8A3 3 0 0 0 8 3Z")
@@ -92,9 +92,9 @@ section.bg-gray-900.mb-4
                     = situation
               div
                 p.text-white.text-base.md:text-lg.font-bold.mb-1
-                  = styled_movements(training.recipe&.movements)
+                  = styled_movements(training.recipe&.movements, @selected_game)
                 p.text-white.text-base.my-1
-                  = styled_topic(training.topic)
+                  = styled_topic(training.topic, @selected_game)
     - if @recipes.present?
       section
         p.mb-2.text-xl.font-extrabold.leading-none.tracking-tight.text-white
@@ -108,7 +108,7 @@ section.bg-gray-900.mb-4
                   .rounded-lg.border-2.border-gray-400.py-1.px-2.text-gray-200.text-xs.mr-1.mb-1
                     = situation.display_name
               p.text-white.text-base.md:text-lg.font-bold.mb-1
-                = styled_movements(recipe.movements)
+                = styled_movements(recipe.movements, @selected_game)
               p.text-white.text-base.my-1 = recipe.comment
               .flex.items-center
                 p.text-xs.text-gray-400

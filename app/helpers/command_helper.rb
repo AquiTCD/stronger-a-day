@@ -1,12 +1,12 @@
 module CommandHelper # rubocop:disable Metrics/ModuleLength
-  def styled_topic(inputs = "")
+  def styled_topic(inputs = "", game = @game)
     return "" if inputs&.strip.blank?
     return inputs unless current_user.styled_movements
 
     input_array = inputs.split(/(\{[^\{\})]*\})/).compact_blank
     parsed = input_array.map do |input|
       if input.start_with?("{") && input.end_with?("}")
-        parse(input[1..-2])
+        parse(input[1..-2], game)
       else
         input
       end
@@ -14,11 +14,11 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
     sanitize_for(parsed.join)
   end
 
-  def styled_movements(inputs = "")
+  def styled_movements(inputs = "", game = @game)
     return "" if inputs&.strip.blank?
     return inputs unless current_user.styled_movements
 
-    parsed = parse(inputs)
+    parsed = parse(inputs, game)
     sanitize_for(parsed)
   end
 
@@ -32,11 +32,11 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
       )
     end
 
-    def parse(inputs)
+    def parse(inputs, game)
       array = inputs.split(/\s*-?[>→＞]\s*/)
       array = array.map do |input|
-        input = normalize(input)
-        input = decorate(input)
+        input = normalize(input, game)
+        input = decorate(input, game)
         "<span class='border border-gray-500 rounded px-1.5 py-0.5 font-normal'>#{input}</span>"
       end
       all = array.join(right_arrow)
@@ -47,9 +47,9 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
       '<svg class="w-6 h-6 text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>' # rubocop:disable Layout/LineLength
     end
 
-    def normalize(input)
+    def normalize(input, game)
       input = input.tr("０-９ａ-ｚＡ-Ｚ＋", "0-9a-zA-Z+")
-      case @game.abbreviation
+      case game.abbreviation
       when "SF6"
         normalize_for_sf6(input)
       when "TEKKEN8"
@@ -75,8 +75,8 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
       input.gsub(/(w)(l|r)/, &:upcase)
     end
 
-    def decorate(input)
-      case @game.abbreviation
+    def decorate(input, game)
+      case game.abbreviation
       when "SF6"
         decorate_for_sf6(input)
       when "TEKKEN8"
@@ -109,7 +109,7 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
         case word
         when /\dH?/
           arrows = word.split(/(\d)(H?)/)
-          change_arrow(arrows[1].to_i, hold: arrows[2].present?)
+          change_arrow(arrows[1].to_i, hold: arrows[2].present?, bold: true)
         when /LP\+RK|RK\+LP|RP\+LK|LK\+RP|[LRW][PK]|W[RL]/
           fill_lp = (word =~ /.*(LP|WP|WL).*/) ? "fill='white'" : ""
           fill_rp = (word =~ /.*(RP|WP|WR).*/) ? "fill='white'" : ""
@@ -128,7 +128,7 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
       words.join
     end
 
-    def change_arrow(number, hold: false) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+    def change_arrow(number, hold: false, bold: false) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
       return "☆" if number == 5
 
       rotation_class =
@@ -151,7 +151,7 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
           "-rotate-45"
         end
 
-      if @game.is?("TEKKEN8")
+      if bold
         fill = hold ? "fill='white'" : nil
         "<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' class='w-6 h-6 text-white inline-block #{rotation_class}'><path #{fill} stroke='white' stroke-width='1.5' stroke-linejoin='round' d='M 21,12 L 12,3 12,8 3,8 3,16 12,16 12,21 21,12 Z'></path></svg>" # rubocop:disable Layout/LineLength
       else
