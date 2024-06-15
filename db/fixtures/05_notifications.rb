@@ -265,9 +265,17 @@ Notifications = [
     importance: :normal,
   },
   {
-    subject: "アップデート: v0.9.1",
+    subject: "アップデート: v0.9.l",
     content:<<~TXT,
         - ストリートファイター6に豪鬼を追加
+      TXT
+    importance: :normal,
+  },
+  {
+    subject: "アップデート: v0.9.2",
+    content:<<~TXT,
+        - ストリートファイター6にベガを追加
+        - コマンド装飾の判定改善
       TXT
     importance: :normal,
   },
