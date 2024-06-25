@@ -108,6 +108,11 @@ SF6_CHARACTERS = [
     name: 'GOUKI',
     display_name: '豪鬼',
     kana: 'ゴウキ',
+  },
+  {
+    name: 'VEGA',
+    display_name: 'ベガ',
+    kana: 'ベガ',
   }
 ].freeze
 sf6 = Game.find_by(title: 'STREET FIGHTER 6')

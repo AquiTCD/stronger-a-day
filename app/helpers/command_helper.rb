@@ -65,7 +65,7 @@ module CommandHelper # rubocop:disable Metrics/ModuleLength
       input = input.gsub("小", "弱")
       input = input.gsub("M", "中")
       input = input.gsub(/h(?!it)/i, "強")
-      input = input.gsub(/大(?!砲)/i, "強")
+      input = input.gsub(/(?<!最)大(?!砲)/i, "強")
       input = input.gsub("ジャンプ", "J")
       input.gsub("ラッシュ", "DR")
     end
