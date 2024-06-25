@@ -265,7 +265,7 @@ Notifications = [
     importance: :normal,
   },
   {
-    subject: "アップデート: v0.9.l",
+    subject: "アップデート: v0.9.1",
     content:<<~TXT,
         - ストリートファイター6に豪鬼を追加
       TXT
